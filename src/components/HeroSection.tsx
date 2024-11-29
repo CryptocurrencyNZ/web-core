@@ -11,9 +11,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   description = "New Zealand Cryptocurrency Community Collective",
 }) => {
   useEffect(() => {
-    gsap.from(".hero-title", { opacity: 0, y: 50, duration: 1 });
-    gsap.from(".hero-description", { opacity: 0, y: 30, duration: 1, delay: 0.3 });
-    gsap.from(".hero-btn", { opacity: 0, scale: 0.9, duration: 0.8, delay: 0.5, stagger: 0.2 });
+    gsap.from(".hero-title", { opacity: 1, y: 50, duration: 1 });
+    gsap.from(".hero-description", { opacity: 1, y: 30, duration: 1, delay: 0.3 });
+    gsap.from(".hero-btn", { opacity: 1, scale: 0.9, duration: 0.8, delay: 0.5, stagger: 0.2 });
   }, []);
 
   return (
