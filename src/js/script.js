@@ -1,3 +1,5 @@
+import React, { useEffect, useRef } from "react";
+
 class Node {
     constructor(x, y, size, speed, angle) {
         this.x = x;
@@ -38,126 +40,146 @@ class Node {
     }
 }
 
-class Background {
-    constructor() {
-        this.canvas = document.getElementById('canvas');
+import React from "react";
+
+const Background = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    // Use the canvas ref and integrate the logic from `script.js`
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
+    class Node {
+      constructor(x, y, size, speed, angle) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speed = speed;
+        this.angle = angle;
+        this.targetX = x;
+        this.targetY = y;
+        this.originalSpeed = speed;
+        this.forceMagnitude = 0;
+      }
+
+      update(mouseX, mouseY) {
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const distToCursor = Math.sqrt(dx * dx + dy * dy);
+        const cursorInfluenceRadius = 200;
+
+        if (distToCursor < cursorInfluenceRadius) {
+          const repulsionForce = (1 - distToCursor / cursorInfluenceRadius) * 2;
+          const angle = Math.atan2(dy, dx);
+
+          this.x -= Math.cos(angle) * repulsionForce;
+          this.y -= Math.sin(angle) * repulsionForce;
+
+          this.forceMagnitude = repulsionForce * 0.5;
+        } else {
+          this.forceMagnitude = Math.max(0, this.forceMagnitude - 0.05);
+        }
+
+        this.x = (this.x + Math.cos(this.angle) * this.speed + window.innerWidth) % window.innerWidth;
+        this.y = (this.y + Math.sin(this.angle) * this.speed + window.innerHeight) % window.innerHeight;
+
+        this.angle += (Math.random() - 0.5) * 0.1;
+
+        return this.forceMagnitude;
+      }
+    }
+
+    class BackgroundCanvas {
+      constructor(canvas) {
+        this.canvas = canvas;
         this.nodes = [];
         this.mouseX = 0;
         this.mouseY = 0;
         this.maxDist = 150;
+        this.ctx = this.canvas.getContext("2d");
 
         this.init();
         this.animate();
         this.setupEventListeners();
-    }
+      }
 
-    init() {
-        this.canvas.setAttribute('width', window.innerWidth);
-        this.canvas.setAttribute('height', window.innerHeight);
-        
+      init() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+
         for (let i = 0; i < 15; i++) {
-            this.nodes.push(new Node(
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerHeight,
-                Math.random() * 8 + 4,
-                Math.random() * 0.5 + 0.2,
-                Math.random() * Math.PI * 2
-            ));
+          this.nodes.push(
+            new Node(
+              Math.random() * window.innerWidth,
+              Math.random() * window.innerHeight,
+              Math.random() * 8 + 4,
+              Math.random() * 0.5 + 0.2,
+              Math.random() * Math.PI * 2
+            )
+          );
         }
-    }
+      }
 
-    setupEventListeners() {
-        window.addEventListener('mousemove', (e) => {
-            this.mouseX = e.clientX;
-            this.mouseY = e.clientY;
+      setupEventListeners() {
+        window.addEventListener("mousemove", (e) => {
+          this.mouseX = e.clientX;
+          this.mouseY = e.clientY;
         });
 
-        window.addEventListener('resize', () => {
-            this.canvas.setAttribute('width', window.innerWidth);
-            this.canvas.setAttribute('height', window.innerHeight);
+        window.addEventListener("resize", () => {
+          this.canvas.width = window.innerWidth;
+          this.canvas.height = window.innerHeight;
         });
-    }
+      }
 
-    drawConnections() {
-        this.nodes.forEach((node1, i) => {
-            this.nodes.slice(i + 1).forEach(node2 => {
-                const dx = node1.x - node2.x;
-                const dy = node1.y - node2.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+      drawConnections() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.strokeStyle = `rgba(255, 255, 255, 0.1)`;
 
-                if (dist < this.maxDist) {
-                    const opacity = (1 - dist / this.maxDist) * 0.2;
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', node1.x);
-                    line.setAttribute('y1', node1.y);
-                    line.setAttribute('x2', node2.x);
-                    line.setAttribute('y2', node2.y);
-                    line.setAttribute('class', 'connection');
-                    line.setAttribute('style', `opacity: ${opacity}`);
-                    this.canvas.appendChild(line);
-                }
-            });
-
-            const dx = node1.x - this.mouseX;
-            const dy = node1.y - this.mouseY;
+        this.nodes.forEach((node1) => {
+          this.nodes.forEach((node2) => {
+            const dx = node1.x - node2.x;
+            const dy = node1.y - node2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < this.maxDist) {
-                const opacity = (1 - dist / this.maxDist) * 0.3;
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', node1.x);
-                line.setAttribute('y1', node1.y);
-                line.setAttribute('x2', this.mouseX);
-                line.setAttribute('y2', this.mouseY);
-                line.setAttribute('class', 'connection');
-                line.setAttribute('style', `opacity: ${opacity}`);
-                this.canvas.appendChild(line);
+              this.ctx.beginPath();
+              this.ctx.moveTo(node1.x, node1.y);
+              this.ctx.lineTo(node2.x, node2.y);
+              this.ctx.stroke();
             }
+          });
         });
-    }
+      }
 
-    drawNodes() {
-        this.nodes.forEach(node => {
-            const forceMagnitude = node.update(this.mouseX, this.mouseY);
-            const scale = 1 + forceMagnitude;
-            
-            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            circle.setAttribute('cx', node.x);
-            circle.setAttribute('cy', node.y);
-            circle.setAttribute('r', node.size * scale);
-            circle.setAttribute('class', 'node');
-            this.canvas.appendChild(circle);
+      drawNodes() {
+        this.nodes.forEach((node) => {
+          const forceMagnitude = node.update(this.mouseX, this.mouseY);
 
-            const core = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            core.setAttribute('cx', node.x);
-            core.setAttribute('cy', node.y);
-            core.setAttribute('r', node.size * 0.6 * scale);
-            core.setAttribute('class', 'node-core');
-            this.canvas.appendChild(core);
+          this.ctx.beginPath();
+          this.ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(255, 255, 255, ${0.5 + forceMagnitude})`;
+          this.ctx.fill();
         });
-    }
+      }
 
-    drawCursor() {
-        const cursor = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        cursor.setAttribute('cx', this.mouseX);
-        cursor.setAttribute('cy', this.mouseY);
-        cursor.setAttribute('r', 20);
-        cursor.setAttribute('class', 'cursor-pulse');
-        this.canvas.appendChild(cursor);
-    }
-
-    animate() {
-        this.canvas.innerHTML = '';
+      animate() {
         this.drawConnections();
         this.drawNodes();
-        this.drawCursor();
         requestAnimationFrame(() => this.animate());
+      }
     }
-}
 
-window.addEventListener('load', () => {
-    new Background();
-});
+    new BackgroundCanvas(canvas);
+  }, []);
+
+  return <canvas ref={canvasRef} id="canvas" />;
+};
+
+export default Background;
+
 
  // Location data
  const locations = [
