@@ -1,0 +1,126 @@
+.sponsor-section {
+    background: rgba(165, 165, 165, 0.6);
+    padding: 80px 5%;
+    position: relative;
+}
+
+.sponsor-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sponsor-title {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.sponsor-description {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+}
+
+.sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    align-items: center;
+    justify-items: center;
+    padding: 20px;
+}
+
+.sponsor-item {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sponsor-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.sponsor-overlay {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 5px 15px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-item:hover .sponsor-overlay {
+    opacity: 1;
+    bottom: -25px;
+}
+
+.sponsor-overlay span {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+@media (max-width: 1200px) {
+    .sponsor-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sponsor-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .sponsor-title {
+        font-size: 2rem;
+    }
+
+    .sponsor-description {
+        font-size: 1rem;
+    }
+
+    .sponsor-item {
+        height: 100px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sponsor-section {
+        padding: 40px 5%;
+    }
+
+    .sponsor-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 40px;
+    }
+
+    .sponsor-item {
+        width: 100%;
+        height: 90px;
+    }
+}
