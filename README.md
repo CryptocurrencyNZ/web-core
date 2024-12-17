@@ -4,9 +4,7 @@ core page for CNZ website
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# Getting Started with UC Crypto Soc Website
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started with Cryptocurrency NZ website
 
 ## Available Scripts
 
@@ -20,9 +18,9 @@ Installs all the dependencies required to build the website
 
 Can only be run after npm install
 Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Follow the http://localhost:<port>/ link to view it in your browser.
 
-The page will reload when you make changes.\
+The page will reload when you make changes.
 You may also see any lint errors in the console.
 
 ### `npm build`
@@ -39,8 +37,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Project Structure
 
 As per most react apps, the App.jsx file dictates the run order.
-The containers directory contains the configuration of each page
-Each page has a jsx and css component, for ease of modification
+The components directory contains the jsx files of each page and the css directory contains the css files. 
 
 ## CICD
 
