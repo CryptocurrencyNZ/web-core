@@ -1,8 +1,13 @@
 import React from 'react';
 import '../css/sponsor.css';
 
-const SponsorBanner = () => {
-  const sponsors = [
+interface Sponsor {
+  name: string;
+  image: string;
+}
+
+const SponsorBanner: React.FC = () => {
+  const sponsors: Sponsor[] = [
     { name: "Blockchain NZ", image: "./images/Blockchain-NZ-logo-removebg-preview.png" },
     { name: "CoinFlip", image: "./images/CoinFlip_Logo-2048x1074-removebg-preview.png" },
     { name: "Crypto Consulting", image: "./images/Crypto-Consulting-NZ-Background-1536x280.png" },
@@ -19,9 +24,9 @@ const SponsorBanner = () => {
   return (
     <section className="sponsor-section">
       <div className="sponsor-container">
-        <h2 className="sponsor-title">Our Partners</h2>
+        <h2 className="sponsor-title">Our Sponsors and Partners</h2>
         <p className="sponsor-description">Proudly supported by New Zealand's leading blockchain organizations</p>
-        
+
         <div className="sponsor-grid">
           {sponsors.map((sponsor, index) => (
             <div key={index} className="sponsor-item">

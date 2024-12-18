@@ -1,8 +1,9 @@
-import "../css/hero.css"
-import Map from "./Map"
+import React from 'react';
+import "../css/hero.css";
+import Map from "./Map";
 
-const Hero = () => {
-    return (
+const Hero: React.FC = () => {
+  return (
     <div className="hero-container">
       <div className="hero-left">
         <h1 className="hero-title">
@@ -32,5 +33,5 @@ const Hero = () => {
     </div>
   );
 };
-  
-  export default Hero;
+
+export default Hero;

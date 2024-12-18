@@ -2,11 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // Import components
-import Navbar from "./components/Navbar";
-import Hero from './components/Hero';
-import SponsorBanner from './components/SponsorBanner';
-import Gallery from './components/Gallery';
-import Features from './components/Features';
+import HomePage from './components/HomePage';
 
 import "./css/style.css"
 
@@ -21,11 +17,7 @@ const App: React.FC<AppProps> = () => {
       <div>
         {/* Main application layout */}
         <main>
-          <Navbar />
-          <Hero />
-          <SponsorBanner />
-          <Gallery />
-          <Features />
+          <HomePage />
         </main>
     
         {/* Footer could go here */}

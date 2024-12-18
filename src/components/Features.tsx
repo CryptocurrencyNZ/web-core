@@ -1,8 +1,16 @@
 import React from 'react';
 import '../css/features.css';
 
-const Features = () => {
-  const features = [
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+  stat: string;
+  statLabel: string;
+}
+
+const Features: React.FC = () => {
+  const features: Feature[] = [
     {
       icon: "🔒",
       title: "Cryptocurrency",
