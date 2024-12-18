@@ -1,8 +1,15 @@
 import React from 'react';
 import '../css/gallery.css';
 
-const Gallery = () => {
-  const items = [
+interface GalleryItem {
+  category: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const Gallery: React.FC = () => {
+  const items: GalleryItem[] = [
     {
       category: "exchange",
       title: "Digital Exchanges",
