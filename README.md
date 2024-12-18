@@ -4,49 +4,51 @@ core page for CNZ website
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Getting Started with Cryptocurrency NZ website
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Available Scripts
 
-## Expanding the ESLint configuration
+In the project directory, you can run:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### `npm install`
 
--   Configure the top-level `parserOptions` property like this:
+Installs all the dependencies required to build the website
 
-```js
-export default tseslint.config({
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname
-        }
-    }
-})
-```
+### `npm run dev`
 
--   Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
--   Optionally add `...tseslint.configs.stylisticTypeChecked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Can only be run after npm install
+Runs the app in the development mode.
+Follow the http://localhost:<port>/ link to view it in your browser.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+The page will reload when you make changes.
+You may also see any lint errors in the console.
 
-export default tseslint.config({
-    // Set the react version
-    settings: { react: { version: '18.3' } },
-    plugins: {
-        // Add the react plugin
-        react
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended rules
-        ...react.configs.recommended.rules,
-        ...react.configs['jsx-runtime'].rules
-    }
-})
-```
+### `npm build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+Suggest running this before deploying to make sure you build compiles without eslint errors
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Project Structure
+
+As per most react apps, the App.jsx file dictates the run order.
+The components directory contains the jsx files of each page and the css directory contains the css files. 
+
+## CICD
+
+This website is able to use two potential types of CICD, push from main, and release packaging (during early development, push to main is used, since its faster than creating a release)
+
+### github-pages.yml
+
+This is the push from main config.
+When a change is pushed to main,github actions will package the changes with npm build, and push the build files to gh-pages branch. there is currently no validation
+
+### npm-publish-github-packages.yml
+
+This flow allows for more controlled releases, to release, push to main, and create a release on github.
+When creating a release, create a new tag and detail what is contained in the release, this will the create a build and publish. Note, if you want to use this flow, you will need to update the pages section.

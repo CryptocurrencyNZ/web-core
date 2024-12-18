@@ -1,31 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-function App() {
-    const [count, setCount] = useState(0)
+// Import components
+import Navbar from "./components/Navbar";
+import Hero from './components/Hero';
+import SponsorBanner from './components/SponsorBanner';
+import Gallery from './components/Gallery';
+import Features from './components/Features';
 
-    return (
-        <>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="border-black border-2 bg-orange-300">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-        </>
-    )
+import "./css/style.css"
+
+// Define types for our components if needed
+interface AppProps {
+  // Add any app-level props here
 }
 
-export default App
+const App: React.FC<AppProps> = () => {
+  return (
+    <Router>
+      <div>
+        {/* Main application layout */}
+        <main>
+          <Navbar />
+          <Hero />
+          <SponsorBanner />
+          <Gallery />
+          <Features />
+        </main>
+    
+        {/* Footer could go here */}
+      </div>
+    </Router>
+  );
+};
+
+export default App;
