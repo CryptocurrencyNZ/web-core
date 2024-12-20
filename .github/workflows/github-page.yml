@@ -68,7 +68,7 @@ jobs:
                   npm ci
                   npm run build
                   mkdir -p ./public
-                  cp -ru build/* ./public/
+                  cp -ru dist/* ./public/
                   echo 'cryptocurrency.org.nz' > ./public/CNAME
 
             - name: Deploy
