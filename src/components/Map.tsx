@@ -174,7 +174,7 @@ const InteractiveMap: React.FC = () => {
 
                     svg.append('path')
                         .datum(feature)
-                        .attr('d', path as d3.ValueFn<SVGPathElement, any, string>)
+                        .attr('d', path as d3.ValueFn<SVGPathElement, unknown, string>)
                 })
 
                 const cols = Math.ceil(width / pixelSize)
