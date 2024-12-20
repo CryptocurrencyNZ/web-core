@@ -77,15 +77,15 @@
     .gallery-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .gallery-section {
         padding: 80px 5%;
     }
-    
+
     .gallery-item-inner {
         height: 250px;
     }
-    
+
     .gallery-overlay h3 {
         font-size: 1.3rem;
     }
@@ -95,7 +95,9 @@
 .gallery-item {
     opacity: 1;
     transform: scale(1);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
 }
 
 .gallery-item.hidden {
