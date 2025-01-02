@@ -11,40 +11,28 @@ interface GalleryItem {
 const Gallery: React.FC = () => {
   const items: GalleryItem[] = [
     {
-      category: "exchange",
-      title: "Digital Exchanges",
+      category: "Christchurch",
+      title: "Chrsitchurch Meetup",
       description: "Secure, high-performance trading platforms",
-      image: "/api/placeholder/600/400"
+      image: "./images/Chch.jpg"
     },
     {
-      category: "mining",
-      title: "Green Mining",
+      category: "Hawkes Bay",
+      title: "Hawkes Bay Meetup",
       description: "Sustainable blockchain infrastructure",
-      image: "/api/placeholder/600/400"
+      image: "./images/hawkes bay.jpeg"
     },
     {
-      category: "blockchain",
-      title: "Blockchain Innovation",
+      category: "Hawkes Bay",
+      title: "Hawkes Bay Meetup",
       description: "Cutting-edge distributed ledger technologies",
-      image: "/api/placeholder/600/400"
+      image: "./images/hawkes bay 2.jpeg"
     },
     {
-      category: "startup",
-      title: "Startup Ecosystem",
+      category: "Tauranga",
+      title: "Tauranga Meetup",
       description: "Nurturing next-generation crypto entrepreneurs",
-      image: "/api/placeholder/600/400"
-    },
-    {
-      category: "defi",
-      title: "Decentralized Finance",
-      description: "Revolutionizing financial services",
-      image: "/api/placeholder/600/400"
-    },
-    {
-      category: "community",
-      title: "Community Hub",
-      description: "Connecting blockchain enthusiasts",
-      image: "/api/placeholder/600/400"
+      image: "./images/tauranga.jpg"
     }
   ];
 

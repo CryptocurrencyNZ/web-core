@@ -45,6 +45,7 @@
   .nav-link:hover {
     color: #fff;
     background: var(--hover-bg);
+    box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
   }
   
   .dropdown-trigger {
@@ -64,6 +65,7 @@
   .dropdown-trigger:hover {
     color: #fff;
     background: var(--hover-bg);
+    box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
   }
   
   .dropdown-menu {

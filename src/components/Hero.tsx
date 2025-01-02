@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
         <br />
         <p className="hero-description">
           Need help?{" "}
-          <a href="" style={{ color: '#fff' }}>Contact us</a>
+          <a href="" className="contact">Contact us</a>
         </p>
       </div>
       <div className="hero-right">

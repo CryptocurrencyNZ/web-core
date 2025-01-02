@@ -14,83 +14,89 @@ type MultiPolygon = Coordinate[][][];
 
 const cities: City[] = [
   { 
-    "name": "Auckland",
-    "coords": [174.7633, -36.8485],
+    "name": "Whangarei",
+    "coords": [174.3260, -36.7321],
+    "importance": 1,
+    "description": "Northland city known for its stunning beaches and the nearby Whangarei Heads."
+  },
+  { 
+    "name": "Hibiscus Coast",
+    "coords": [174.7633, -37.3485],
     "importance": 1,
     "description": "New Zealand's largest city and major economic center. Home to iconic Sky Tower and vibrant harbor."
   },
   { 
-    "name": "Wellington",
-    "coords": [174.7762, -41.2866],
-    "importance": 0.9,
-    "description": "Capital city known for strong winds, cultural attractions, and being the center of government."
+    "name": "Auckland",
+    "coords": [174.7633, -38.1485],
+    "importance": 1,
+    "description": "New Zealand's largest city and major economic center. Home to iconic Sky Tower and vibrant harbor."
   },
   { 
-    "name": "Christchurch",
-    "coords": [172.6362, -43.5320],
-    "importance": 0.9,
-    "description": "Largest city in South Island, known for its English heritage and post-earthquake innovation."
-  },
-  { 
-    "name": "Hamilton",
-    "coords": [175.2793, -37.7870],
-    "importance": 0.7,
+    "name": "Rotorua",
+    "coords": [175.9793, -39.2870],
+    "importance": 1,
     "description": "Inland city famous for its gardens, education facilities, and research institutions."
   },
   { 
-    "name": "Dunedin",
-    "coords": [170.5027, -45.8788],
-    "importance": 0.7,
-    "description": "Southern city with strong Scottish influence, known for its Victorian architecture and wildlife."
-  },
-  { 
     "name": "Tauranga",
-    "coords": [176.1651, -37.6878],
-    "importance": 0.6,
+    "coords": [175.8793, -38.7870],
+    "importance": 1,
     "description": "Coastal city known for its beautiful beaches, port activities, and Mount Maunganui."
   },
   { 
-    "name": "Napier",
-    "coords": [176.9126, -39.4907],
-    "importance": 0.6,
-    "description": "Famous for its art deco architecture and vineyards, located on the North Island's east coast."
-  },
-  { 
-    "name": "Queenstown",
-    "coords": [168.6626, -45.0312],
-    "importance": 0.8,
-    "description": "Known as the adventure capital of New Zealand, with skiing, bungee jumping, and beautiful lakeside views."
-  },
-  { 
-    "name": "Palmerston North",
-    "coords": [175.6082, -40.3508],
-    "importance": 0.6,
-    "description": "A key university city, with strong agricultural and research industries."
-  },
-  { 
-    "name": "Whangarei",
-    "coords": [174.3260, -35.7321],
-    "importance": 0.5,
-    "description": "Northland city known for its stunning beaches and the nearby Whangarei Heads."
-  },
-  { 
-    "name": "Invercargill",
-    "coords": [168.3512, -46.4132],
-    "importance": 0.5,
-    "description": "Southernmost city on the mainland, known for its Scottish heritage and close proximity to natural reserves."
-  },
-  { 
     "name": "New Plymouth",
-    "coords": [174.0700, -39.0611],
-    "importance": 0.6,
+    "coords": [174.0700, -40.5611],
+    "importance": 1,
     "description": "A coastal city with strong arts and culture scenes, and views of Mount Taranaki."
   },
   { 
+    "name": "Hawkes Bay",
+    "coords": [176.5126, -40.9907],
+    "importance": 1,
+    "description": "Famous for its art deco architecture and vineyards, located on the North Island's east coast."
+  },
+  { 
+    "name": "Palmerston North",
+    "coords": [175.6082, -41.3508],
+    "importance": 1,
+    "description": "A key university city, with strong agricultural and research industries."
+  },
+  { 
+    "name": "Wellington",
+    "coords": [174.9762, -42.8866],
+    "importance": 1,
+    "description": "Capital city known for strong winds, cultural attractions, and being the center of government."
+  },
+  { 
     "name": "Nelson",
-    "coords": [173.2922, -41.2925],
-    "importance": 0.5,
+    "coords": [173.2922, -42.9925],
+    "importance": 1,
     "description": "A small city known for its outdoor lifestyle, sunny climate, and arts community."
-  }
+  },
+  { 
+    "name": "Blenheim",
+    "coords": [173.9922, -42.9925],
+    "importance": 1,
+    "description": "A small city known for its outdoor lifestyle, sunny climate, and arts community."
+  },
+  { 
+    "name": "Christchurch",
+    "coords": [172.6362, -45.5320],
+    "importance": 1,
+    "description": "Largest city in South Island, known for its English heritage and post-earthquake innovation."
+  },
+  { 
+    "name": "Dunedin",
+    "coords": [170.5027, -47.8788],
+    "importance": 1,
+    "description": "Southern city with strong Scottish influence, known for its Victorian architecture and wildlife."
+  },
+  { 
+    "name": "Invercargill",
+    "coords": [168.8512, -48.8132],
+    "importance": 1,
+    "description": "Southernmost city on the mainland, known for its Scottish heritage and close proximity to natural reserves."
+  },
 ];
 
 const camoColors: string[] = [
@@ -132,7 +138,6 @@ const InteractiveMap: React.FC = () => {
     const getHeatValue = (point: Coordinate) => {
       let maxHeat = 0;
       cities.forEach(city => {
-        
         const cityPoint = projection(city.coords) as Coordinate;
         const dist = distance([point[0], point[1]], cityPoint);
         const heat = Math.max(0, 1 - (dist / (30 * city.importance)));
@@ -141,29 +146,70 @@ const InteractiveMap: React.FC = () => {
       return maxHeat;
     };
 
-    function shootRandomLaser() {
+    function getRandomCityPair() {
       const cityIndexes = Array.from({ length: cities.length }, (_, i) => i);
       const fromIndex = Math.floor(Math.random() * cityIndexes.length);
-      const from = cities[fromIndex];
       cityIndexes.splice(fromIndex, 1);
       const toIndex = Math.floor(Math.random() * cityIndexes.length);
-      const to = cities[cityIndexes[toIndex]];
+      return {
+        from: cities[fromIndex],
+        to: cities[cityIndexes[toIndex]]
+      };
+    }
 
-      const [x1, y1] = projection(from.coords) as Coordinate;
-      const [x2, y2] = projection(to.coords) as Coordinate;
+    function createLaserElement(x1: number, y1: number, x2: number, y2: number) {
+      const laser = document.createElement('div');
+      laser.className = 'laser-beam';
+      
+      // Calculate length and angle of laser
+      const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+      const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+      
+      // Position and rotate the laser
+      laser.style.width = `${length}px`;
+      laser.style.left = `${x1}px`;
+      laser.style.top = `${y1}px`;
+      laser.style.transform = `rotate(${angle}deg)`;
+      laser.style.transformOrigin = '0 50%';
+      
+      return laser;
+    }
 
-      const laser = svg.append("path")
-        .attr("class", "laser-path")
-        .attr("d", `M${x1},${y1} L${x2},${y2}`);
+    function shootRandomLaser() {
+      if (!mapRef.current) return;
+      
+      const { from, to } = getRandomCityPair();
+      const [fromX, fromY] = projection(from.coords) as Coordinate;
+      const [toX, toY] = projection(to.coords) as Coordinate;
+      
+      // Convert to percentage positions
+      const fromXPercent = (fromX / width) * 100;
+      const fromYPercent = (fromY / height) * 100;
+      const toXPercent = (toX / width) * 100;
+      const toYPercent = (toY / height) * 100;
+      
+      // Convert percentages back to pixels based on actual container size
+      const containerRect = mapRef.current.getBoundingClientRect();
+      const fromXPx = (fromXPercent * containerRect.width) / 100;
+      const fromYPx = (fromYPercent * containerRect.height) / 100;
+      const toXPx = (toXPercent * containerRect.width) / 100;
+      const toYPx = (toYPercent * containerRect.height) / 100;
+      
+      const laser = createLaserElement(fromXPx, fromYPx, toXPx, toYPx);
+      mapRef.current.appendChild(laser);
 
-      laser.classed("active", true);
+      // Add active class after a brief delay to trigger animation
+      requestAnimationFrame(() => {
+        laser.classList.add('active');
+      });
 
       // Remove laser after animation completes
       setTimeout(() => {
         laser.remove();
-      }, 1000);
+      }, 400);
     }
-    const laserInterval = setInterval(shootRandomLaser, 1000);
+
+    const laserInterval = setInterval(shootRandomLaser, 200);
 
     fetch('https://raw.githubusercontent.com/glynnbird/countriesgeojson/refs/heads/master/new%20zealand.geojson')
       .then(response => response.json())
