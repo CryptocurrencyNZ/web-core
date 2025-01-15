@@ -37,7 +37,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Project Structure
 
 As per most react apps, the App.jsx file dictates the run order.
-The components directory contains the jsx files of each page and the css directory contains the css files. 
+The components directory contains the jsx files of each page and the css directory contains the css files.
 
 ## CICD
 

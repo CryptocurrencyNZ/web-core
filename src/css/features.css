@@ -115,7 +115,7 @@
 }
 
 .arrow-right::after {
-    content: "→";
+    content: '→';
     font-size: 2.8rem;
     color: var(--accent-color);
     margin: 20px 0;
