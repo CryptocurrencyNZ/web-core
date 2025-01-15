@@ -1,6 +1,4 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-
-// Import components
 import HomePage from './components/HomePage'
 
 import './css/style.css'
