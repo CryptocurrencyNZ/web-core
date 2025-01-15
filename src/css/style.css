@@ -40,26 +40,6 @@ body {
     flex-direction: row;
 }
 
-.hero-left {
-    width: 80%;
-    height: 100vh;
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 5%;
-    position: relative;
-    z-index: 2;
-    background: transparent;
-}
-
-.hero-right {
-    width: 50%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
 .hero-title {
     font-size: 4rem;
     margin-bottom: 20px;

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-
 import HomePage from './components/HomePage'
+
 import './css/style.css'
 
 const App = () => {
