@@ -8,7 +8,7 @@ interface CryptoTopic {
     keyLabel: string;
 }
 
-const CryptoIntro: FC = () => {
+const CryptoIntro = () => {
     const topics: CryptoTopic[] = [
         {
             icon: '🔒',
