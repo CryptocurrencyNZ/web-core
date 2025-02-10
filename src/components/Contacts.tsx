@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { 
     MessageCircle,
     Twitter,
@@ -7,7 +6,7 @@ import {
     Linkedin
 } from 'lucide-react';
 
-const SocialConnect: FC = () => {
+const SocialConnect = () => {
     const socialLinks = [
         { icon: Twitter, name: 'Twitter', url: '#' },
         { icon: Facebook, name: 'Facebook', url: '#' },
