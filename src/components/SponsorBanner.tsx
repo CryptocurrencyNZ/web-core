@@ -3,7 +3,7 @@ interface Sponsor {
     image: string;
 }
 
-const SponsorBanner: FC = () => {
+const SponsorBanner = () => {
     const sponsors: Sponsor[] = [
         { name: 'Blockchain NZ', image: './images/Blockchain-NZ-logo-removebg-preview.png' },
         { name: 'CoinFlip', image: './images/CoinFlip_Logo-2048x1074-removebg-preview.png' },
