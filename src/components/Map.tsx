@@ -100,12 +100,12 @@ const cities: City[] = [
 ]
 
 const camoColors: string[] = [
-    'rgb(34, 89, 41)',   // Dark green
-    'rgb(85, 107, 47)',  // Dark olive green
+    'rgb(34, 89, 41)', // Dark green
+    'rgb(85, 107, 47)', // Dark olive green
     'rgb(107, 142, 35)', // Olive drab
-    'rgb(76, 111, 75)',  // Forest green
-    'rgb(56, 124, 68)',  // Sage green
-    'rgb(69, 97, 75)'    // Military green
+    'rgb(76, 111, 75)', // Forest green
+    'rgb(56, 124, 68)', // Sage green
+    'rgb(69, 97, 75)' // Military green
 ]
 
 const InteractiveMap: React.FC = () => {
@@ -117,54 +117,51 @@ const InteractiveMap: React.FC = () => {
     useEffect(() => {
         function handleResize() {
             if (mapRef.current) {
-                const container = mapRef.current.getBoundingClientRect();
-                const aspectRatio = 1.25; // 1000/800
-                let newWidth, newHeight;
-    
+                const container = mapRef.current.getBoundingClientRect()
+                const aspectRatio = 1.25 // 1000/800
+                let newWidth, newHeight
+
                 if (window.innerWidth <= 768) {
-                    newWidth = container.width;
-                    newHeight = newWidth * aspectRatio;
+                    newWidth = container.width
+                    newHeight = newWidth * aspectRatio
                 } else {
                     // Increased base size for desktop
-                    newWidth = 1000;  // Increased from 800
-                    newHeight = 1250; // Increased from 1000
+                    newWidth = 1000 // Increased from 800
+                    newHeight = 1250 // Increased from 1000
                 }
-    
-                setDimensions({ width: newWidth, height: newHeight });
+
+                setDimensions({ width: newWidth, height: newHeight })
             }
         }
-    
-        window.addEventListener('resize', handleResize);
-        handleResize();
-    
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+
+        window.addEventListener('resize', handleResize)
+        handleResize()
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     useEffect(() => {
-        if (!mapRef.current) return;
+        if (!mapRef.current) return
         while (mapRef.current.firstChild) {
-            mapRef.current.removeChild(mapRef.current.firstChild);
+            mapRef.current.removeChild(mapRef.current.firstChild)
         }
-    
-        const svg = d3.select(mapRef.current)
-            .append('svg')
-            .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`)
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('class', 'absolute w-full h-full left-0 top-0');
-        
+
+        const svg = d3.select(mapRef.current).append('svg').attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`).attr('width', '100%').attr('height', '100%').attr('class', 'absolute w-full h-full left-0 top-0')
+
         const projection = d3
-        .geoMercator()
-        .center([174, -41.5])
-        .scale(window.innerWidth <= 768 ? 
-            dimensions.width * 2.875 : // Mobile scale
-            dimensions.width * 3.5)    // Desktop scale
-        .translate([
-            dimensions.width / 2,
-            window.innerWidth <= 768 ? 
-                dimensions.height / 2.1 :  // Mobile position
-                dimensions.height / 1.8     // Lower position for desktop
-        ]);
+            .geoMercator()
+            .center([174, -41.5])
+            .scale(
+                window.innerWidth <= 768
+                    ? dimensions.width * 2.875 // Mobile scale
+                    : dimensions.width * 3.5
+            ) // Desktop scale
+            .translate([
+                dimensions.width / 2,
+                window.innerWidth <= 768
+                    ? dimensions.height / 2.1 // Mobile position
+                    : dimensions.height / 1.8 // Lower position for desktop
+            ])
 
         const path = d3.geoPath().projection(projection)
 
@@ -197,53 +194,53 @@ const InteractiveMap: React.FC = () => {
         }
 
         function createLaserElement(x1: number, y1: number, x2: number, y2: number) {
-            const laser = document.createElement('div');
-            laser.className = 'absolute w-0 h-[2px] laser-beam z-50';
+            const laser = document.createElement('div')
+            laser.className = 'absolute w-0 h-[2px] laser-beam z-50'
 
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            const length = Math.sqrt(dx * dx + dy * dy);
-            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            const dx = x2 - x1
+            const dy = y2 - y1
+            const length = Math.sqrt(dx * dx + dy * dy)
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI)
 
-            laser.style.width = `${length}px`;
-            laser.style.left = `${x1}px`;
-            laser.style.top = `${y1}px`;
-            laser.style.transform = `rotate(${angle}deg)`;
-            laser.style.transformOrigin = 'left center';
+            laser.style.width = `${length}px`
+            laser.style.left = `${x1}px`
+            laser.style.top = `${y1}px`
+            laser.style.transform = `rotate(${angle}deg)`
+            laser.style.transformOrigin = 'left center'
 
-            return laser;
+            return laser
         }
 
         function shootRandomLaser() {
-            if (!mapRef.current) return;
+            if (!mapRef.current) return
 
-            const { from, to } = getRandomCityPair();
-            const [fromX, fromY] = projection(from.coords) as Coordinate;
-            const [toX, toY] = projection(to.coords) as Coordinate;
+            const { from, to } = getRandomCityPair()
+            const [fromX, fromY] = projection(from.coords) as Coordinate
+            const [toX, toY] = projection(to.coords) as Coordinate
 
-            const containerRect = mapRef.current.getBoundingClientRect();
-            const svgRect = mapRef.current.querySelector('svg')?.getBoundingClientRect();
+            const containerRect = mapRef.current.getBoundingClientRect()
+            const svgRect = mapRef.current.querySelector('svg')?.getBoundingClientRect()
 
-            if (!svgRect) return;
+            if (!svgRect) return
 
-            const offsetX = svgRect.left - containerRect.left;
-            const offsetY = svgRect.top - containerRect.top;
+            const offsetX = svgRect.left - containerRect.left
+            const offsetY = svgRect.top - containerRect.top
 
-            const fromXPx = (fromX / dimensions.width) * svgRect.width + offsetX;
-            const fromYPx = (fromY / dimensions.height) * svgRect.height + offsetY;
-            const toXPx = (toX / dimensions.width) * svgRect.width + offsetX;
-            const toYPx = (toY / dimensions.height) * svgRect.height + offsetY;
+            const fromXPx = (fromX / dimensions.width) * svgRect.width + offsetX
+            const fromYPx = (fromY / dimensions.height) * svgRect.height + offsetY
+            const toXPx = (toX / dimensions.width) * svgRect.width + offsetX
+            const toYPx = (toY / dimensions.height) * svgRect.height + offsetY
 
-            const laser = createLaserElement(fromXPx, fromYPx, toXPx, toYPx);
-            mapRef.current.appendChild(laser);
+            const laser = createLaserElement(fromXPx, fromYPx, toXPx, toYPx)
+            mapRef.current.appendChild(laser)
 
             requestAnimationFrame(() => {
-                laser.classList.add('active');
-            });
+                laser.classList.add('active')
+            })
 
             setTimeout(() => {
-                laser.remove();
-            }, 400);
+                laser.remove()
+            }, 400)
         }
 
         const laserInterval = setInterval(shootRandomLaser, 200)
@@ -265,7 +262,7 @@ const InteractiveMap: React.FC = () => {
                     svg.append('path')
                         .datum(feature)
                         .attr('d', path as d3.ValueFn<SVGPathElement, unknown, string>)
-                        .attr('class', 'fill-none stroke-neutral-700 stroke-[0.5]');
+                        .attr('class', 'fill-none stroke-neutral-700 stroke-[0.5]')
                 })
 
                 const cols = Math.ceil(dimensions.width / pixelSize)
@@ -311,28 +308,28 @@ const InteractiveMap: React.FC = () => {
                 }
 
                 cities.forEach((city) => {
-                    const [x, y] = projection(city.coords) as Coordinate;
-                    const pinContainer = document.createElement('div');
+                    const [x, y] = projection(city.coords) as Coordinate
+                    const pinContainer = document.createElement('div')
                     pinContainer.className = `
                         absolute w-3 h-3 md:w-5 md:h-5 -translate-x-1/2 -translate-y-1/2 
                         cursor-pointer z-10 group
-                    `;
-                    pinContainer.setAttribute('data-city', city.name);
-                    
-                    // Adjusted positioning calculation
-                    const xPos = (x / dimensions.width) * 100;
-                    const yPos = (y / dimensions.height) * 100;
-                    
-                    pinContainer.style.left = `${xPos}%`;
-                    pinContainer.style.top = `${yPos}%`;
+                    `
+                    pinContainer.setAttribute('data-city', city.name)
 
-                    const dot = document.createElement('div');
+                    // Adjusted positioning calculation
+                    const xPos = (x / dimensions.width) * 100
+                    const yPos = (y / dimensions.height) * 100
+
+                    pinContainer.style.left = `${xPos}%`
+                    pinContainer.style.top = `${yPos}%`
+
+                    const dot = document.createElement('div')
                     dot.className = `
                         absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full 
                         left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 city-dot
-                    `;
+                    `
 
-                    const card = document.createElement('div');
+                    const card = document.createElement('div')
                     card.className = `
                         absolute bg-black/80 backdrop-blur-md rounded-xl p-3 md:p-5 
                         w-[200px] md:w-[300px] -translate-x-1/2 opacity-0 pointer-events-none 
@@ -341,37 +338,32 @@ const InteractiveMap: React.FC = () => {
                         shadow-lg shadow-green-900/30
                         ${x > dimensions.width * 0.7 ? '-left-full' : x < dimensions.width * 0.3 ? 'left-full' : 'left-1/2'}
                         ${y > dimensions.height * 0.7 ? 'bottom-full' : 'top-full'}
-                    `;
+                    `
 
                     card.innerHTML = `
                         <h3 class="text-green-500 font-bold text-sm md:text-base mb-1 md:mb-2">${city.name}</h3>
                         <p class="text-gray-200 text-xs md:text-sm leading-relaxed">${city.description}</p>
-                    `;
+                    `
 
-                    pinContainer.appendChild(dot);
-                    pinContainer.appendChild(card);
-                    mapRef.current?.appendChild(pinContainer);
-                });
-            });
+                    pinContainer.appendChild(dot)
+                    pinContainer.appendChild(card)
+                    mapRef.current?.appendChild(pinContainer)
+                })
+            })
 
-            return () => {
-                // Clear intervals
-                clearInterval(laserInterval);
-                // Clean up all content
-                if (mapRef.current) {
-                    while (mapRef.current.firstChild) {
-                        mapRef.current.removeChild(mapRef.current.firstChild);
-                    }
+        return () => {
+            // Clear intervals
+            clearInterval(laserInterval)
+            // Clean up all content
+            if (mapRef.current) {
+                while (mapRef.current.firstChild) {
+                    mapRef.current.removeChild(mapRef.current.firstChild)
                 }
-            };
-    }, [dimensions]);
+            }
+        }
+    }, [dimensions])
 
-    return (
-        <div 
-            ref={mapRef} 
-            className="w-full h-[60vh] md:h-[80vh] lg:h-screen m-0 p-0 bg-transparent relative overflow-hidden"
-        />
-    );
-};
+    return <div ref={mapRef} className="w-full h-[60vh] md:h-[80vh] lg:h-screen m-0 p-0 bg-transparent relative overflow-hidden" />
+}
 
-export default InteractiveMap;
+export default InteractiveMap

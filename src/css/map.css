@@ -1,10 +1,16 @@
 @keyframes heatPulse {
-    0%, 100% { fill: #004400; }
-    50% { fill: #008800; }
+    0%,
+    100% {
+        fill: #004400;
+    }
+    50% {
+        fill: #008800;
+    }
 }
 
 @keyframes cityPulse {
-    0%, 100% {
+    0%,
+    100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
@@ -14,18 +20,17 @@
     }
 }
 
-.pixel { transition: fill 0.3s; }
-.pixel.heat { animation: heatPulse 2s infinite; }
+.pixel {
+    transition: fill 0.3s;
+}
+.pixel.heat {
+    animation: heatPulse 2s infinite;
+}
 
 .laser-beam {
     position: absolute;
     height: 2px;
-    background: linear-gradient(
-        to right,
-        rgba(0, 255, 0, 0) 0%,
-        rgba(0, 255, 0, 0.8) 50%,
-        rgba(0, 255, 0, 0) 100%
-    );
+    background: linear-gradient(to right, rgba(0, 255, 0, 0) 0%, rgba(0, 255, 0, 0.8) 50%, rgba(0, 255, 0, 0) 100%);
     opacity: 0;
     filter: blur(1px) drop-shadow(0 0 2px rgba(0, 255, 0, 0.5));
     pointer-events: none;
@@ -38,7 +43,13 @@
 }
 
 @keyframes laser-flash {
-    0% { opacity: 0; }
-    10% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

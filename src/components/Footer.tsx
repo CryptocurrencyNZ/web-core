@@ -1,16 +1,8 @@
-import { FC } from 'react';
-import { 
-    Twitter, 
-    Facebook, 
-    Instagram, 
-    Linkedin, 
-    Mail, 
-    MapPin, 
-    Phone 
-} from 'lucide-react';
+import { FC } from 'react'
+import { Twitter, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react'
 
 const Footer: FC = () => {
-    const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear()
 
     return (
         <footer className="relative bg-black py-12 px-4">
@@ -23,9 +15,7 @@ const Footer: FC = () => {
                     {/* Company Info */}
                     <div>
                         <h3 className="text-white font-bold text-lg mb-4">CryptocurrencyNZ</h3>
-                        <p className="text-gray-400 text-sm mb-4">
-                            Empowering New Zealanders with cryptocurrency knowledge and resources.
-                        </p>
+                        <p className="text-gray-400 text-sm mb-4">Empowering New Zealanders with cryptocurrency knowledge and resources.</p>
                         <div className="flex gap-4">
                             <a href="#" className="text-green-400 hover:text-green-300 transition-colors">
                                 <Twitter size={20} />
@@ -48,10 +38,7 @@ const Footer: FC = () => {
                         <ul className="space-y-2">
                             {['About Us', 'Services', 'Resources', 'Blog', 'FAQ'].map((item) => (
                                 <li key={item}>
-                                    <a 
-                                        href="#" 
-                                        className="text-gray-400 hover:text-green-400 transition-colors text-sm"
-                                    >
+                                    <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">
                                         {item}
                                     </a>
                                 </li>
@@ -81,18 +68,16 @@ const Footer: FC = () => {
                     {/* Newsletter */}
                     <div>
                         <h3 className="text-white font-bold text-lg mb-4">Newsletter</h3>
-                        <p className="text-gray-400 text-sm mb-4">
-                            Subscribe to our newsletter for the latest updates.
-                        </p>
+                        <p className="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest updates.</p>
                         <form className="space-y-2">
-                            <input 
-                                type="email" 
-                                placeholder="Enter your email" 
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
                                 className="w-full px-4 py-2 bg-gray-900 border border-gray-800 rounded-lg 
                                          focus:outline-none focus:border-green-500 text-gray-300 text-sm"
                             />
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 className="w-full px-4 py-2 bg-green-500 hover:bg-green-600 
                                          transition-colors rounded-lg text-black font-medium text-sm"
                             >
@@ -105,9 +90,7 @@ const Footer: FC = () => {
                 {/* Divider */}
                 <div className="border-t border-gray-800 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-gray-400 text-sm">
-                            © {currentYear} CryptocurrencyNZ. All rights reserved.
-                        </p>
+                        <p className="text-gray-400 text-sm">© {currentYear} CryptocurrencyNZ. All rights reserved.</p>
                         <div className="flex gap-6">
                             <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">
                                 Privacy Policy
@@ -120,7 +103,7 @@ const Footer: FC = () => {
                 </div>
             </div>
         </footer>
-    );
-};
+    )
+}
 
-export default Footer;
+export default Footer
