@@ -34,11 +34,12 @@ jobs:
             - name: Build and prepare files
               run: npm ci
 
+            - name: Lint
+              run: npm run lint
+
             - name: Build
               run: npm run build
 
-            - name: Lint
-              run: npm run lint
     deploy:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-22.04
