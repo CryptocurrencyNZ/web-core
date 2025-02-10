@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 interface CryptoTopic {
     icon: string;
     title: string;
