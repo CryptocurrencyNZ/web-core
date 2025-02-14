@@ -1,30 +1,30 @@
-import {CNZ_URL} from './config'
+import { CNZ_URL } from './config'
 
 interface DropdownItem {
-    icon: string;
-    title: string;
-    description: string;
-    path: string;
+    icon: string
+    title: string
+    description: string
+    path: string
 }
 
 interface DropdownSection {
-    title: string;
-    items: DropdownItem[];
+    title: string
+    items: DropdownItem[]
 }
 
 interface NavDropdown {
-    type: 'dropdown';
-    text: string;
-    sections: DropdownSection[];
+    type: 'dropdown'
+    text: string
+    sections: DropdownSection[]
 }
 
 interface NavLink {
-    type: 'link';
-    text: string;
-    path: string;
+    type: 'link'
+    text: string
+    path: string
 }
 
-type NavItem = NavLink | NavDropdown;
+type NavItem = NavLink | NavDropdown
 
 export const navigation: NavItem[] = [
     {
@@ -119,20 +119,20 @@ export const navigation: NavItem[] = [
         text: 'Get help',
         path: '/get-help'
     }
-] as const;
+] as const
 
 // Helper function to get full URLs
 export const getFullUrl = (path: string) => {
-    const BASE_URL = import.meta.env.VITE_BASE_URL || CNZ_URL;
-    return `${BASE_URL}${path}`;
-};
+    const BASE_URL = import.meta.env.VITE_BASE_URL || CNZ_URL
+    return `${BASE_URL}${path}`
+}
 
 // Type guard to check if a nav item is a dropdown
 export const isDropdown = (item: NavItem): item is NavDropdown => {
-    return item.type === 'dropdown';
-};
+    return item.type === 'dropdown'
+}
 
 // Type guard to check if a nav item is a link
 export const isLink = (item: NavItem): item is NavLink => {
-    return item.type === 'link';
-};
+    return item.type === 'link'
+}

@@ -1,39 +1,39 @@
 // Function to get the next event date (last Wednesday of current/next month)
 function getNextEventDate(): string {
     const now = new Date()
-    
+
     // Function to get last Wednesday of a given month
     function getLastWednesday(year: number, month: number): Date {
         const lastDay = new Date(year, month + 1, 0) // Last day of the month
         const lastWednesday = new Date(lastDay)
-        
+
         // Go backwards until we hit a Wednesday (3 is Wednesday)
         while (lastWednesday.getDay() !== 3) {
             lastWednesday.setDate(lastWednesday.getDate() - 1)
         }
-        
+
         return lastWednesday
     }
-    
+
     // Get last Wednesday of current month
     const currentMonthLastWed = getLastWednesday(now.getFullYear(), now.getMonth())
-    
+
     // If we've passed this month's last Wednesday, get next month's
     if (now > currentMonthLastWed) {
         const nextMonth = now.getMonth() + 1
         const year = nextMonth === 12 ? now.getFullYear() + 1 : now.getFullYear()
         const month = nextMonth === 12 ? 0 : nextMonth
         const nextDate = getLastWednesday(year, month)
-        return nextDate.toLocaleDateString('en-NZ', { 
+        return nextDate.toLocaleDateString('en-NZ', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
         })
     }
-    
+
     return currentMonthLastWed.toLocaleDateString('en-NZ', {
         day: 'numeric',
-        month: 'long',
+        month: 'long'
     })
 }
 
@@ -41,9 +41,9 @@ export const BASE_URL = 'https://cryptocurrency.org.nz'
 
 // Helper function to format the city URL
 function getCityUrl(name: string, isNorthIsland: boolean): string {
-    const island = isNorthIsland ? 'north-island' : 'south-island';
-    const citySlug = name.toLowerCase().replace(/ /g, '-');
-    return `${BASE_URL}/${island}/${citySlug}/`;
+    const island = isNorthIsland ? 'north-island' : 'south-island'
+    const citySlug = name.toLowerCase().replace(/ /g, '-')
+    return `${BASE_URL}/${island}/${citySlug}/`
 }
 
 interface City {

@@ -5,25 +5,25 @@ import AnimatedGridPattern from './AnimatedGridPattern'
 import { heroUrls } from '../config/config.ts'
 
 interface NavigationButton {
-    href: string;
-    label: string;
+    href: string
+    label: string
 }
 
 const navigationButtons: NavigationButton[] = [
     { href: heroUrls.routes.explore, label: 'Get Started' },
     { href: heroUrls.routes.wallet, label: 'Get a Wallet' },
-    { href: heroUrls.routes.buy, label: 'Buy Crypto' },
-];
+    { href: heroUrls.routes.buy, label: 'Buy Crypto' }
+]
 
 const Hero: FC = () => {
     const getFullUrl = (path: string) => {
         // If it's an email link or absolute URL, return as is
         if (path.startsWith('mailto:') || path.startsWith('http')) {
-            return path;
+            return path
         }
         // Otherwise, combine base URL with path
-        return `${heroUrls.base}${path}`;
-    };
+        return `${heroUrls.base}${path}`
+    }
 
     return (
         <div className="relative w-full flex flex-col lg:flex-row justify-between m-0 p-0">
@@ -35,9 +35,7 @@ const Hero: FC = () => {
                     <span className="alegreya text-green-500">NZ</span>
                 </h1>
 
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300">
-                    New Zealand Cryptocurrency Community Collective
-                </p>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300">New Zealand Cryptocurrency Community Collective</p>
 
                 <div className="flex flex-wrap justify-center gap-4 w-full">
                     {navigationButtons.map((button, index) => (
@@ -72,7 +70,7 @@ const Hero: FC = () => {
                 <Map />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Hero;
+export default Hero

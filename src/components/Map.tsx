@@ -63,31 +63,17 @@ const InteractiveMap: React.FC = () => {
 
         const svg = mapRef.current.querySelector('svg')
         svg?.remove()
-        
-        const lasers = mapRef.current.querySelectorAll('.laser-beam')
-        lasers.forEach(laser => laser.remove())
 
-        const newSvg = d3.select(mapRef.current)
-            .append('svg')
-            .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`)
-            .attr('width', '100%')
-            .attr('height', '100%')
-            .attr('class', 'absolute w-full h-full left-0 top-0')
+        const lasers = mapRef.current.querySelectorAll('.laser-beam')
+        lasers.forEach((laser) => laser.remove())
+
+        const newSvg = d3.select(mapRef.current).append('svg').attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`).attr('width', '100%').attr('height', '100%').attr('class', 'absolute w-full h-full left-0 top-0')
 
         const projection = d3
             .geoMercator()
             .center([174, -41.5])
-            .scale(
-                window.innerWidth <= 768
-                    ? dimensions.width * 2.875
-                    : dimensions.width * 3.5
-            )
-            .translate([
-                dimensions.width / 2,
-                window.innerWidth <= 768
-                    ? dimensions.height / 2.1
-                    : dimensions.height / 1.8
-            ])
+            .scale(window.innerWidth <= 768 ? dimensions.width * 2.875 : dimensions.width * 3.5)
+            .translate([dimensions.width / 2, window.innerWidth <= 768 ? dimensions.height / 2.1 : dimensions.height / 1.8])
 
         const path = d3.geoPath().projection(projection)
 
@@ -180,30 +166,30 @@ const InteractiveMap: React.FC = () => {
             if (!mapRef.current) return
 
             const existingMarkers = mapRef.current.querySelectorAll('[data-city]')
-            existingMarkers.forEach(marker => marker.remove())
+            existingMarkers.forEach((marker) => marker.remove())
 
             cities.forEach((city) => {
-                const [x, y] = projection(city.coords) as Coordinate;
-                const pinContainer = document.createElement('div');
+                const [x, y] = projection(city.coords) as Coordinate
+                const pinContainer = document.createElement('div')
                 pinContainer.className = `
                     absolute w-3 h-3 md:w-5 md:h-5 -translate-x-1/2 -translate-y-1/2 
                     cursor-pointer group z-10
-                `;
-                pinContainer.setAttribute('data-city', city.name);
-            
-                const xPos = (x / dimensions.width) * 100;
-                const yPos = (y / dimensions.height) * 100;
-            
-                pinContainer.style.left = `${xPos}%`;
-                pinContainer.style.top = `${yPos}%`;
-            
-                const dot = document.createElement('div');
+                `
+                pinContainer.setAttribute('data-city', city.name)
+
+                const xPos = (x / dimensions.width) * 100
+                const yPos = (y / dimensions.height) * 100
+
+                pinContainer.style.left = `${xPos}%`
+                pinContainer.style.top = `${yPos}%`
+
+                const dot = document.createElement('div')
                 dot.className = `
                     absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full 
                     left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 city-dot z-10
-                `;
-            
-                const card = document.createElement('div');
+                `
+
+                const card = document.createElement('div')
                 card.className = `
                     absolute bg-black/80 backdrop-blur-md rounded-xl p-3 md:p-5 
                     w-[200px] md:w-[300px] -translate-x-1/2 opacity-0 pointer-events-none 
@@ -213,13 +199,11 @@ const InteractiveMap: React.FC = () => {
                 ${x > dimensions.width * 0.7 ? '-left-full' : x < dimensions.width * 0.3 ? 'left-full' : 'left-1/2'}
                 ${
                     city.name === 'Christchurch' || y > dimensions.height * 0.7
-                        ? 'bottom-full'  // Show above the pin for Christchurch or any pin near the bottom of the screen
-                        : 'top-full'  // Otherwise show below the pin
+                        ? 'bottom-full' // Show above the pin for Christchurch or any pin near the bottom of the screen
+                        : 'top-full' // Otherwise show below the pin
                 }
             `
-            
-            
-            
+
                 card.innerHTML = `
                     <h3 class="text-green-500 font-bold text-sm md:text-base mb-1 md:mb-2">${city.name}</h3>
                     <p class="text-gray-200 text-xs md:text-sm leading-relaxed mb-2">${city.description}</p>
@@ -254,29 +238,28 @@ const InteractiveMap: React.FC = () => {
                     </div>
 
                     </div>
-                `;
-            
-                pinContainer.appendChild(dot);
-                pinContainer.appendChild(card);
-                mapRef.current?.appendChild(pinContainer);
-            
+                `
+
+                pinContainer.appendChild(dot)
+                pinContainer.appendChild(card)
+                mapRef.current?.appendChild(pinContainer)
+
                 // Hide all dots when one is hovered over
                 pinContainer.addEventListener('mouseover', () => {
                     // Hide all dots
                     document.querySelectorAll('.city-dot').forEach((dot) => {
-                        (dot as HTMLElement).style.display = 'none';  // Use type assertion to tell TypeScript it's an HTMLElement
-                    });
-                });
-            
+                        ;(dot as HTMLElement).style.display = 'none' // Use type assertion to tell TypeScript it's an HTMLElement
+                    })
+                })
+
                 // Show all dots when hover ends
                 pinContainer.addEventListener('mouseout', () => {
                     // Show all dots
                     document.querySelectorAll('.city-dot').forEach((dot) => {
-                        (dot as HTMLElement).style.display = 'block';  // Use type assertion to tell TypeScript it's an HTMLElement
-                    });
-                });
-            });
-            
+                        ;(dot as HTMLElement).style.display = 'block' // Use type assertion to tell TypeScript it's an HTMLElement
+                    })
+                })
+            })
         }
 
         fetch('https://raw.githubusercontent.com/glynnbird/countriesgeojson/refs/heads/master/new%20zealand.geojson')
@@ -293,7 +276,8 @@ const InteractiveMap: React.FC = () => {
                         }
                     }
 
-                    newSvg.append('path')
+                    newSvg
+                        .append('path')
                         .datum(feature)
                         .attr('d', path as d3.ValueFn<SVGPathElement, unknown, string>)
                         .attr('class', 'fill-none stroke-neutral-700 stroke-[0.5]')
@@ -326,15 +310,10 @@ const InteractiveMap: React.FC = () => {
 
                             if (isInside(point)) {
                                 const heat = getHeatValue([x, y])
-                                const rect = newSvg.append('rect')
-                                    .attr('x', x)
-                                    .attr('y', y)
-                                    .attr('width', pixelSize)
-                                    .attr('height', pixelSize)
+                                const rect = newSvg.append('rect').attr('x', x).attr('y', y).attr('width', pixelSize).attr('height', pixelSize)
 
                                 if (heat > 0.1) {
-                                    rect.attr('class', 'pixel heat')
-                                        .style('animation-delay', `${Math.random() * 2}s`)
+                                    rect.attr('class', 'pixel heat').style('animation-delay', `${Math.random() * 2}s`)
                                 } else {
                                     const randomCamoColor = camoColors[Math.floor(Math.random() * camoColors.length)]
                                     rect.attr('class', 'pixel')

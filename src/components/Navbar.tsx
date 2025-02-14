@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { CNZ_URL } from '../config/config.ts' // Import the BASE_URL variable
-import { navigation, isDropdown, getFullUrl } from '../config/navBarRoutes.ts';
+import { navigation, isDropdown, getFullUrl } from '../config/navBarRoutes.ts'
 
 interface NavItemProps {
     text: string
@@ -73,47 +73,41 @@ const Navbar: FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden min-[1200px]:flex min-[1200px]:items-center min-[1200px]:space-x-4">
-            {navigation.map((item, index) => (
-                <NavItem
-                    key={index}
-                    text={item.text}
-                    link={isDropdown(item) ? undefined : getFullUrl(item.path)}
-                    dropdownContent={
-                        isDropdown(item) ? (
-                            <div className="grid grid-cols-2 gap-8">
-                                {item.sections.map((section, sectionIndex) => (
-                                    <div key={sectionIndex}>
-                                        <h3 className="text-green-400 font-semibold mb-3 pl-2 text-sm sm:text-base">
-                                            {section.title}
-                                        </h3>
-                                        <div className="space-y-1">
-                                            {section.items.map((dropdownItem, itemIndex) => (
-                                                <a
-                                                    key={itemIndex}
-                                                    href={getFullUrl(dropdownItem.path)}
-                                                    className={dropdownLinkClasses}
-                                                >
-                                                    <span className="text-lg sm:text-xl mt-1">{dropdownItem.icon}</span>
-                                                    <div className="flex-1">
-                                                        <span className="text-white block group-hover/item:text-green-400 
-                                                                       transition-colors text-sm sm:text-base">
-                                                            {dropdownItem.title}
-                                                        </span>
-                                                        <span className="text-xs sm:text-sm text-gray-400">
-                                                            {dropdownItem.description}
-                                                        </span>
+                        {navigation.map((item, index) => (
+                            <NavItem
+                                key={index}
+                                text={item.text}
+                                link={isDropdown(item) ? undefined : getFullUrl(item.path)}
+                                dropdownContent={
+                                    isDropdown(item) ? (
+                                        <div className="grid grid-cols-2 gap-8">
+                                            {item.sections.map((section, sectionIndex) => (
+                                                <div key={sectionIndex}>
+                                                    <h3 className="text-green-400 font-semibold mb-3 pl-2 text-sm sm:text-base">{section.title}</h3>
+                                                    <div className="space-y-1">
+                                                        {section.items.map((dropdownItem, itemIndex) => (
+                                                            <a key={itemIndex} href={getFullUrl(dropdownItem.path)} className={dropdownLinkClasses}>
+                                                                <span className="text-lg sm:text-xl mt-1">{dropdownItem.icon}</span>
+                                                                <div className="flex-1">
+                                                                    <span
+                                                                        className="text-white block group-hover/item:text-green-400 
+                                                                       transition-colors text-sm sm:text-base"
+                                                                    >
+                                                                        {dropdownItem.title}
+                                                                    </span>
+                                                                    <span className="text-xs sm:text-sm text-gray-400">{dropdownItem.description}</span>
+                                                                </div>
+                                                            </a>
+                                                        ))}
                                                     </div>
-                                                </a>
+                                                </div>
                                             ))}
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : undefined
-                    }
-                />
-            ))}
-        </div>
+                                    ) : undefined
+                                }
+                            />
+                        ))}
+                    </div>
 
                     {/* Mobile menu button */}
                     <div className="min-[1200px]:hidden">
@@ -131,49 +125,79 @@ const Navbar: FC = () => {
             {/* Mobile menu */}
             <div className={`${isMenuOpen ? 'block' : 'hidden'} min-[1200px]:hidden bg-black/95 backdrop-blur-md`}>
                 <div className="px-4 pt-2 pb-4 space-y-1">
-                    <a href={CNZ_URL + 'dao'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'dao'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         DAO
                     </a>
-                    <a href={CNZ_URL + 'wallets'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'wallets'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         Wallets
                     </a>
-                    <a href={CNZ_URL + 'buy-crypto'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'buy-crypto'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         Buy Crypto
                     </a>
                     <div className="px-4 py-2">
                         <div className="font-medium text-green-400 mb-2 text-sm sm:text-base">Learn</div>
                         <div className="pl-4 space-y-2">
-                            <a href={CNZ_URL + 'how-to-buy'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
+                            <a
+                                href={CNZ_URL + 'how-to-buy'}
+                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
+                            >
                                 How to Buy
                             </a>
-                            <a href={CNZ_URL + 'how-to-sell'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
+                            <a
+                                href={CNZ_URL + 'how-to-sell'}
+                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
+                            >
                                 How to Sell
                             </a>
-                            <a href={CNZ_URL + 'crypto-mining'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
+                            <a
+                                href={CNZ_URL + 'crypto-mining'}
+                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
+                            >
                                 Crypto Mining
                             </a>
                         </div>
                     </div>
-                    <a href={CNZ_URL + 'community'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'community'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         Community
                     </a>
-                    <a href={CNZ_URL + 'news'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'news'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         News
                     </a>
-                    <a href={CNZ_URL + 'about'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'about'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         About us
                     </a>
-                    <a href={CNZ_URL + 'get-help'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
+                    <a
+                        href={CNZ_URL + 'get-help'}
+                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                    >
                         Get help
                     </a>
                 </div>
