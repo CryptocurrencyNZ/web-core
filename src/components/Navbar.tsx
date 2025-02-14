@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import '../css/hero.css'
+import { CNZ_URL } from '../config/config.ts' // Import the BASE_URL variable
+import { navigation, isDropdown, getFullUrl } from '../config/navBarRoutes.ts';
 
 interface NavItemProps {
     text: string
@@ -14,16 +15,17 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
         return (
             <div className="relative group">
                 <button
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-300 
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-gray-300 
                                  hover:text-white hover:bg-green-500/10 transition-all duration-300
-                                 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] font-medium"
+                                 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] font-medium
+                                 text-sm sm:text-base"
                 >
                     {icon && <span>{icon}</span>}
                     {text}
-                    <span className="text-sm transition-transform duration-300 group-hover:rotate-180">▾</span>
+                    <span className="text-xs sm:text-sm transition-transform duration-300 group-hover:rotate-180">▾</span>
                 </button>
                 <div
-                    className="absolute right-0 top-full w-[300px] bg-black/95 backdrop-blur-md 
+                    className="absolute right-0 top-full w-[600px] bg-black/95 backdrop-blur-md 
                               border border-green-500/30 rounded-xl p-4 opacity-0 invisible 
                               group-hover:opacity-100 group-hover:visible transform 
                               translate-y-2 group-hover:translate-y-0 transition-all duration-300
@@ -37,10 +39,10 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
 
     return (
         <a
-            href={link}
-            className="px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-green-500/10 
+            href={link || CNZ_URL} // Use BASE_URL if no link is provided
+            className="px-3 sm:px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-green-500/10 
                       transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] 
-                      font-medium flex items-center gap-2"
+                      font-medium flex items-center gap-2 text-sm sm:text-base"
         >
             {icon && <span>{icon}</span>}
             {text}
@@ -51,10 +53,8 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
 const Navbar: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-    const dropdownLinkClasses = `
-        flex items-start gap-3 p-3 rounded-lg hover:bg-green-500/10 transition-all duration-300
-        hover:shadow-[0_0_10px_rgba(34,197,94,0.2)] group/item
-    `
+    const dropdownLinkClasses = `flex items-start gap-3 p-3 rounded-lg hover:bg-green-500/10 transition-all duration-300
+        hover:shadow-[0_0_10px_rgba(34,197,94,0.2)] group/item`
 
     return (
         <nav
@@ -65,112 +65,58 @@ const Navbar: FC = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">
-                        <h1 className="alegreya text-4xl font-bold">
+                        <h1 className="alegreya font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
                             <span className="alegreya text-gray-600">Cryptocurrency</span>
                             <span className="alegreya text-[rgb(27,97,0)]">NZ</span>
                         </h1>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex md:items-center md:space-x-4">
-                        <NavItem text="DAO" link="#" />
-                        <NavItem text="Wallets" link="#" />
-                        <NavItem text="Buy Crypto" link="#" />
-                        <NavItem
-                            text="Learn"
-                            dropdownContent={
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <h3 className="text-green-400 font-semibold mb-3 pl-2">Transferring</h3>
+                    <div className="hidden min-[1200px]:flex min-[1200px]:items-center min-[1200px]:space-x-4">
+            {navigation.map((item, index) => (
+                <NavItem
+                    key={index}
+                    text={item.text}
+                    link={isDropdown(item) ? undefined : getFullUrl(item.path)}
+                    dropdownContent={
+                        isDropdown(item) ? (
+                            <div className="grid grid-cols-2 gap-8">
+                                {item.sections.map((section, sectionIndex) => (
+                                    <div key={sectionIndex}>
+                                        <h3 className="text-green-400 font-semibold mb-3 pl-2 text-sm sm:text-base">
+                                            {section.title}
+                                        </h3>
                                         <div className="space-y-1">
-                                            <a href="#" className={dropdownLinkClasses}>
-                                                <span className="text-xl mt-1">📊</span>
-                                                <div className="flex-1">
-                                                    <span
-                                                        className="text-white block group-hover/item:text-green-400 
-                                                                   transition-colors"
-                                                    >
-                                                        How to Buy
-                                                    </span>
-                                                    <span className="text-sm text-gray-400">Learn the basics of buying crypto</span>
-                                                </div>
-                                            </a>
-                                            <a href="#" className={dropdownLinkClasses}>
-                                                <span className="text-xl mt-1">💹</span>
-                                                <div className="flex-1">
-                                                    <span
-                                                        className="text-white block group-hover/item:text-green-400 
-                                                                   transition-colors"
-                                                    >
-                                                        How to Sell
-                                                    </span>
-                                                    <span className="text-sm text-gray-400">Master the selling process</span>
-                                                </div>
-                                            </a>
+                                            {section.items.map((dropdownItem, itemIndex) => (
+                                                <a
+                                                    key={itemIndex}
+                                                    href={getFullUrl(dropdownItem.path)}
+                                                    className={dropdownLinkClasses}
+                                                >
+                                                    <span className="text-lg sm:text-xl mt-1">{dropdownItem.icon}</span>
+                                                    <div className="flex-1">
+                                                        <span className="text-white block group-hover/item:text-green-400 
+                                                                       transition-colors text-sm sm:text-base">
+                                                            {dropdownItem.title}
+                                                        </span>
+                                                        <span className="text-xs sm:text-sm text-gray-400">
+                                                            {dropdownItem.description}
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            ))}
                                         </div>
                                     </div>
-                                    <div>
-                                        <h3 className="text-green-400 font-semibold mb-3 pl-2">Technical</h3>
-                                        <a href="#" className={dropdownLinkClasses}>
-                                            <span className="text-xl mt-1">💼</span>
-                                            <div className="flex-1">
-                                                <span
-                                                    className="text-white block group-hover/item:text-green-400 
-                                                               transition-colors"
-                                                >
-                                                    Crypto Mining
-                                                </span>
-                                                <span className="text-sm text-gray-400">Understand mining basics</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            }
-                        />
-                        <NavItem
-                            text="Community"
-                            dropdownContent={
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <h3 className="text-green-400 font-semibold mb-3 pl-2">Events</h3>
-                                        <a href="#" className={dropdownLinkClasses}>
-                                            <span className="text-xl mt-1">🎯</span>
-                                            <div className="flex-1">
-                                                <span
-                                                    className="text-white block group-hover/item:text-green-400 
-                                                               transition-colors"
-                                                >
-                                                    Upcoming Events
-                                                </span>
-                                                <span className="text-sm text-gray-400">Join our next meetup</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-green-400 font-semibold mb-3 pl-2">Connect</h3>
-                                        <a href="#" className={dropdownLinkClasses}>
-                                            <span className="text-xl mt-1">👥</span>
-                                            <div className="flex-1">
-                                                <span
-                                                    className="text-white block group-hover/item:text-green-400 
-                                                               transition-colors"
-                                                >
-                                                    Join Discord
-                                                </span>
-                                                <span className="text-sm text-gray-400">Connect with the community</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            }
-                        />
-                        <NavItem text="News" link="#" />
-                        <NavItem text="About us" link="#" />
-                        <NavItem text="Get help" link="#" />
-                    </div>
+                                ))}
+                            </div>
+                        ) : undefined
+                    }
+                />
+            ))}
+        </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    <div className="min-[1200px]:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="p-2 rounded-lg text-gray-300 hover:text-white 
@@ -183,81 +129,51 @@ const Navbar: FC = () => {
             </div>
 
             {/* Mobile menu */}
-            <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-black/95 backdrop-blur-md`}>
+            <div className={`${isMenuOpen ? 'block' : 'hidden'} min-[1200px]:hidden bg-black/95 backdrop-blur-md`}>
                 <div className="px-4 pt-2 pb-4 space-y-1">
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'dao'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         DAO
                     </a>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'wallets'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         Wallets
                     </a>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'buy-crypto'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         Buy Crypto
                     </a>
                     <div className="px-4 py-2">
-                        <div className="font-medium text-green-400 mb-2">Learn</div>
+                        <div className="font-medium text-green-400 mb-2 text-sm sm:text-base">Learn</div>
                         <div className="pl-4 space-y-2">
-                            <a
-                                href="#"
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-sm"
-                            >
+                            <a href={CNZ_URL + 'how-to-buy'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
                                 How to Buy
                             </a>
-                            <a
-                                href="#"
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-sm"
-                            >
+                            <a href={CNZ_URL + 'how-to-sell'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
                                 How to Sell
                             </a>
-                            <a
-                                href="#"
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-sm"
-                            >
+                            <a href={CNZ_URL + 'crypto-mining'} className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm">
                                 Crypto Mining
                             </a>
                         </div>
                     </div>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'community'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         Community
                     </a>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'news'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         News
                     </a>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'about'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         About us
                     </a>
-                    <a
-                        href="#"
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors"
-                    >
+                    <a href={CNZ_URL + 'get-help'} className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base">
                         Get help
                     </a>
                 </div>

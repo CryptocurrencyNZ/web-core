@@ -2,102 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import '../css/map.css'
 
-interface City {
-    name: string
-    coords: [number, number]
-    importance: number
-    description: string
-}
+import { cities } from '../config/cityMapData'
 
 type Coordinate = [number, number]
 type MultiPolygon = Coordinate[][][]
-
-const cities: City[] = [
-    {
-        name: 'Whangarei',
-        coords: [174.326, -36.7321],
-        importance: 1,
-        description: 'Northland city known for its stunning beaches and the nearby Whangarei Heads.'
-    },
-    {
-        name: 'Hibiscus Coast',
-        coords: [174.7633, -37.3485],
-        importance: 1,
-        description: "New Zealand's largest city and major economic center. Home to iconic Sky Tower and vibrant harbor."
-    },
-    {
-        name: 'Auckland',
-        coords: [174.7633, -38.1485],
-        importance: 1,
-        description: "New Zealand's largest city and major economic center. Home to iconic Sky Tower and vibrant harbor."
-    },
-    {
-        name: 'Rotorua',
-        coords: [175.9793, -39.287],
-        importance: 1,
-        description: 'Inland city famous for its gardens, education facilities, and research institutions.'
-    },
-    {
-        name: 'Tauranga',
-        coords: [175.8793, -38.787],
-        importance: 1,
-        description: 'Coastal city known for its beautiful beaches, port activities, and Mount Maunganui.'
-    },
-    {
-        name: 'New Plymouth',
-        coords: [174.07, -39.4011],
-        importance: 1,
-        description: 'A coastal city with strong arts and culture scenes, and views of Mount Taranaki.'
-    },
-    {
-        name: 'Hawkes Bay',
-        coords: [176.5126, -39.4907],
-        importance: 1,
-        description: "Famous for its art deco architecture and vineyards, located on the North Island's east coast."
-    },
-    {
-        name: 'Palmerston North',
-        coords: [175.6082, -40.1508],
-        importance: 1,
-        description: 'A key university city, with strong agricultural and research industries.'
-    },
-    {
-        name: 'Wellington',
-        coords: [174.9762, -41.2866],
-        importance: 1,
-        description: 'Capital city known for strong winds, cultural attractions, and being the center of government.'
-    },
-    {
-        name: 'Nelson',
-        coords: [173.2922, -41.2925],
-        importance: 1,
-        description: 'A small city known for its outdoor lifestyle, sunny climate, and arts community.'
-    },
-    {
-        name: 'Blenheim',
-        coords: [173.9922, -40.9925],
-        importance: 1,
-        description: 'A small city known for its outdoor lifestyle, sunny climate, and arts community.'
-    },
-    {
-        name: 'Christchurch',
-        coords: [172.6362, -43.532],
-        importance: 1.5,
-        description: 'Largest city in South Island, known for its English heritage and post-earthquake innovation.'
-    },
-    {
-        name: 'Dunedin',
-        coords: [170.5027, -45.8788],
-        importance: 1.5,
-        description: 'Southern city with strong Scottish influence, known for its Victorian architecture and wildlife.'
-    },
-    {
-        name: 'Invercargill',
-        coords: [168.1512, -46.1132],
-        importance: 1.5,
-        description: 'Southernmost city on the mainland, known for its Scottish heritage and close proximity to natural reserves.'
-    }
-]
 
 const camoColors: string[] = [
     'rgb(34, 89, 41)', // Dark green
@@ -110,57 +18,75 @@ const camoColors: string[] = [
 
 const InteractiveMap: React.FC = () => {
     const mapRef = useRef<HTMLDivElement>(null)
+    const resizeTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
     const [dimensions, setDimensions] = useState({ width: 800, height: 1000 })
     const pixelSize = 4
 
-    // Add resize handler
     useEffect(() => {
         function handleResize() {
-            if (mapRef.current) {
-                const container = mapRef.current.getBoundingClientRect()
-                const aspectRatio = 1.25 // 1000/800
-                let newWidth, newHeight
-
-                if (window.innerWidth <= 768) {
-                    newWidth = container.width
-                    newHeight = newWidth * aspectRatio
-                } else {
-                    // Increased base size for desktop
-                    newWidth = 1000 // Increased from 800
-                    newHeight = 1250 // Increased from 1000
-                }
-
-                setDimensions({ width: newWidth, height: newHeight })
+            if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current)
             }
+
+            resizeTimeoutRef.current = setTimeout(() => {
+                if (mapRef.current) {
+                    const container = mapRef.current.getBoundingClientRect()
+                    const aspectRatio = 1.25 // 1000/800
+                    let newWidth, newHeight
+
+                    if (window.innerWidth <= 768) {
+                        newWidth = container.width
+                        newHeight = newWidth * aspectRatio
+                    } else {
+                        newWidth = 1000
+                        newHeight = 1250
+                    }
+
+                    setDimensions({ width: newWidth, height: newHeight })
+                }
+            }, 250)
         }
 
         window.addEventListener('resize', handleResize)
         handleResize()
 
-        return () => window.removeEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+            if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current)
+            }
+        }
     }, [])
 
     useEffect(() => {
         if (!mapRef.current) return
-        while (mapRef.current.firstChild) {
-            mapRef.current.removeChild(mapRef.current.firstChild)
-        }
 
-        const svg = d3.select(mapRef.current).append('svg').attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`).attr('width', '100%').attr('height', '100%').attr('class', 'absolute w-full h-full left-0 top-0')
+        const svg = mapRef.current.querySelector('svg')
+        svg?.remove()
+        
+        const lasers = mapRef.current.querySelectorAll('.laser-beam')
+        lasers.forEach(laser => laser.remove())
+
+        const newSvg = d3.select(mapRef.current)
+            .append('svg')
+            .attr('viewBox', `0 0 ${dimensions.width} ${dimensions.height}`)
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .attr('class', 'absolute w-full h-full left-0 top-0')
 
         const projection = d3
             .geoMercator()
             .center([174, -41.5])
             .scale(
                 window.innerWidth <= 768
-                    ? dimensions.width * 2.875 // Mobile scale
+                    ? dimensions.width * 2.875
                     : dimensions.width * 3.5
-            ) // Desktop scale
+            )
             .translate([
                 dimensions.width / 2,
                 window.innerWidth <= 768
-                    ? dimensions.height / 2.1 // Mobile position
-                    : dimensions.height / 1.8 // Lower position for desktop
+                    ? dimensions.height / 2.1
+                    : dimensions.height / 1.8
             ])
 
         const path = d3.geoPath().projection(projection)
@@ -219,9 +145,9 @@ const InteractiveMap: React.FC = () => {
             const [toX, toY] = projection(to.coords) as Coordinate
 
             const containerRect = mapRef.current.getBoundingClientRect()
-            const svgRect = mapRef.current.querySelector('svg')?.getBoundingClientRect()
-
-            if (!svgRect) return
+            const svgElement = mapRef.current.querySelector('svg')
+            if (!svgElement) return
+            const svgRect = svgElement.getBoundingClientRect()
 
             const offsetX = svgRect.left - containerRect.left
             const offsetY = svgRect.top - containerRect.top
@@ -243,7 +169,115 @@ const InteractiveMap: React.FC = () => {
             }, 400)
         }
 
-        const laserInterval = setInterval(shootRandomLaser, 200)
+        let isComponentMounted = true
+        const laserInterval = setInterval(() => {
+            if (isComponentMounted) {
+                shootRandomLaser()
+            }
+        }, 200)
+
+        const createCityMarkers = () => {
+            if (!mapRef.current) return
+
+            const existingMarkers = mapRef.current.querySelectorAll('[data-city]')
+            existingMarkers.forEach(marker => marker.remove())
+
+            cities.forEach((city) => {
+                const [x, y] = projection(city.coords) as Coordinate;
+                const pinContainer = document.createElement('div');
+                pinContainer.className = `
+                    absolute w-3 h-3 md:w-5 md:h-5 -translate-x-1/2 -translate-y-1/2 
+                    cursor-pointer group z-10
+                `;
+                pinContainer.setAttribute('data-city', city.name);
+            
+                const xPos = (x / dimensions.width) * 100;
+                const yPos = (y / dimensions.height) * 100;
+            
+                pinContainer.style.left = `${xPos}%`;
+                pinContainer.style.top = `${yPos}%`;
+            
+                const dot = document.createElement('div');
+                dot.className = `
+                    absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full 
+                    left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 city-dot z-10
+                `;
+            
+                const card = document.createElement('div');
+                card.className = `
+                    absolute bg-black/80 backdrop-blur-md rounded-xl p-3 md:p-5 
+                    w-[200px] md:w-[300px] -translate-x-1/2 opacity-0 pointer-events-none 
+                    transition-all duration-300 group-hover:opacity-100 
+                    group-hover:pointer-events-auto z-20 border border-green-500/30 
+                    shadow-lg shadow-green-900/30
+                ${x > dimensions.width * 0.7 ? '-left-full' : x < dimensions.width * 0.3 ? 'left-full' : 'left-1/2'}
+                ${
+                    city.name === 'Christchurch' || y > dimensions.height * 0.7
+                        ? 'bottom-full'  // Show above the pin for Christchurch or any pin near the bottom of the screen
+                        : 'top-full'  // Otherwise show below the pin
+                }
+            `
+            
+            
+            
+                card.innerHTML = `
+                    <h3 class="text-green-500 font-bold text-sm md:text-base mb-1 md:mb-2">${city.name}</h3>
+                    <p class="text-gray-200 text-xs md:text-sm leading-relaxed mb-2">${city.description}</p>
+                    <div class="border-t border-green-500/30 pt-2 mt-2 space-y-1.5">
+                    <p class="text-green-400 text-xs md:text-sm">
+                        <span class="font-semibold">Host:</span> <span class="text-white">${city.host}</span>
+                    </p>
+                    <p class="text-green-400 text-xs md:text-sm">
+                        <span class="font-semibold">Usual Attendees:</span> <span class="text-white">${city.usualAttendees}</span>
+                    </p>
+                    <p class="text-green-400 text-xs md:text-sm">
+                        <span class="font-semibold">Venue:</span> <span class="text-white">${city.venue}</span>
+                    </p>
+
+                    <!-- Group Date and Time -->
+                    <div class="flex justify-between text-green-400 text-xs md:text-sm">
+                        <p>
+                            <span class="font-semibold">Next Meetup: </span> <span class="text-white">${city.time} - </span>
+                            <span class="text-white">${city.date}</span>
+                            
+                        </p>
+                            
+                    </div>
+
+                    <div class="flex justify-end">
+                        <a href="${city.link}" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="inline-block mt-3 text-xs md:text-sm bg-green-500/20 hover:bg-green-500/30 text-green-400 px-3 py-1 rounded-md transition-colors">
+                            View Meetup Details
+                        </a>
+                    </div>
+
+                    </div>
+                `;
+            
+                pinContainer.appendChild(dot);
+                pinContainer.appendChild(card);
+                mapRef.current?.appendChild(pinContainer);
+            
+                // Hide all dots when one is hovered over
+                pinContainer.addEventListener('mouseover', () => {
+                    // Hide all dots
+                    document.querySelectorAll('.city-dot').forEach((dot) => {
+                        (dot as HTMLElement).style.display = 'none';  // Use type assertion to tell TypeScript it's an HTMLElement
+                    });
+                });
+            
+                // Show all dots when hover ends
+                pinContainer.addEventListener('mouseout', () => {
+                    // Show all dots
+                    document.querySelectorAll('.city-dot').forEach((dot) => {
+                        (dot as HTMLElement).style.display = 'block';  // Use type assertion to tell TypeScript it's an HTMLElement
+                    });
+                });
+            });
+            
+        }
 
         fetch('https://raw.githubusercontent.com/glynnbird/countriesgeojson/refs/heads/master/new%20zealand.geojson')
             .then((response) => response.json())
@@ -259,7 +293,7 @@ const InteractiveMap: React.FC = () => {
                         }
                     }
 
-                    svg.append('path')
+                    newSvg.append('path')
                         .datum(feature)
                         .attr('d', path as d3.ValueFn<SVGPathElement, unknown, string>)
                         .attr('class', 'fill-none stroke-neutral-700 stroke-[0.5]')
@@ -292,10 +326,15 @@ const InteractiveMap: React.FC = () => {
 
                             if (isInside(point)) {
                                 const heat = getHeatValue([x, y])
-                                const rect = svg.append('rect').attr('x', x).attr('y', y).attr('width', pixelSize).attr('height', pixelSize)
+                                const rect = newSvg.append('rect')
+                                    .attr('x', x)
+                                    .attr('y', y)
+                                    .attr('width', pixelSize)
+                                    .attr('height', pixelSize)
 
                                 if (heat > 0.1) {
-                                    rect.attr('class', 'pixel heat').style('animation-delay', `${Math.random() * 2}s`)
+                                    rect.attr('class', 'pixel heat')
+                                        .style('animation-delay', `${Math.random() * 2}s`)
                                 } else {
                                     const randomCamoColor = camoColors[Math.floor(Math.random() * camoColors.length)]
                                     rect.attr('class', 'pixel')
@@ -307,59 +346,12 @@ const InteractiveMap: React.FC = () => {
                     }
                 }
 
-                cities.forEach((city) => {
-                    const [x, y] = projection(city.coords) as Coordinate
-                    const pinContainer = document.createElement('div')
-                    pinContainer.className = `
-                        absolute w-3 h-3 md:w-5 md:h-5 -translate-x-1/2 -translate-y-1/2 
-                        cursor-pointer z-10 group
-                    `
-                    pinContainer.setAttribute('data-city', city.name)
-
-                    // Adjusted positioning calculation
-                    const xPos = (x / dimensions.width) * 100
-                    const yPos = (y / dimensions.height) * 100
-
-                    pinContainer.style.left = `${xPos}%`
-                    pinContainer.style.top = `${yPos}%`
-
-                    const dot = document.createElement('div')
-                    dot.className = `
-                        absolute w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full 
-                        left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 city-dot
-                    `
-
-                    const card = document.createElement('div')
-                    card.className = `
-                        absolute bg-black/80 backdrop-blur-md rounded-xl p-3 md:p-5 
-                        w-[200px] md:w-[300px] -translate-x-1/2 opacity-0 pointer-events-none 
-                        transition-all duration-300 group-hover:opacity-100 
-                        group-hover:pointer-events-auto z-10 border border-green-500/30 
-                        shadow-lg shadow-green-900/30
-                        ${x > dimensions.width * 0.7 ? '-left-full' : x < dimensions.width * 0.3 ? 'left-full' : 'left-1/2'}
-                        ${y > dimensions.height * 0.7 ? 'bottom-full' : 'top-full'}
-                    `
-
-                    card.innerHTML = `
-                        <h3 class="text-green-500 font-bold text-sm md:text-base mb-1 md:mb-2">${city.name}</h3>
-                        <p class="text-gray-200 text-xs md:text-sm leading-relaxed">${city.description}</p>
-                    `
-
-                    pinContainer.appendChild(dot)
-                    pinContainer.appendChild(card)
-                    mapRef.current?.appendChild(pinContainer)
-                })
+                createCityMarkers()
             })
 
         return () => {
-            // Clear intervals
+            isComponentMounted = false
             clearInterval(laserInterval)
-            // Clean up all content
-            if (mapRef.current) {
-                while (mapRef.current.firstChild) {
-                    mapRef.current.removeChild(mapRef.current.firstChild)
-                }
-            }
         }
     }, [dimensions])
 

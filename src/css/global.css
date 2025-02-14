@@ -24,3 +24,21 @@
 .alegreya {
     font-family: 'Alegreya SC', serif;
 }
+
+.hero-btn {
+    background-image: linear-gradient(to right, var(--highlight-color), rgb(27, 97, 0));
+    transition: transform 0.3s;
+}
+
+.hero-btn:hover {
+    box-shadow:
+        0 0 10px var(--accent-color),
+        0 0 20px var(--accent-color);
+}
+
+.contact:hover {
+    text-shadow:
+        0 2px 10px var(--accent-color),
+        0 2px 20px var(--accent-color);
+    background-color: transparent;
+}
