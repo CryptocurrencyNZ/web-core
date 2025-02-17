@@ -28,17 +28,17 @@ const expoFeatures: ExpoFeature[] = [
 
 const ExpoSection: FC = () => {
     return (
-        <div className="relative w-full min-h-[90vh] flex flex-col lg:flex-row items-stretch">
+        <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
             <AnimatedGridPattern />
 
             {/* Visual Side (Now Left) */}
-            <div className="relative w-full lg:w-1/2 min-h-[50vh] lg:min-h-full flex items-center justify-center overflow-hidden">
+            <div className="relative w-full lg:w-3/5 min-h-[60vh] lg:min-h-full flex items-center justify-center overflow-hidden">
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-black/50" />
 
                 {/* Hexagon Grid Background */}
                 <div className="absolute inset-0 opacity-20">
-                    {[...Array(6)].map((_, i) => (
+                    {[...Array(8)].map((_, i) => (
                         <div
                             key={i}
                             className="absolute"
@@ -48,7 +48,7 @@ const ExpoSection: FC = () => {
                                 transform: `rotate(${Math.random() * 360}deg)`
                             }}
                         >
-                            <svg width="100" height="100" viewBox="0 0 100 100">
+                            <svg width="120" height="120" viewBox="0 0 100 100">
                                 <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-green-500" />
                             </svg>
                         </div>
@@ -57,10 +57,10 @@ const ExpoSection: FC = () => {
 
                 {/* Floating Elements */}
                 <div className="absolute inset-0">
-                    {[...Array(3)].map((_, i) => (
+                    {[...Array(5)].map((_, i) => (
                         <div
                             key={i}
-                            className="absolute w-4 h-4 bg-green-500/30 rounded-full"
+                            className="absolute w-6 h-6 bg-green-500/30 rounded-full"
                             style={{
                                 top: `${Math.random() * 100}%`,
                                 left: `${Math.random() * 100}%`,
@@ -71,13 +71,13 @@ const ExpoSection: FC = () => {
                 </div>
 
                 {/* Main Visual Content */}
-                <div className="relative z-10 flex flex-col items-center gap-8 p-8">
+                <div className="relative z-10 flex flex-col items-center gap-8 p-8 w-full h-full">
                     {/* Expo Logo with Glow Effect */}
                     <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
                             backgroundImage: 'url(./images/expo2024.jpg)',
-                            height: '70vh'
+                            height: '85vh'
                         }}
                     >
                         {/* Gradient overlay */}
@@ -85,7 +85,7 @@ const ExpoSection: FC = () => {
                     </div>
 
                     {/* 3D Card with Animated Border */}
-                    <div className="relative group perspective-1000">
+                    <div className="relative group perspective-1000 mt-16">
                         {/* Animated Background Glow */}
                         <div
                             className="absolute -inset-4 bg-gradient-to-r from-green-500 to-green-300 
@@ -95,7 +95,7 @@ const ExpoSection: FC = () => {
 
                         {/* Main Card */}
                         <div
-                            className="relative bg-black/90 backdrop-blur-xl p-8 rounded-lg 
+                            className="relative bg-black/60  p-12 rounded-lg 
                                       border border-green-500/30 
                                       transform transition-all duration-700
                                       group-hover:rotate-y-12 group-hover:scale-105
@@ -110,12 +110,12 @@ const ExpoSection: FC = () => {
 
                             {/* Corner Accents */}
                             <div
-                                className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-green-500/50 
+                                className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-green-500/50 
                                           rounded-tl-lg transform -translate-x-1 -translate-y-1
                                           group-hover:border-green-400 group-hover:scale-105 transition-all duration-700"
                             />
                             <div
-                                className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-green-500/50 
+                                className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-green-500/50 
                                           rounded-br-lg transform translate-x-1 translate-y-1
                                           group-hover:border-green-400 group-hover:scale-105 transition-all duration-700"
                             />
@@ -123,40 +123,49 @@ const ExpoSection: FC = () => {
                             {/* Content Container */}
                             <div className="relative z-10">
                                 {/* Title with Gradient */}
-                                <div className="mb-6">
+                                <div className="mb-8">
                                     <p
-                                        className="text-3xl font-bold bg-gradient-to-r from-green-400 to-green-300 
+                                        className="alegreya text-3xl font-bold bg-white
                                                 bg-clip-text text-transparent transform 
                                                 group-hover:scale-105 transition-transform duration-700"
                                     >
-                                        NZ Web3 Expo 2025
+                                        Decentralized NZ++
+                                    </p>
+                                </div>
+                                <div className="mb-8">
+                                    <p
+                                        className="alegreya text-4xl font-bold bg-gradient-to-r from-green-400 to-green-300 
+                                                bg-clip-text text-transparent transform 
+                                                group-hover:scale-105 transition-transform duration-700"
+                                    >
+                                        Crypto & Blockchain Expo 25'
                                     </p>
                                 </div>
 
                                 {/* Location & Date with Icons */}
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                     <div
-                                        className="flex items-center gap-3 text-gray-300 group-hover:text-gray-200 
+                                        className="flex items-center gap-4 text-gray-300 group-hover:text-gray-200 
                                                   transition-colors duration-700"
                                     >
-                                        <div className="w-5 h-5 text-green-400">
+                                        <div className="w-6 h-6 text-green-400">
                                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-lg">Auckland Convention Centre</p>
+                                        <p className="text-xl">Auckland Convention Centre</p>
                                     </div>
                                     <div
-                                        className="flex items-center gap-3 text-gray-300 group-hover:text-gray-200 
+                                        className="flex items-center gap-4 text-gray-300 group-hover:text-gray-200 
                                                   transition-colors duration-700"
                                     >
-                                        <div className="w-5 h-5 text-green-400">
+                                        <div className="w-6 h-6 text-green-400">
                                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                         </div>
-                                        <p className="text-lg">March 15-17</p>
+                                        <p className="text-xl">Coming September 2025</p>
                                     </div>
                                 </div>
                             </div>
@@ -166,8 +175,8 @@ const ExpoSection: FC = () => {
             </div>
 
             {/* Content Side (Now Right) */}
-            <div className="relative z-10 w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 py-20">
-                <div className="max-w-xl ml-auto">
+            <div className="relative z-10 w-full lg:w-2/5 flex flex-col justify-center px-6 lg:px-12 py-16">
+                <div className="max-w-xl mx-auto">
                     <div className="mb-12">
                         <h2 className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                             Join NZ's Premier
