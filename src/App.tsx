@@ -1,5 +1,6 @@
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import HomePage from './components/HomePage'
+import CCNZ from './components/CCNZ/CCNZPage'
 
 import './css/style.css'
 
@@ -9,7 +10,10 @@ const App = () => {
             <div>
                 {/* Main application layout */}
                 <main>
-                    <HomePage />
+                    <Routes>
+                        <Route path="/web-core/" element={<HomePage />} />
+                        <Route path="/web-core/consulting" element={<CCNZ />} />
+                    </Routes>
                 </main>
 
                 {/* Footer could go here */}

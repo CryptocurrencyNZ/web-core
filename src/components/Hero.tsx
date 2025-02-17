@@ -1,59 +1,64 @@
+// components/Hero.tsx
 import { FC } from 'react'
 import Map from './Map'
-import AnimatedGridPattern from './AnimatedGridPattern.tsx'
+import AnimatedGridPattern from './AnimatedGridPattern'
+import { heroUrls } from '../config/config.ts'
+
+interface NavigationButton {
+    href: string
+    label: string
+}
+
+const navigationButtons: NavigationButton[] = [
+    { href: heroUrls.routes.explore, label: 'Get Started' },
+    { href: heroUrls.routes.wallet, label: 'Get a Wallet' },
+    { href: heroUrls.routes.buy, label: 'Buy Crypto' }
+]
 
 const Hero: FC = () => {
+    const getFullUrl = (path: string) => {
+        // If it's an email link or absolute URL, return as is
+        if (path.startsWith('mailto:') || path.startsWith('http')) {
+            return path
+        }
+        // Otherwise, combine base URL with path
+        return `${heroUrls.base}${path}`
+    }
+
     return (
-        <div className="relative h-screen w-full flex flex-col md:flex-row justify-between m-0 p-0">
-            {/* Animated Grid Pattern Background */}
+        <div className="relative w-full flex flex-col lg:flex-row justify-between m-0 p-0">
             <AnimatedGridPattern />
 
-            {/* Left Section */}
-            <div className="w-full md:w-1/2 h-[60vh] md:h-screen flex flex-col justify-center items-center text-center px-8 md:px-[5%] pt-[80px] md:pt-[80px] relative z-10 bg-transparent">
-                <h1 className="alegreya text-4xl md:text-5xl lg:text-6xl mb-5 font-bold leading-tight">
+            <div className="w-full lg:w-1/2 min-h-screen flex flex-col justify-center items-center text-center px-8 md:px-[5%] pt-8 lg:pt-[60px] relative z-10 bg-transparent">
+                <h1 className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 font-bold leading-tight">
                     Welcome to <span className="alegreya text-gray-300">Cryptocurrency</span>
                     <span className="alegreya text-green-500">NZ</span>
                 </h1>
 
-                <p className="text-base md:text-lg lg:text-xl mb-8 text-gray-300">New Zealand Cryptocurrency Community Collective</p>
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300">New Zealand Cryptocurrency Community Collective</p>
 
                 <div className="flex flex-wrap justify-center gap-4 w-full">
-                    <a
-                        href="#explore"
-                        className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
-                     rounded-lg text-white font-medium transition-all duration-300 
-                     hover:border-green-400/70 hover:bg-green-500/10 
-                     hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto"
-                    >
-                        Get Started
-                    </a>
-                    <a
-                        href="#explore"
-                        className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
-                     rounded-lg text-white font-medium transition-all duration-300 
-                     hover:border-green-400/70 hover:bg-green-500/10 
-                     hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto"
-                    >
-                        Get a Wallet
-                    </a>
-                    <a
-                        href="#explore"
-                        className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
-                     rounded-lg text-white font-medium transition-all duration-300 
-                     hover:border-green-400/70 hover:bg-green-500/10 
-                     hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto"
-                    >
-                        Buy Crypto
-                    </a>
+                    {navigationButtons.map((button, index) => (
+                        <a
+                            key={index}
+                            href={getFullUrl(button.href)}
+                            className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
+                                     rounded-lg text-white font-medium transition-all duration-300 
+                                     hover:border-green-400/70 hover:bg-green-500/10 
+                                     hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto"
+                        >
+                            {button.label}
+                        </a>
+                    ))}
                 </div>
 
-                <div className="mt-16">
+                <div className="mt-8 md:mt-16">
                     <p className="text-gray-300">
                         Need help?{' '}
                         <a
-                            href=""
+                            href={heroUrls.routes.contact}
                             className="text-green-400 hover:text-green-300 transition-colors border-b 
-                       border-green-500/30 hover:border-green-400/70"
+                                   border-green-500/30 hover:border-green-400/70"
                         >
                             Contact us
                         </a>
@@ -61,8 +66,7 @@ const Hero: FC = () => {
                 </div>
             </div>
 
-            {/* Right Section */}
-            <div className="w-full md:w-1/2 h-[40vh] md:h-screen flex items-center justify-center relative overflow-visible">
+            <div className="w-full lg:w-1/2 flex items-center justify-center relative overflow-hidden sm:h-[70vh] w-1200 md:h-[75vh] lg:h-screen -mt-20 w-1200 lg:mt-0">
                 <Map />
             </div>
         </div>
