@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Hero from './Hero'
 import SponsorBanner from './SponsorBanner'
 import Gallery from './Gallery'
+import ExpoSection from './ExpoSection'
 import Features from './Features'
 import CCNZSection from './CCNZSection'
 import Contacts from './Contacts'
@@ -16,6 +17,7 @@ const HomePage: React.FC = () => {
             <Hero />
             <SponsorBanner />
             <Gallery />
+            <ExpoSection />
             <Features />
             <CCNZSection />
             <Contacts />

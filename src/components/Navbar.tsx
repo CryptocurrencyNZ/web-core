@@ -64,10 +64,13 @@ const Navbar: FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
+                    <div className="w-16 md:w-20 lg:w-22 pr-2 md:pr-4 h-auto flex items-center justify-center text-gray-600">
+                        <img src="./images/CNZ logo.png" className="w-full h-full text-green-500 ml-2 md:ml-2 lg:ml-4" />
+                    </div>
                     <div className="flex-shrink-0">
                         <h1 className="alegreya font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                            <span className="alegreya text-gray-600">Cryptocurrency</span>
-                            <span className="alegreya text-[rgb(27,97,0)]">NZ</span>
+                            <span className="alegreya text-gray-300">Cryptocurrency</span>
+                            <span className="alegreya text-green-500">NZ</span>
                         </h1>
                     </div>
 

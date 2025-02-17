@@ -52,17 +52,20 @@ const Hero: FC = () => {
                     ))}
                 </div>
 
-                <div className="mt-8 md:mt-16">
-                    <p className="text-gray-300">
-                        Need help?{' '}
-                        <a
-                            href={heroUrls.routes.contact}
-                            className="text-green-400 hover:text-green-300 transition-colors border-b 
-                                   border-green-500/30 hover:border-green-400/70"
-                        >
-                            Contact us
-                        </a>
-                    </p>
+                <div className="flex justify-center w-full">
+                    <a
+                        href={getFullUrl('/contact')}
+                        className="px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 
+                             rounded-lg text-white font-medium transition-all duration-300 
+                             hover:border-green-400 hover:bg-green-500/30 
+                             hover:shadow-[0_0_35px_rgba(74,222,128,0.4)] w-fit md:w-auto
+                             flex items-center gap-2 mt-8"
+                    >
+                        <span>Get Help</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                    </a>
                 </div>
             </div>
 

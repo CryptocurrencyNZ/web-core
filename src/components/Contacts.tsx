@@ -30,7 +30,7 @@ const SocialConnect = () => {
 
                             <h3 className="alegreya text-3xl font-bold text-white">Join Our Discord</h3>
 
-                            <p className="text-gray-300 max-w-md">Connect with the NZ crypto community. Get real-time updates, participate in discussions, and learn from fellow enthusiasts.</p>
+                            <p className="text-gray-300 max-w-md">Connect with the NZ Bitcoin, Ethereum and crypto community. Get real-time updates, participate in discussions, and learn from fellow enthusiasts.</p>
 
                             <a href="#" className="relative group px-8 py-3 bg-transparent overflow-hidden">
                                 <div
@@ -48,9 +48,9 @@ const SocialConnect = () => {
                         <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-green-500/30" />
 
                         <div className="flex flex-col items-center space-y-6">
-                            <h3 className="alegreya text-3xl font-bold text-white">Follow Us</h3>
+                            <h3 className="alegreya text-3xl font-bold text-white">Join Our Mission</h3>
 
-                            <p className="text-gray-300 text-center max-w-md">Stay updated with the latest news, events, and developments in the New Zealand cryptocurrency space.</p>
+                            <p className="text-gray-300 text-center max-w-md">Stay up to date with the latest crypto news, events and developments in the New Zealand cryptocurrency arena.</p>
 
                             {/* Social Icons */}
                             <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
