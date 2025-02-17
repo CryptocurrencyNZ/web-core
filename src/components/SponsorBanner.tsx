@@ -91,9 +91,7 @@ const SponsorBanner = () => {
                             className="relative group bg-white/30 rounded-lg backdrop-blur-sm 
                      border border-green-400/30 hover:border-green-400/70 
                      transition-all duration-300 p-4 hover:shadow-[0_0_25px_rgba(74,222,128,0.4)]
-                     overflow-hidden hover:scale-110 hover:z-10
-                     md:hover:h-auto md:group-hover:h-auto
-                     sm:group-hover:h-80 sm:h-48"
+                     overflow-hidden hover:scale-110 hover:z-10"
                         >
                             {/* Sponsor Logo */}
                             <div className="h-24 flex items-center justify-center">
@@ -103,13 +101,11 @@ const SponsorBanner = () => {
                             {/* Hover Overlay */}
                             <div
                                 className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 
-                          group-focus:opacity-100 group-active:opacity-100
                           transition-all duration-300 flex flex-col items-center justify-center p-6"
                             >
                                 <div
                                     className="transform translate-y-4 group-hover:translate-y-0 
-                              transition-all duration-300 text-center flex flex-col items-center justify-between 
-                              h-full w-full"
+                              transition-all duration-300 text-center flex flex-col items-center w-full"
                                 >
                                     <p className="text-green-100 text-sm mb-4">{sponsor.description}</p>
                                     <a

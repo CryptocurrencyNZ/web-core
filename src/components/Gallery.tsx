@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { Heart, Users, Sparkles, LucideIcon } from 'lucide-react'
+import { Heart, Users, Sparkles } from 'lucide-react'
 
 interface GalleryItem {
     category: string
