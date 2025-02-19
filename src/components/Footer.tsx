@@ -39,7 +39,7 @@ const Footer: FC = () => {
                         </div>
                         <br />
                         <div className="w-1/2 h-auto flex items-center justify-center text-gray-600">
-                            <img src="./images/CNZ logo.png" className="w-full h-full text-green-500 ml-10" />
+                            <img src="./images/CNZ logo.png" className="w-full h-full text-green-500 ml-10 animate-shake" />
                         </div>
                     </div>
 
@@ -158,6 +158,17 @@ const Footer: FC = () => {
                     </div>
                 </div>
             </div>
+            <style>{`
+                @keyframes shake {
+                    0%, 50%, 100% { transform: rotate(0deg); }
+                    5%, 15% { transform: rotate(-5deg); }
+                    10%, 20% { transform: rotate(5deg); }
+                }
+                
+                .animate-shake {
+                    animation: shake 10s ease-in-out infinite;
+                }
+            `}</style>
         </footer>
     )
 }

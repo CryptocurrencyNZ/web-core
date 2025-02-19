@@ -65,7 +65,7 @@ const Navbar: FC = () => {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="w-16 md:w-20 lg:w-22 pr-2 md:pr-4 h-auto flex items-center justify-center text-gray-600">
-                        <img src="./images/CNZ logo.png" className="w-full h-full text-green-500 ml-2 md:ml-2 lg:ml-4" />
+                        <img src="./images/CNZ logo.png" className="w-full h-full text-green-500 ml-2 md:ml-2 lg:ml-4 animate-shake" />
                     </div>
                     <div className="flex-shrink-0">
                         <h1 className="alegreya font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
@@ -194,17 +194,28 @@ const Navbar: FC = () => {
                         className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
                                        hover:bg-green-500/10 transition-colors text-sm sm:text-base"
                     >
-                        About us
+                        About Us
                     </a>
                     <a
                         href={CNZ_URL + 'get-help'}
                         className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
                                        hover:bg-green-500/10 transition-colors text-sm sm:text-base"
                     >
-                        Get help
+                        Get Help
                     </a>
                 </div>
             </div>
+            <style>{`
+             @keyframes shake {
+                    0%, 50%, 100% { transform: rotate(0deg); }
+                    5%, 15% { transform: rotate(-5deg); }
+                    10%, 20% { transform: rotate(5deg); }
+                }
+                
+                .animate-shake {
+                    animation: shake 5s ease-in-out infinite;
+                }
+            `}</style>
         </nav>
     )
 }
