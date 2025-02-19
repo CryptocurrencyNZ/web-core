@@ -28,17 +28,19 @@ const expoFeatures: ExpoFeature[] = [
 
 const ExpoSection: FC = () => {
     return (
-        <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
+      <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
             <AnimatedGridPattern />
 
             {/* Visual Side (Now Left) */}
             <div className="relative w-full lg:w-3/5 min-h-[60vh] lg:min-h-full flex items-center justify-center overflow-hidden">
+              
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-black/50" />
 
                 {/* Hexagon Grid Background */}
                 <div className="absolute inset-0 opacity-20">
                     {[...Array(8)].map((_, i) => (
+
                         <div
                             key={i}
                             className="absolute"
@@ -49,6 +51,7 @@ const ExpoSection: FC = () => {
                             }}
                         >
                             <svg width="120" height="120" viewBox="0 0 100 100">
+
                                 <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-green-500" />
                             </svg>
                         </div>
