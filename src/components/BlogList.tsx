@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom'
 
 const blogs = [
     {
-        title: "Understanding Crypto Wallets",
-        date: "February 19, 2025",
-        authors: ["John Doe"],
-        slug: "understanding-crypto-wallets"
+        title: 'Understanding Crypto Wallets',
+        date: 'February 19, 2025',
+        authors: ['John Doe'],
+        slug: 'understanding-crypto-wallets'
     },
     {
-        title: "How to Buy Bitcoin in NZ",
-        date: "January 10, 2025",
-        authors: ["Jane Smith"],
-        slug: "how-to-buy-bitcoin-nz"
+        title: 'How to Buy Bitcoin in NZ',
+        date: 'January 10, 2025',
+        authors: ['Jane Smith'],
+        slug: 'how-to-buy-bitcoin-nz'
     }
 ]
 

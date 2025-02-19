@@ -28,51 +28,25 @@ const BlogUpload: FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block text-sm mb-1">Title</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="w-full p-2 bg-gray-900 border border-gray-800 rounded"
-                        required
-                    />
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 bg-gray-900 border border-gray-800 rounded" required />
                 </div>
 
                 <div>
                     <label className="block text-sm mb-1">Date</label>
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        className="w-full p-2 bg-gray-900 border border-gray-800 rounded"
-                        required
-                    />
+                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-2 bg-gray-900 border border-gray-800 rounded" required />
                 </div>
 
                 <div>
                     <label className="block text-sm mb-1">Author(s) (comma-separated)</label>
-                    <input
-                        type="text"
-                        value={authors}
-                        onChange={(e) => setAuthors(e.target.value)}
-                        className="w-full p-2 bg-gray-900 border border-gray-800 rounded"
-                        required
-                    />
+                    <input type="text" value={authors} onChange={(e) => setAuthors(e.target.value)} className="w-full p-2 bg-gray-900 border border-gray-800 rounded" required />
                 </div>
 
                 <div>
                     <label className="block text-sm mb-1">Content (HTML allowed)</label>
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className="w-full p-2 bg-gray-900 border border-gray-800 rounded h-40"
-                        required
-                    />
+                    <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full p-2 bg-gray-900 border border-gray-800 rounded h-40" required />
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full bg-green-500 text-black py-2 rounded font-medium hover:bg-green-600 transition"
-                >
+                <button type="submit" className="w-full bg-green-500 text-black py-2 rounded font-medium hover:bg-green-600 transition">
                     Submit Blog Post
                 </button>
             </form>

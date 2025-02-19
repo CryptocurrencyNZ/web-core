@@ -11,10 +11,10 @@ const PageLayout: FC<PageLayoutProps> = ({ children }) => {
         <div className="flex flex-col min-h-screen">
             {/* Header/Navbar */}
             <Navbar />
-            
+
             {/* Main Content */}
             <main className="flex-grow mt-16">{children}</main>
-            
+
             {/* Footer */}
             <Footer />
         </div>

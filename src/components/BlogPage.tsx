@@ -2,12 +2,10 @@ import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
 const sampleBlogs = {
-    "understanding-crypto-wallets": {
-        title: "Understanding Crypto Wallets",
-        date: "February 19, 2025",
-        authors: [
-            { name: "Harry Satoshi", avatar: `${import.meta.env.BASE_URL}images/avatars/Harry.jpeg` }
-        ],
+    'understanding-crypto-wallets': {
+        title: 'Understanding Crypto Wallets',
+        date: 'February 19, 2025',
+        authors: [{ name: 'Harry Satoshi', avatar: `${import.meta.env.BASE_URL}images/avatars/Harry.jpeg` }],
         coverImage: `${import.meta.env.BASE_URL}images/BlogPlaceHolder.webp`,
         content: `
             <p>Crypto wallets are essential tools for managing your digital assets. A wallet allows you to store, send, and receive cryptocurrencies securely.</p>
@@ -31,10 +29,7 @@ const BlogPage: FC = () => {
     return (
         <div className="w-full bg-black text-gray-300">
             {/* Hero Section with Background Image */}
-            <div
-                className="relative w-full h-[35vh] flex items-center justify-center text-center bg-cover bg-center"
-                style={{ backgroundImage: `url(${blog.coverImage})` }}
-            >
+            <div className="relative w-full h-[35vh] flex items-center justify-center text-center bg-cover bg-center" style={{ backgroundImage: `url(${blog.coverImage})` }}>
                 <div className="absolute inset-0 bg-black/60" /> {/* Dark overlay */}
                 <div className="relative z-10">
                     <h1 className="text-4xl sm:text-5xl font-bold text-white">{blog.title}</h1>
@@ -44,11 +39,7 @@ const BlogPage: FC = () => {
                     <div className="flex justify-center items-center mt-4 gap-4">
                         {blog.authors.map((author, index) => (
                             <div key={index} className="flex items-center gap-3">
-                                <img
-                                    src={author.avatar}
-                                    alt={author.name}
-                                    className="w-12 h-12 rounded-full border border-gray-500"
-                                />
+                                <img src={author.avatar} alt={author.name} className="w-12 h-12 rounded-full border border-gray-500" />
                                 <span className="text-white text-lg">{author.name}</span>
                             </div>
                         ))}
