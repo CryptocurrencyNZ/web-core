@@ -4,6 +4,7 @@ interface CryptoTopic {
     description: string
     keyPoint: string
     keyLabel: string
+    url: string // Added URL property
 }
 
 const CryptoIntro = () => {
@@ -11,30 +12,34 @@ const CryptoIntro = () => {
         {
             icon: '🔒',
             title: 'What is Cryptocurrency?',
-            description: 'Digital or virtual currency that uses cryptography for security. It operates on blockchain technology, making it decentralized and transparent.',
-            keyPoint: 'Decentralized',
-            keyLabel: 'Key Feature'
+            description: 'A revolutionary virtual asset class that uses military grade cryptography for security. They operate on blockchain technology, making them decentralized and transparent',
+            keyPoint: 'Read More',
+            keyLabel: 'Decentralized',
+            url: '/crypto-guide' // Replace with your actual URL
         },
         {
             icon: '💼',
             title: 'Digital Wallets',
-            description: 'Secure digital tools that allow you to store, send, and receive cryptocurrencies. Think of it as your digital bank account for crypto.',
-            keyPoint: 'Secure',
-            keyLabel: 'Priority'
+            description: 'Secure digital vaults that allow you to store, send and receive cryptocurrencies. Think of it as your soverign digital bank account for crypto.',
+            keyPoint: 'Recommended Wallets',
+            keyLabel: '',
+            url: '/wallets' // Replace with your actual URL
         },
         {
             icon: '🤝',
             title: 'Peer-to-Peer (P2P)',
-            description: 'Direct transactions between users without intermediaries. P2P trading allows for more control and often better rates.',
-            keyPoint: 'Direct',
-            keyLabel: 'Trading Style'
+            description: 'Crypto allows direct directions without users without intermediaries. P2P trading allows for more control and higher privacy.',
+            keyPoint: 'P2P Marketplace',
+            keyLabel: '',
+            url: '/p2p-trading' // Replace with your actual URL
         },
         {
             icon: '🌱',
             title: 'Community & Growth',
-            description: 'Join a growing community of crypto enthusiasts in NZ. Learn, share, and grow together in the digital economy.',
+            description: 'Join our growing community of crypto enthusiasts in NZ. Learn, share, enterprise, and grow together New Zealands digial economy.',
             keyPoint: 'Growing',
-            keyLabel: 'NZ Network'
+            keyLabel: 'NZ Network',
+            url: '/community' // Replace with your actual URL
         }
     ]
 
@@ -76,9 +81,15 @@ const CryptoIntro = () => {
                                 {/* Description */}
                                 <p className="text-gray-300 text-sm mb-4">{topic.description}</p>
 
-                                {/* Key Point */}
+                                {/* Key Point with Link */}
                                 <div className="flex items-center gap-2 text-sm">
-                                    <span className="px-3 py-1 rounded-full bg-green-400/10 text-green-300 font-medium">{topic.keyPoint}</span>
+                                    <a
+                                        href={topic.url}
+                                        className="px-3 py-1 rounded-full bg-green-400/10 text-green-300 font-medium
+                                                 hover:bg-green-400/20 transition-colors cursor-pointer"
+                                    >
+                                        {topic.keyPoint}
+                                    </a>
                                     <span className="text-gray-400">{topic.keyLabel}</span>
                                 </div>
                             </div>
@@ -91,13 +102,6 @@ const CryptoIntro = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Call to Action 
-                <div className="text-center mt-8">
-                    <p className="text-green-100 text-sm">
-                        Ready to start your crypto journey? Explore our resources or join our community.
-                    </p>
-                </div>*/}
             </div>
 
             {/* Decorative lines */}
