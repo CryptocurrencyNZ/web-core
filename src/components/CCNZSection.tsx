@@ -50,12 +50,14 @@ const ConsultingSection: FC = () => {
                                 <span className="alegreya text-green-500 block mt-2">Crypto Guidance?</span>
                             </h2>
                             {/* Logo next to title */}
-                            <div
-                                className="w-32 h-32 bg-black/80 rounded-3xl p-6 backdrop-blur-xl
+                            <div className="overflow">
+                                <div
+                                    className="w-24 h-24 md:w-32 md:h-32 bg-black/80 rounded-3xl p-6 backdrop-blur-xl
                                           border border-green-500/30 shadow-[0_0_50px_rgba(74,222,128,0.3)]
                                           transform hover:scale-105 transition-transform duration-500"
-                            >
-                                <img src="./images/Crypto-Consulting-NZ.png" alt="Crypto Consulting NZ Logo" className="w-full h-full text-green-500" />
+                                >
+                                    <img src="./images/Crypto-Consulting-NZ.png" alt="Crypto Consulting NZ Logo" className="w-full h-full text-green-500" />
+                                </div>
                             </div>
                         </div>
                         <p className="text-gray-300 text-lg mt-6">Expert cryptocurrency consulting services designed specifically for New Zealand investors</p>
@@ -106,15 +108,7 @@ const ConsultingSection: FC = () => {
 
             {/* Background Image */}
             <div className="absolute inset-0 w-full h-full -z-10">
-                <div
-                    className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
-                    style={{
-                        backgroundImage: `url(${backgroundImages[currentImageIndex]})`,
-                        backgroundSize: '90%',
-                        backgroundPosition: 'right center',
-                        backgroundRepeat: 'no-repeat'
-                    }}
-                >
+                <div className={`absolute bg-cover inset-0 bg-center transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`} style={{ backgroundImage: `url(${backgroundImages[currentImageIndex]})` }}>
                     <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
                     <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-black/30" />
                 </div>
