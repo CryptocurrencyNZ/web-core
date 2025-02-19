@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Hero from './Hero'
 import SponsorBanner from './SponsorBanner'
 import Gallery from './Gallery'
+import RotatingContainer from './RotatingContainer.tsx'
 import ExpoSection from './ExpoSection'
 import Features from './Features'
 import CCNZSection from './CCNZSection'
@@ -17,9 +18,11 @@ const HomePage: React.FC = () => {
             <Hero />
             <SponsorBanner />
             <Gallery />
-            <ExpoSection />
+            <RotatingContainer interval={15000}>
+                <CCNZSection />
+                <ExpoSection />
+            </RotatingContainer>
             <Features />
-            <CCNZSection />
             <Contacts />
             <Footer />
         </div>

@@ -33,7 +33,7 @@ const ConsultingSection: FC = () => {
                 setCurrentImageIndex((prevIndex) => (prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1))
                 setIsTransitioning(false)
             }, 500)
-        }, 5000)
+        }, 4000)
 
         return () => clearInterval(timer)
     }, [])

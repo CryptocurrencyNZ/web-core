@@ -54,7 +54,7 @@ const Hero: FC = () => {
 
                 <div className="flex justify-center w-full">
                     <a
-                        href={getFullUrl('/contact')}
+                        href={'https://cryptoconsulting.nz/'}
                         className="px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 
                              rounded-lg text-white font-medium transition-all duration-300 
                              hover:border-green-400 hover:bg-green-500/30 

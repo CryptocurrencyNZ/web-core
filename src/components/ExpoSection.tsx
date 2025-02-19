@@ -76,7 +76,7 @@ const ExpoSection: FC = () => {
                     <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
-                            backgroundImage: 'url(./images/expo2024.jpg)',
+                            backgroundImage: 'url(./images/auckland.jpg)',
                             height: '85vh'
                         }}
                     >
@@ -154,7 +154,7 @@ const ExpoSection: FC = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-xl">Auckland Convention Centre</p>
+                                        <p className="text-xl">Coming Soon</p>
                                     </div>
                                     <div
                                         className="flex items-center gap-4 text-gray-300 group-hover:text-gray-200 
