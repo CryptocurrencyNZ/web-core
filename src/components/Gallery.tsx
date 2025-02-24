@@ -236,6 +236,20 @@ const Gallery: FC = () => {
                                     <Sparkles className="w-5 h-5 text-green-400" />
                                     <span className="text-white font-semibold">Start Your Own Meetup</span>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Action Buttons and Stats Container */}
+                    <div className="lg:w-1/3 flex flex-col justify-start gap-6 lg:pl-8">
+                        {/* Support Us Button */}
+                        <button className="group relative w-full overflow-hidden rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-[1px] transition-all duration-300 hover:from-green-400 hover:to-green-500 hover:shadow-[0_0_35px_rgba(74,222,128,0.5)]">
+                            <div className="relative bg-black/90 backdrop-blur-xl px-8 py-4 rounded-lg transition-all duration-300 group-hover:bg-black/80">
+                                <div className="flex items-center justify-center gap-3">
+                                    <Heart className="w-5 h-5 text-green-400" />
+                                    <span className="text-white font-semibold">Support Us</span>
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-green-300/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
                         </button>
 
