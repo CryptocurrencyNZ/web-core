@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import { FC, useState, useEffect } from 'react'
 import AnimatedGridPattern from '../AnimatedGridPattern'
 import '../../css/global.css'
+import Navbar from '../Navbar'
 
 interface NavigationButton {
     href: string
@@ -25,9 +26,34 @@ const statistics: Statistic[] = [
     { value: '24/7', label: 'Support Available' }
 ]
 
+const backgroundImages = ['./images/CCNZ-bg.png', './images/harry.png', './images/expo2024.jpg']
+
 const ConsultingHero: FC = () => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0)
+    const [isTransitioning, setIsTransitioning] = useState(false)
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIsTransitioning(true)
+            setTimeout(() => {
+                setCurrentImageIndex((prevIndex) => (prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1))
+                setIsTransitioning(false)
+            }, 500)
+        }, 4000)
+
+        return () => clearInterval(timer)
+    }, [])
+
+    const imageStyle = {
+        backgroundImage: `url(${backgroundImages[currentImageIndex]})`,
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+    }
+
     return (
         <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
+            <Navbar />
             <AnimatedGridPattern />
 
             {/* Left Content Side */}
@@ -39,7 +65,7 @@ const ConsultingHero: FC = () => {
                             className="inline-block bg-black/80 rounded-xl p-4 backdrop-blur-xl
                                       border border-green-500/30 shadow-[0_0_30px_rgba(74,222,128,0.2)]"
                         >
-                            <img src="./../images/Crypto-Consulting-NZ.png" className="w-8 h-8 text-green-500" />
+                            <img src="./images/Crypto-Consulting-NZ.png" className="w-8 h-8 text-green-500" alt="Logo" />
                         </div>
                     </div>
 
@@ -73,7 +99,7 @@ const ConsultingHero: FC = () => {
                             <div
                                 key={index}
                                 className="text-center p-4 bg-black/40 backdrop-blur-sm 
-                                                      rounded-lg border border-green-500/30"
+                                          rounded-lg border border-green-500/30"
                             >
                                 <p className="text-2xl font-bold text-green-400">{stat.value}</p>
                                 <p className="text-sm text-gray-300">{stat.label}</p>
@@ -83,10 +109,13 @@ const ConsultingHero: FC = () => {
                 </div>
             </div>
 
-            {/* Right Visual Side */}
-            <div className="relative w-full lg:w-1/2 min-h-[50vh] lg:min-h-full flex items-center justify-center overflow-hidden">
+            {/* Right Visual Side with Carousel */}
+            <div className="relative w-full lg:w-3/5 min-h-[50vh] lg:min-h-full flex items-center justify-center overflow-hidden">
                 {/* Background Elements */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-black/50" />
+                <div className="absolute inset-0">
+                    <div className={`absolute inset-0 transition-opacity duration-1000 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`} style={imageStyle} />
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-black/50" />
+                </div>
 
                 {/* Animated Decorative Elements */}
                 <div className="absolute inset-0">
@@ -112,46 +141,6 @@ const ConsultingHero: FC = () => {
                                 }}
                             />
                         ))}
-                    </div>
-                </div>
-
-                {/* Main Visual Element */}
-                <div className="relative z-10 p-8">
-                    <div className="relative group">
-                        <div
-                            className="absolute -inset-1 bg-gradient-to-r from-green-500 to-green-300 
-                                      rounded-2xl blur opacity-50 group-hover:opacity-75 transition duration-1000"
-                        ></div>
-                        <div
-                            className="relative bg-black/90 backdrop-blur-xl p-8 rounded-2xl 
-                                      border border-green-500/30 max-w-md"
-                        >
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                                    <svg viewBox="0 0 24 24" className="w-6 h-6 text-green-500">
-                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5h-2v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.32-3.42z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-semibold text-white">Professional Guidance</h3>
-                                    <p className="text-gray-400">Expert crypto consultation</p>
-                                </div>
-                            </div>
-                            <ul className="space-y-3 text-gray-300">
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    Personalized Investment Strategies
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    NZ Regulatory Compliance
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                                    24/7 Expert Support
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

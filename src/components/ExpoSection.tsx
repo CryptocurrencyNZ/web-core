@@ -208,7 +208,7 @@ const ExpoSection: FC = () => {
 
                     <div className="flex flex-col sm:flex-row items-start gap-6">
                         <a
-                            href="/expo/register"
+                            href="/web-core/expo"
                             className="group px-8 py-4 bg-green-500 text-black font-semibold
                                      rounded-lg transition-all duration-300 
                                      hover:bg-green-400 hover:shadow-[0_0_35px_rgba(74,222,128,0.5)]
