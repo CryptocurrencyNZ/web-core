@@ -28,19 +28,17 @@ const expoFeatures: ExpoFeature[] = [
 
 const ExpoSection: FC = () => {
     return (
-      <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
+        <div className="relative w-full min-h-screen flex flex-col lg:flex-row items-stretch">
             <AnimatedGridPattern />
 
             {/* Visual Side (Now Left) */}
             <div className="relative w-full lg:w-3/5 min-h-[60vh] lg:min-h-full flex items-center justify-center overflow-hidden">
-              
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-black/50" />
 
                 {/* Hexagon Grid Background */}
                 <div className="absolute inset-0 opacity-20">
                     {[...Array(8)].map((_, i) => (
-
                         <div
                             key={i}
                             className="absolute"
@@ -51,7 +49,6 @@ const ExpoSection: FC = () => {
                             }}
                         >
                             <svg width="120" height="120" viewBox="0 0 100 100">
-
                                 <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-green-500" />
                             </svg>
                         </div>
@@ -79,7 +76,7 @@ const ExpoSection: FC = () => {
                     <div
                         className="absolute inset-0 bg-cover bg-center"
                         style={{
-                            backgroundImage: 'url(./images/expo2024.jpg)',
+                            backgroundImage: 'url(./images/auckland.jpg)',
                             height: '85vh'
                         }}
                     >
@@ -157,7 +154,7 @@ const ExpoSection: FC = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-xl">Auckland Convention Centre</p>
+                                        <p className="text-xl">Coming Soon</p>
                                     </div>
                                     <div
                                         className="flex items-center gap-4 text-gray-300 group-hover:text-gray-200 
@@ -211,7 +208,7 @@ const ExpoSection: FC = () => {
 
                     <div className="flex flex-col sm:flex-row items-start gap-6">
                         <a
-                            href="/expo/register"
+                            href="/web-core/expo"
                             className="group px-8 py-4 bg-green-500 text-black font-semibold
                                      rounded-lg transition-all duration-300 
                                      hover:bg-green-400 hover:shadow-[0_0_35px_rgba(74,222,128,0.5)]
