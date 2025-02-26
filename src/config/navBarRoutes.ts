@@ -1,4 +1,4 @@
-import { CNZ_URL } from './config'
+const CNZ_URL = 'https://cryptocurrency.org.nz'
 
 interface DropdownItem {
     icon: string
@@ -30,7 +30,7 @@ export const navigation: NavItem[] = [
     {
         type: 'link',
         text: 'DAO',
-        path: '/dao2'
+        path: '/guides/daos/'
     },
     {
         type: 'link',
@@ -40,7 +40,7 @@ export const navigation: NavItem[] = [
     {
         type: 'link',
         text: 'Buy Crypto',
-        path: '/buy-crypto'
+        path: '/buy-cryptocurrency-nz/'
     },
     {
         type: 'dropdown',
@@ -53,13 +53,13 @@ export const navigation: NavItem[] = [
                         icon: '📊',
                         title: 'How to Buy',
                         description: 'Learn the basics of buying crypto',
-                        path: '/how-to-buy'
+                        path: '/buy-cryptocurrency-nz/'
                     },
                     {
                         icon: '💹',
                         title: 'How to Sell',
                         description: 'Master the selling process',
-                        path: '/how-to-sell'
+                        path: '/sell-cryptocurrency-nz/'
                     }
                 ]
             },
@@ -70,7 +70,13 @@ export const navigation: NavItem[] = [
                         icon: '💼',
                         title: 'Crypto Mining',
                         description: 'Understand mining basics',
-                        path: '/crypto-mining'
+                        path: '/guides/crypto-atms-nz/'
+                    },
+                    {
+                        icon: '⛏️',
+                        title: 'Crypto Mining',
+                        description: 'Understand mining basics',
+                        path: '/guides/crypto-mining-nz/'
                     }
                 ]
             }
@@ -87,7 +93,7 @@ export const navigation: NavItem[] = [
                         icon: '🎯',
                         title: 'Upcoming Events',
                         description: 'Join our next meetup',
-                        path: '/events'
+                        path: '/meetups'
                     }
                 ]
             },
@@ -98,7 +104,7 @@ export const navigation: NavItem[] = [
                         icon: '👥',
                         title: 'Join Discord',
                         description: 'Connect with the community',
-                        path: '/join-discord'
+                        path: '/discord'
                     }
                 ]
             }

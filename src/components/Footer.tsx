@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Twitter, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react'
+import { Twitter, Facebook, Instagram, Linkedin, Mail, MapPin } from 'lucide-react'
 
 const Footer: FC = () => {
     const currentYear = new Date().getFullYear()
@@ -74,7 +74,7 @@ const Footer: FC = () => {
                         <div>
                             <h3 className="text-white font-bold text-lg mb-4">Regions</h3>
                             <ul className="space-y-2">
-                                {['Auckland', 'Wellington', 'Christchurch', 'Other Regions'].map((item) => (
+                                {['North Island', 'South Island', 'Stewart Island', 'Antarctica'].map((item) => (
                                     <li key={item}>
                                         <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">
                                             {item}
@@ -85,7 +85,7 @@ const Footer: FC = () => {
 
                             <h3 className="text-white font-bold text-lg mt-6 mb-4">Community</h3>
                             <ul className="space-y-2">
-                                {['Events', 'Forums', 'Discord', 'Telegram', 'Meetups', 'Partners', 'Success Stories'].map((item) => (
+                                {['Events', 'Forums', 'Discord', 'Meetups', 'Partners'].map((item) => (
                                     <li key={item}>
                                         <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">
                                             {item}
@@ -104,15 +104,11 @@ const Footer: FC = () => {
                             <ul className="space-y-3">
                                 <li className="flex items-center gap-2 text-gray-400 text-sm">
                                     <MapPin size={16} className="text-green-400" />
-                                    Auckland, New Zealand
+                                    Christchurch, New Zealand + 10 locations
                                 </li>
                                 <li className="flex items-center gap-2 text-gray-400 text-sm">
                                     <Mail size={16} className="text-green-400" />
-                                    info@cryptocurrencynz.com
-                                </li>
-                                <li className="flex items-center gap-2 text-gray-400 text-sm">
-                                    <Phone size={16} className="text-green-400" />
-                                    +64 XXX XXXX
+                                    contact@cryptocurrency.org.nz
                                 </li>
                             </ul>
                             <div className="w-full h-full flex items-center justify-center text-gray-600">
