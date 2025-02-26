@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 interface Sponsor {
     name: string
     image: string
@@ -6,7 +8,16 @@ interface Sponsor {
 }
 
 const SponsorBanner = () => {
+    // State to track which sponsor card is currently active (tapped)
+    const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null)
+
     const sponsors: Sponsor[] = [
+        {
+            name: 'Easy Crypto',
+            image: './images/easy-crypto-NZ-logo.png',
+            description: 'New Zealands trusted cryptocurrency retail platform for buying and selling cryptocurrency.',
+            website: 'https://easycrypto.com'
+        },
         {
             name: 'Blockchain NZ',
             image: './images/Blockchain-NZ-logo-removebg-preview.png',
@@ -14,10 +25,22 @@ const SponsorBanner = () => {
             website: 'https://blockchain.org.nz'
         },
         {
-            name: 'CoinFlip',
-            image: './images/CoinFlip_Logo-2048x1074-removebg-preview.png',
-            description: 'Leading Bitcoin ATM operator making crypto accessible to everyone.',
-            website: 'https://coinflip.tech'
+            name: 'Binance NZ',
+            image: './images/nz-l-1.png',
+            description: 'Supporting blockchain and digital asset initiatives across New Zealand.',
+            website: 'https://www.binance.com/en-NZ'
+        },
+        {
+            name: 'PIN Token',
+            image: './images/PIN-logo.png',
+            description: 'Innovative token project focused on community engagement and sustainability.',
+            website: 'https://payitnow.io/'
+        },
+        {
+            name: 'Web3NZ',
+            image: './images/Web3NZ_BlackColour-1024x209.png',
+            description: 'Advancing Web3 adoption and innovation across New Zealand.',
+            website: 'https://web3nz.xyz/'
         },
         {
             name: 'Crypto Consulting',
@@ -26,16 +49,16 @@ const SponsorBanner = () => {
             website: 'https://cryptoconsulting.co.nz'
         },
         {
-            name: 'Crypto Soc UC',
+            name: 'UC CryptoSoc DAO',
             image: './images/Crypto-Soc-UC-removebg-preview.png',
             description: 'University of Canterburys student-led cryptocurrency and blockchain society.',
             website: 'https://ucsa.org.nz/clubs/crypto-soc-uc'
         },
         {
-            name: 'Easy Crypto',
-            image: './images/easy-crypto-NZ-logo.png',
-            description: 'New Zealands trusted cryptocurrency retail platform for buying and selling digital assets.',
-            website: 'https://easycrypto.com'
+            name: 'CoinFlip',
+            image: './images/CoinFlip_Logo-2048x1074-removebg-preview.png',
+            description: 'Leading Bitcoin ATM operator making crypto accessible to everyone.',
+            website: 'https://coinflip.tech'
         },
         {
             name: 'Koura Wealth',
@@ -44,36 +67,29 @@ const SponsorBanner = () => {
             website: 'https://kourawealth.co.nz'
         },
         {
-            name: 'Logo Large',
+            name: 'Axia Labs',
             image: './images/logoLarge-1-2048x721.png',
             description: 'Building innovative blockchain solutions for the future.',
-            website: 'https://logolarge.co.nz'
-        },
-        {
-            name: 'NZ',
-            image: './images/nz-l-1.png',
-            description: 'Supporting blockchain and digital asset initiatives across New Zealand.',
-            website: 'https://nz.org'
+            website: 'https://axialabs.org/'
         },
         {
             name: 'Pest Free Token',
             image: './images/Pest-Free-Token-NZ-Logo.png',
             description: 'Leveraging blockchain technology to support New Zealands pest-free initiative.',
-            website: 'https://pestfreetoken.org'
-        },
-        {
-            name: 'PIN Token',
-            image: './images/PIN-TOKEN-NZ-Logo-1024x291.png',
-            description: 'Innovative token project focused on community engagement and sustainability.',
-            website: 'https://pintoken.nz'
-        },
-        {
-            name: 'Web3NZ',
-            image: './images/Web3NZ_BlackColour-1024x209.png',
-            description: 'Advancing Web3 adoption and innovation across New Zealand.',
-            website: 'https://web3.nz'
+            website: 'https://pestfreetoken.co.nz/'
         }
     ]
+
+    // Toggle card active state on tap/click
+    const handleCardClick = (index: number) => {
+        if (activeCardIndex === index) {
+            // If tapping the same card, deactivate it
+            setActiveCardIndex(null)
+        } else {
+            // Otherwise activate the tapped card
+            setActiveCardIndex(index)
+        }
+    }
 
     return (
         <section className="relative py-12 px-4">
@@ -88,24 +104,29 @@ const SponsorBanner = () => {
                     {sponsors.map((sponsor, index) => (
                         <div
                             key={index}
-                            className="relative group bg-white/30 rounded-lg backdrop-blur-sm 
-                     border border-green-400/30 hover:border-green-400/70 
-                     transition-all duration-300 p-4 hover:shadow-[0_0_25px_rgba(74,222,128,0.4)]
-                     overflow-hidden hover:scale-110 hover:z-10"
+                            onClick={() => handleCardClick(index)}
+                            className={`relative ${activeCardIndex === index ? 'md:hover:scale-110 scale-110 h-auto' : 'h-auto'} 
+                            group bg-white/30 rounded-lg backdrop-blur-sm 
+                            border border-green-400/30 hover:border-green-400/70 
+                            transition-all duration-300 p-4 hover:shadow-[0_0_25px_rgba(74,222,128,0.4)]
+                            overflow-hidden md:hover:scale-110 md:hover:z-10 cursor-pointer
+                            ${activeCardIndex === index ? 'shadow-[0_0_25px_rgba(74,222,128,0.4)] z-10 md:scale-100' : ''}
+                            ${activeCardIndex === index ? 'sm:h-auto' : 'sm:h-auto'}`}
                         >
                             {/* Sponsor Logo */}
-                            <div className="h-24 flex items-center justify-center">
+                            <div className={`flex items-center justify-center ${activeCardIndex === index ? 'h-40 sm:h-32' : 'h-24'}`}>
                                 <img src={sponsor.image} alt={sponsor.name} className="max-w-full max-h-full object-contain" />
                             </div>
 
-                            {/* Hover Overlay */}
+                            {/* Overlay - visible on hover for desktop and on tap for mobile */}
                             <div
-                                className="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 
-                          transition-all duration-300 flex flex-col items-center justify-center p-6"
+                                className={`absolute inset-0 bg-black/90 
+                                ${activeCardIndex === index ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'} 
+                                transition-all duration-300 flex flex-col items-center justify-center p-6`}
                             >
                                 <div
-                                    className="transform translate-y-4 group-hover:translate-y-0 
-                              transition-all duration-300 text-center flex flex-col items-center w-full"
+                                    className={`transform ${activeCardIndex === index ? 'translate-y-0' : 'translate-y-4 md:group-hover:translate-y-0'} 
+                                    transition-all duration-300 text-center flex flex-col items-center w-full`}
                                 >
                                     <p className="text-green-100 text-sm mb-4">{sponsor.description}</p>
                                     <a
@@ -113,8 +134,9 @@ const SponsorBanner = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-1 
-                                 bg-green-500 text-white rounded-lg 
-                                 hover:bg-green-600 transition-colors w-3/4 justify-center"
+                                        bg-green-500 text-white rounded-lg 
+                                        hover:bg-green-600 transition-colors w-3/4 justify-center"
+                                        onClick={(e) => e.stopPropagation()}
                                     >
                                         Visit Website
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

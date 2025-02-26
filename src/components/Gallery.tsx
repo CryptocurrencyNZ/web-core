@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, TouchEvent, MouseEvent } from 'react'
+import { FC, useState, useEffect, useRef } from 'react'
 import { Heart, Users, Sparkles, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 
 interface GalleryItem {
@@ -49,35 +49,70 @@ const StatBox: FC<StatBoxProps> = ({ icon, label, value }) => (
 )
 
 const VideoSection: FC = () => {
-    const [isPlaying, setIsPlaying] = useState(true)
+    const [isPlaying, setIsPlaying] = useState(false)
+    const videoRef = useRef<HTMLVideoElement>(null)
+    const buttonRef = useRef<HTMLButtonElement>(null)
 
-    const togglePlay = () => {
-        const video = document.querySelector('video')
-        if (video) {
-            if (isPlaying) {
-                video.pause()
-            } else {
-                video.play()
+    // Use a completely different approach for mobile
+    useEffect(() => {
+        const playPauseVideo = () => {
+            if (videoRef.current) {
+                if (isPlaying) {
+                    videoRef.current.pause()
+                    setIsPlaying(false)
+                } else {
+                    videoRef.current
+                        .play()
+                        .then(() => setIsPlaying(true))
+                        .catch((err) => console.error('Error playing video:', err))
+                }
             }
-            setIsPlaying(!isPlaying)
         }
-    }
 
-    const handleVideoClick = (e: MouseEvent | TouchEvent) => {
-        e.preventDefault()
-        togglePlay()
-    }
+        const button = buttonRef.current
+        if (button) {
+            // Remove any existing listeners to prevent duplicates
+            button.removeEventListener('click', playPauseVideo)
+
+            // Add a simple click handler - this works better on mobile
+            button.addEventListener('click', playPauseVideo)
+
+            // If video ends, reset state
+            if (videoRef.current) {
+                videoRef.current.onended = () => setIsPlaying(false)
+            }
+        }
+
+        return () => {
+            if (button) {
+                button.removeEventListener('click', playPauseVideo)
+            }
+        }
+    }, [isPlaying])
 
     return (
         <div className="relative w-full h-96 mb-12 rounded-xl overflow-hidden">
-            <video className="w-full h-full object-contain bg-black rounded-xl" autoPlay playsInline onClick={handleVideoClick} onTouchEnd={handleVideoClick}>
+            <video
+                ref={videoRef}
+                className="w-full h-full object-contain bg-black rounded-xl"
+                playsInline
+                // autoPlay removed to prevent auto-playing
+            >
                 <source src="./nic.mp4" type="video/mp4" />
             </video>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
             <div className="absolute bottom-6 right-6 flex items-center gap-4">
-                <button onClick={handleVideoClick} onTouchEnd={handleVideoClick} className="p-4 rounded-full bg-green-500 text-white hover:bg-green-400 transition-colors touch-manipulation" aria-label={isPlaying ? 'Pause video' : 'Play video'}>
+                <button
+                    ref={buttonRef}
+                    className="p-4 rounded-full bg-green-500 text-white hover:bg-green-400 transition-colors cursor-pointer touch-auto"
+                    aria-label={isPlaying ? 'Pause video' : 'Play video'}
+                    style={{
+                        WebkitTapHighlightColor: 'transparent',
+                        zIndex: 50 // Ensure it's above everything else
+                    }}
+                >
                     {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
                 </button>
             </div>
@@ -96,11 +131,12 @@ const ImageCarousel: FC<{ items: GalleryItem[] }> = ({ items }) => {
     const [touchStart, setTouchStart] = useState<number | null>(null)
     const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
-    const handleTouchStart = (e: TouchEvent) => {
+    // Updated touch event handlers with proper React types
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         setTouchStart(e.targetTouches[0].clientX)
     }
 
-    const handleTouchMove = (e: TouchEvent) => {
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
         setTouchEnd(e.targetTouches[0].clientX)
     }
 
@@ -143,7 +179,7 @@ const ImageCarousel: FC<{ items: GalleryItem[] }> = ({ items }) => {
     }, [currentIndex])
 
     return (
-        <div className="relative h-96 w-full overflow-hidden rounded-lg touch-manipulation" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+        <div className="relative h-96 w-full overflow-hidden rounded-lg" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} style={{ touchAction: 'manipulation' }}>
             <div className="absolute inset-0 flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {items.map((item, index) => (
                     <div key={index} className="relative min-w-full h-full">
@@ -158,10 +194,10 @@ const ImageCarousel: FC<{ items: GalleryItem[] }> = ({ items }) => {
                 ))}
             </div>
 
-            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors touch-manipulation" aria-label="Previous slide">
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors" aria-label="Previous slide" style={{ touchAction: 'manipulation' }}>
                 <ChevronLeft className="w-8 h-8" />
             </button>
-            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors touch-manipulation" aria-label="Next slide">
+            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors" aria-label="Next slide" style={{ touchAction: 'manipulation' }}>
                 <ChevronRight className="w-8 h-8" />
             </button>
 
@@ -179,25 +215,25 @@ const Gallery: FC = () => {
         {
             category: 'Christchurch',
             title: 'Christchurch Meetup',
-            description: 'Secure, high-performance trading platforms',
+            description: 'August 2024',
             image: './images/Chch.jpg'
         },
         {
-            category: 'Hawkes Bay',
-            title: 'Hawkes Bay Meetup',
-            description: 'Sustainable blockchain infrastructure',
+            category: 'Auckland',
+            title: 'Auckland Meetup',
+            description: 'September 2024',
             image: './images/hawkes bay.jpeg'
         },
         {
             category: 'Hawkes Bay',
             title: 'Hawkes Bay Meetup',
-            description: 'Cutting-edge distributed ledger technologies',
+            description: 'August 2024',
             image: './images/hawkes bay 2.jpeg'
         },
         {
             category: 'Tauranga',
             title: 'Tauranga Meetup',
-            description: 'Nurturing next-generation crypto entrepreneurs',
+            description: 'October 2024',
             image: './images/tauranga.jpg'
         }
     ]
@@ -234,7 +270,7 @@ const Gallery: FC = () => {
                             <div className="relative bg-black/90 backdrop-blur-xl px-8 py-4 rounded-lg transition-all duration-300 group-hover:bg-black/80">
                                 <div className="flex items-center justify-center gap-3">
                                     <Sparkles className="w-5 h-5 text-green-400" />
-                                    <span className="text-white font-semibold">Start Your Own Meetup</span>
+                                    <span className="text-white font-semibold">Host A Meetup</span>
                                 </div>
                             </div>
                         </button>
@@ -249,8 +285,8 @@ const Gallery: FC = () => {
                         </button>
 
                         <div className="grid grid-cols-3 gap-4 mt-4">
-                            <StatBox icon={<Users className="w-6 h-6 text-green-400 mb-2" />} label="Total Attendees" value={1234} />
-                            <StatBox icon={<Sparkles className="w-6 h-6 text-green-400 mb-2" />} label="Total Events" value={126} />
+                            <StatBox icon={<Users className="w-6 h-6 text-green-400 mb-2" />} label="Total Attendees" value={5247} />
+                            <StatBox icon={<Sparkles className="w-6 h-6 text-green-400 mb-2" />} label="Total Events" value={452} />
                             <StatBox icon={<Heart className="w-6 h-6 text-green-400 mb-2" />} label="Sponsorships" value={11} />
                         </div>
                     </div>
