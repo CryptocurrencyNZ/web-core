@@ -1,4 +1,4 @@
-export const CNZ_URL = 'https://cryptocurrency.org.nz'
+export const CNZ_URL = 'https://cryptocurrency.org.nz/'
 
 export const heroUrls = {
     base: CNZ_URL,

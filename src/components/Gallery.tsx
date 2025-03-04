@@ -239,7 +239,7 @@ const Gallery: FC = () => {
     ]
 
     return (
-        <section className="min-h-screen bg-black py-8">
+        <section className="min-h-screen inset-0 bg-gradient-to-b from-black via-green-400/20 to-black to-black py-8">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="max-w-4xl mx-auto mb-12">
                     <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-2 text-white">Cryptocurrency NZ Monthly Meetups</h2>

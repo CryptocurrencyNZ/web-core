@@ -14,7 +14,7 @@ const AnimatedGridPattern = () => {
                             top: `${(i + 1) * 5}%`,
                             animation: `slideLeft ${2 + (i % 2)}s linear infinite`,
                             opacity: 0.15 - i * 0.004,
-                            height: '1px',
+                            height: '3px',
                             background: 'linear-gradient(to right, rgba(34,197,94,0.3), rgb(27,97,0))'
                         }}
                     />
@@ -29,8 +29,8 @@ const AnimatedGridPattern = () => {
                             left: `${(i + 1) * 5}%`,
                             animation: `slideUp ${2 + (i % 2)}s linear infinite`,
                             opacity: 0.15 - i * 0.004,
-                            width: '1px',
-                            background: 'linear-gradient(to bottom, rgba(34,197,94,0.3), rgb(27,97,0))'
+                            width: '3px',
+                            background: 'linear-gradient(to bottom, rgba(34, 197, 94, 0.53), rgb(27,97,0))'
                         }}
                     />
                 ))}
@@ -58,13 +58,13 @@ const AnimatedGridPattern = () => {
             <div
                 className="absolute inset-0"
                 style={{
-                    background: 'radial-gradient(circle at 50% 50%, rgba(34,197,94,0.03) 0%, rgba(0,0,0,0.1) 100%)'
+                    background: 'radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.22) 0%, rgba(41, 41, 41, 0.45) 100%)'
                 }}
             />
             <div
                 className="absolute inset-0"
                 style={{
-                    background: 'linear-gradient(45deg, rgba(34,197,94,0.02) 0%, transparent 100%)'
+                    background: 'linear-gradient(45deg, rgba(139, 139, 139, 0.2) 0%, transparent 100%)'
                 }}
             />
 
