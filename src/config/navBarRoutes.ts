@@ -1,4 +1,4 @@
-const CNZ_URL = 'https://cryptocurrency.org.nz'
+const CNZ_URL = 'https://cryptocurrency.org.nz/'
 
 interface DropdownItem {
     icon: string

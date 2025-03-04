@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { CNZ_URL } from '../config/config.ts'
-import { navigation, isDropdown, getFullUrl } from '../config/navBarRoutes.ts'
+import { navigation, isDropdown, isLink, getFullUrl } from '../config/navBarRoutes.ts'
 
 interface NavItemProps {
     text: string
@@ -129,84 +129,50 @@ const Navbar: FC = () => {
                 </div>
             </div>
 
-            {/* Mobile menu */}
+            {/* Mobile menu - Using the navigation config */}
             <div className={`${isMenuOpen ? 'block' : 'hidden'} min-[1200px]:hidden bg-black/95 backdrop-blur-md`}>
                 <div className="px-4 pt-2 pb-4 space-y-1">
-                    <a
-                        href={CNZ_URL + 'dao'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        DAO
-                    </a>
-                    <a
-                        href={CNZ_URL + 'wallets'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        Wallets
-                    </a>
-                    <a
-                        href={CNZ_URL + 'buy-crypto'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        Buy Crypto
-                    </a>
-                    <div className="px-4 py-2">
-                        <div className="font-medium text-green-400 mb-2 text-sm sm:text-base">Learn</div>
-                        <div className="pl-4 space-y-2">
-                            <a
-                                href={CNZ_URL + 'how-to-buy'}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
-                            >
-                                How to Buy
-                            </a>
-                            <a
-                                href={CNZ_URL + 'how-to-sell'}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
-                            >
-                                How to Sell
-                            </a>
-                            <a
-                                href={CNZ_URL + 'crypto-mining'}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
-                            >
-                                Crypto Mining
-                            </a>
-                        </div>
-                    </div>
-                    <a
-                        href={CNZ_URL + 'community'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        Community
-                    </a>
-                    <a
-                        href={CNZ_URL + 'news'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        News
-                    </a>
-                    <a
-                        href={CNZ_URL + 'about'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        About Us
-                    </a>
-                    <a
-                        href={CNZ_URL + 'get-help'}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-sm sm:text-base"
-                    >
-                        Get Help
-                    </a>
+                    {navigation.map((item, index) => {
+                        if (isLink(item)) {
+                            return (
+                                <a
+                                    key={index}
+                                    href={getFullUrl(item.path)}
+                                    className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                                           hover:bg-green-500/10 transition-colors text-sm sm:text-base"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    {item.text}
+                                </a>
+                            )
+                        } else if (isDropdown(item)) {
+                            return (
+                                <div key={index} className="px-4 py-2">
+                                    <div className="font-medium text-green-400 mb-2 text-sm sm:text-base">{item.text}</div>
+                                    {item.sections.map((section, sectionIndex) => (
+                                        <div key={sectionIndex} className="mb-3">
+                                            <div className="text-xs text-gray-500 mb-1 pl-4">{section.title}</div>
+                                            <div className="pl-4 space-y-2">
+                                                {section.items.map((dropdownItem, itemIndex) => (
+                                                    <a
+                                                        key={itemIndex}
+                                                        href={getFullUrl(dropdownItem.path)}
+                                                        className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                                                               hover:bg-green-500/10 transition-colors text-xs sm:text-sm"
+                                                        onClick={() => setIsMenuOpen(false)}
+                                                    >
+                                                        <span className="mr-2">{dropdownItem.icon}</span>
+                                                        {dropdownItem.title}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )
+                        }
+                        return null
+                    })}
                 </div>
             </div>
             <style>{`
