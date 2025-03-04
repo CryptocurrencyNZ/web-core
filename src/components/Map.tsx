@@ -42,9 +42,9 @@ const InteractiveMap: React.FC = () => {
 
     // Debounced resize handler
     const handleResize = useCallback(() => {
-        const debounce = (fn: Function, ms = 250) => {
+        const debounce = <T extends (...args: unknown[]) => void>(fn: T, ms = 250) => {
             let timeoutId: ReturnType<typeof setTimeout>
-            return function (this: any, ...args: any[]) {
+            return function(this: unknown, ...args: Parameters<T>) {
                 clearTimeout(timeoutId)
                 timeoutId = setTimeout(() => fn.apply(this, args), ms)
             }
@@ -307,6 +307,8 @@ const InteractiveMap: React.FC = () => {
     }, [cleanupPopups])
 
     useEffect(() => {
+        const mapRefCurrent = mapRef.current;
+        
         const handleScroll = () => {
             if (activePopupRef.current) {
                 cleanupPopups()
@@ -315,11 +317,11 @@ const InteractiveMap: React.FC = () => {
 
         // Add scroll event listener to both the window and map container
         window.addEventListener('scroll', handleScroll, { passive: true })
-        mapRef.current?.addEventListener('scroll', handleScroll, { passive: true })
+        mapRefCurrent?.addEventListener('scroll', handleScroll, { passive: true })
 
         return () => {
             window.removeEventListener('scroll', handleScroll)
-            mapRef.current?.removeEventListener('scroll', handleScroll)
+            mapRefCurrent?.removeEventListener('scroll', handleScroll)
         }
     }, [cleanupPopups])
 
