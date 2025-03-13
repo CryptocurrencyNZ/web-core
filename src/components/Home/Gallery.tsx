@@ -239,10 +239,22 @@ const Gallery: FC = () => {
     ]
 
     return (
-        <section className="min-h-screen bg-black py-8">
-            <div className="max-w-7xl mx-auto px-4">
+        // Using TeamSection's background and structure
+        <section id="gallery" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+            {/* Main gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/15 via-zinc-800/95 to-zinc-900/15" />
+
+            {/* Decorative gradient elements */}
+            <div className="absolute top-1/3 right-0 w-96 h-96 bg-green-600/10 rounded-full blur-3xl opacity-30" />
+            <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-green-500/10 rounded-full blur-3xl opacity-20" />
+            <div className="absolute -top-32 right-1/3 w-64 h-64 bg-zinc-600/20 rounded-full blur-3xl opacity-30" />
+
+            {/* Content container with better responsive padding */}
+            <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto mb-12">
-                    <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-2 text-white">Cryptocurrency NZ Monthly Meetups</h2>
+                    <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-2 text-white">
+                        Cryptocurrency NZ <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Monthly Meetups</span>
+                    </h2>
                     <p className="text-green-100 text-center text-sm md:text-base">Discover the dynamic evolution of Aotearoa's cryptocurrency, blockchain, and Web3 ecosystem, blending social impact, industry growth, investment opportunities, and futuristic innovation.</p>
                 </div>
 

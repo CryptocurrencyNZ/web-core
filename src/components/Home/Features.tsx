@@ -44,13 +44,19 @@ const CryptoIntro = () => {
     ]
 
     return (
-        <section className="relative py-8 px-4">
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-green-400/20 to-black" />
+        // Using TeamSection's background and structure
+        <section id="crypto-intro" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+            {/* Main gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-900/15 via-zinc-800/95 to-zinc-900/15" />
 
-            {/* Content */}
-            <div className="relative max-w-6xl mx-auto z-10">
-                <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-3 text-white">
+            {/* Decorative gradient elements */}
+            <div className="absolute top-1/3 right-0 w-96 h-96 bg-green-600/10 rounded-full blur-3xl opacity-30" />
+            <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-green-500/10 rounded-full blur-3xl opacity-20" />
+            <div className="absolute -top-32 right-1/3 w-64 h-64 bg-zinc-600/20 rounded-full blur-3xl opacity-30" />
+
+            {/* Content container with better responsive padding */}
+            <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="alegreya text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center text-white">
                     What is <span className="text-green-400">Crypto?</span>
                 </h2>
                 <p className="text-green-100 text-center text-base md:text-lg mb-8 max-w-3xl mx-auto">Understanding cryptocurrency doesn't have to be complicated. Let's break it down into simple concepts.</p>
@@ -60,9 +66,12 @@ const CryptoIntro = () => {
                         <div
                             key={index}
                             className="group relative bg-black/40 backdrop-blur-sm rounded-xl 
-                                     transition-all duration-300 overflow-hidden"
+                                     transition-all duration-300 overflow-hidden
+                                     border border-green-500/30
+                                     hover:border-green-400/70 hover:shadow-[0_0_20px_rgba(74,222,128,0.2)]
+                                     transform hover:-translate-y-1"
                         >
-                            {/* Green accent line */}
+                            {/* Green accent line - Kept from original */}
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-green-300" />
 
                             {/* Content container */}
@@ -94,7 +103,7 @@ const CryptoIntro = () => {
                                 </div>
                             </div>
 
-                            {/* Hover effect border */}
+                            {/* Hover effect border - Kept from original */}
                             <div
                                 className="absolute inset-0 border border-green-400/0 group-hover:border-green-400/30 
                                           transition-all duration-300 pointer-events-none rounded-xl"
@@ -104,8 +113,7 @@ const CryptoIntro = () => {
                 </div>
             </div>
 
-            {/* Decorative lines */}
-            <br />
+            {/* Decorative lines - Kept from original */}
             <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-green-300/60 to-transparent" />
         </section>
     )
