@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react'
 import { motion } from 'framer-motion'
+import { FC, useState } from 'react'
 
 const EasyCryptoOption: FC = () => {
     // Animation variants
