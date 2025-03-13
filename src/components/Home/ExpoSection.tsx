@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import AnimatedGridPattern from './AnimatedGridPattern'
+import AnimatedGridPattern from '../AnimatedGridPattern'
 import { Blocks, Users, Lightbulb } from 'lucide-react'
 
 interface ExpoFeature {

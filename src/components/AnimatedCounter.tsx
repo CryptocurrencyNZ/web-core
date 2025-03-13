@@ -24,12 +24,15 @@ const AnimatedCounter: FC<AnimatedCounterProps> = ({ end, duration = 2000, suffi
             { threshold: 0.1 }
         )
 
-        if (containerRef.current) {
-            observer.observe(containerRef.current)
+        const currentRef = containerRef.current // Capture the current value
+
+        if (currentRef) {
+            observer.observe(currentRef)
         }
 
         return () => {
-            if (containerRef.current) {
+            // Use the captured value in cleanup
+            if (currentRef) {
                 observer.disconnect()
             }
         }

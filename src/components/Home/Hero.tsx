@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { heroUrls } from '../config/config.ts'
-import AnimatedGridPattern from './AnimatedGridPattern'
+import { heroUrls } from '../../config/config.ts'
+import AnimatedGridPattern from './HeroGridPattern'
 import Map from './Map'
 
 interface NavigationButton {
-    href: string
+    path: string
     label: string
+    isExternal: boolean // Add this property to determine if we should use <a> or <Link>
 }
 
 const navigationButtons: NavigationButton[] = [
-    { href: heroUrls.routes.explore, label: 'Get Started' },
-    { href: heroUrls.routes.wallet, label: 'Get a Wallet' },
-    { href: heroUrls.routes.buy, label: 'Buy Crypto' }
+    { path: '/web-core/getstarted', label: 'Get Started', isExternal: false },
+    { path: heroUrls.routes.wallet, label: 'Get a Wallet', isExternal: false },
+    { path: '/web-core/buycrypto', label: 'Buy Crypto', isExternal: false }
 ]
 
 const Hero = () => {
@@ -61,6 +62,25 @@ const Hero = () => {
         return `${heroUrls.base}${path}`
     }
 
+    // Common button styling
+    const buttonClassName =
+        'px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 \
+                           rounded-lg text-white font-medium transition-all duration-300 \
+                           hover:border-green-400/70 hover:bg-green-500/10 \
+                           hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto'
+
+    // Animation props common to both button types
+    const buttonAnimationProps = {
+        initial: 'hidden',
+        whileInView: 'visible',
+        viewport: { once: true, amount: 0.1 },
+        whileHover: {
+            scale: 1.05,
+            boxShadow: '0 0 25px rgba(74,222,128,0.3)',
+            borderColor: 'rgba(74,222,128,0.7)'
+        }
+    }
+
     return (
         <div className="relative w-full flex flex-col lg:flex-row justify-between m-0 p-0">
             <AnimatedGridPattern />
@@ -78,28 +98,21 @@ const Hero = () => {
                 </motion.p>
 
                 <div className="flex flex-wrap justify-center gap-4 w-full">
-                    {navigationButtons.map((button, index) => (
-                        <motion.a
-                            key={index}
-                            custom={index}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={staggerButtons}
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: '0 0 25px rgba(74,222,128,0.3)',
-                                borderColor: 'rgba(74,222,128,0.7)'
-                            }}
-                            href={getFullUrl(button.href)}
-                            className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
-                                     rounded-lg text-white font-medium transition-all duration-300 
-                                     hover:border-green-400/70 hover:bg-green-500/10 
-                                     hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto"
-                        >
-                            {button.label}
-                        </motion.a>
-                    ))}
+                    {navigationButtons.map((button, index) =>
+                        button.isExternal ? (
+                            // External link using <a> tag
+                            <motion.a key={index} custom={index} variants={staggerButtons} {...buttonAnimationProps} href={getFullUrl(button.path)} className={buttonClassName}>
+                                {button.label}
+                            </motion.a>
+                        ) : (
+                            // Internal link using react-router's <Link>
+                            <motion.div key={index} custom={index} variants={staggerButtons} {...buttonAnimationProps}>
+                                <Link to={button.path} className={buttonClassName}>
+                                    {button.label}
+                                </Link>
+                            </motion.div>
+                        )
+                    )}
                 </div>
 
                 <div className="flex justify-center w-full gap-3">
