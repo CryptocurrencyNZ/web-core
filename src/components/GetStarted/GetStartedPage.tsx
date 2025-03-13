@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import Navbar from '../Navbar';
-import Footer from '../Footer';
-import AnimatedGridPattern from '../AnimatedGridPattern';
+import Navbar from '../Navbar'
+import Footer from '../Footer'
+import AnimatedGridPattern from '../AnimatedGridPattern'
 
-import Hero from './Hero';
-import VerticalRoadmap from './RoadMap';
-import ConsultingSection from './Consulting';
+import Hero from './Hero'
+import VerticalRoadmap from './RoadMap'
+import ConsultingSection from './Consulting'
 
 const GetStartedPage: FC = () => {
     return (
@@ -23,4 +23,4 @@ const GetStartedPage: FC = () => {
     )
 }
 
-export default GetStartedPage;
+export default GetStartedPage

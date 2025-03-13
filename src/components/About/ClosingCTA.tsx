@@ -8,11 +8,11 @@ const ClosingCTA: FC = () => {
             <section className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
                 {/* Rich gradient background with multiple layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900" />
-                
+
                 {/* Decorative gradient elements */}
                 <div className="absolute top-0 left-1/3 w-96 h-96 bg-green-600/10 rounded-full blur-3xl opacity-30" />
                 <div className="absolute bottom-0 right-1/3 w-80 h-80 bg-green-500/10 rounded-full blur-3xl opacity-20" />
-                
+
                 {/* Decorative diagonal lines */}
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-green-500/30 to-transparent transform -translate-x-1/2 -rotate-12" />
@@ -26,27 +26,27 @@ const ClosingCTA: FC = () => {
                     <div className="relative max-w-4xl mx-auto">
                         {/* Animated glow effect */}
                         <div className="absolute -inset-1 bg-gradient-to-r from-green-500/30 via-green-300/20 to-green-600/30 rounded-xl blur-lg opacity-75 group-hover:opacity-100 animate-pulse-slow" />
-                        
+
                         {/* Main content card */}
                         <div className="relative rounded-xl overflow-hidden bg-gradient-to-b from-zinc-800/90 to-zinc-900/90 backdrop-blur-sm border border-green-500/30">
                             {/* Wave pattern overlay */}
                             <div className="absolute inset-0 bg-[url('/images/wave-pattern.svg')] opacity-5" />
-                            
+
                             <div className="px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-16 text-center">
                                 {/* Enhanced title with animated underline */}
                                 <div className="relative inline-block mb-8">
-                                    <h2 className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold 
+                                    <h2
+                                        className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold 
                                         bg-gradient-to-r from-white via-green-200 to-green-300 bg-clip-text text-transparent
-                                        transform transition-all duration-500">
+                                        transform transition-all duration-500"
+                                    >
                                         A Kiwis Guide to the Future of Money
                                     </h2>
                                     <div className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-400/70 to-transparent" />
                                 </div>
 
                                 {/* Improved description with better typography */}
-                                <p className="text-zinc-100 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-                                    Join Aotearoa's largest crypto community on our mission to advance cryptocurrency adoption, awareness, and education throughout New Zealand.
-                                </p>
+                                <p className="text-zinc-100 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">Join Aotearoa's largest crypto community on our mission to advance cryptocurrency adoption, awareness, and education throughout New Zealand.</p>
 
                                 {/* Enhanced call-to-action buttons with better styling */}
                                 <div className="flex flex-col sm:flex-row items-center justify-center sm:gap-4 md:gap-6">
@@ -62,15 +62,17 @@ const ClosingCTA: FC = () => {
                                             relative overflow-hidden"
                                     >
                                         {/* Button shine effect */}
-                                        <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent 
-                                            -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                                        
+                                        <span
+                                            className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                                            -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"
+                                        />
+
                                         <span className="relative z-10 flex items-center justify-center">
                                             Get In Touch
                                             <ArrowRight className="w-4 h-4 ml-2 group-hover:ml-3 transition-all duration-300" />
                                         </span>
                                     </a>
-                                    
+
                                     {/* Secondary button with better styling */}
                                     <a
                                         href="/join"
@@ -87,7 +89,7 @@ const ClosingCTA: FC = () => {
                                         </span>
                                     </a>
                                 </div>
-                                
+
                                 {/* Social proof */}
                                 <div className="mt-10 pt-6 border-t border-green-500/10">
                                     <p className="text-green-300/80 text-sm mb-3">Join 50,000+ Kiwis already part of our community</p>
@@ -119,13 +121,12 @@ const ClosingCTA: FC = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 {/* Bottom gradient line */}
                 <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
             </section>
         </>
     )
-};
+}
 
-export default ClosingCTA;
-
+export default ClosingCTA

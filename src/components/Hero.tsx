@@ -19,12 +19,12 @@ const Hero = () => {
     // Animation variants
     const fadeIn = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+        visible: { opacity: 1, transition: { duration: 0.8, ease: 'easeOut' } }
     }
 
     const slideUp = {
         hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } }
     }
 
     const staggerButtons = {
@@ -35,20 +35,20 @@ const Hero = () => {
             transition: {
                 delay: i * 0.1,
                 duration: 0.5,
-                ease: "easeOut"
+                ease: 'easeOut'
             }
         })
     }
 
     const scaleIn = {
         hidden: { opacity: 0, scale: 0.9 },
-        visible: { 
-            opacity: 1, 
-            scale: 1, 
-            transition: { 
-                duration: 0.7, 
-                ease: "easeOut" 
-            } 
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.7,
+                ease: 'easeOut'
+            }
         }
     }
 
@@ -66,32 +66,14 @@ const Hero = () => {
             <AnimatedGridPattern />
 
             <div className="w-full lg:w-1/2 min-h-screen flex flex-col justify-center items-center text-center px-8 md:px-[5%] pt-8 lg:pt-[60px] relative z-10 bg-transparent">
-                <motion.h1 
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeIn}
-                    className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 font-bold leading-tight"
-                >
+                <motion.h1 initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={fadeIn} className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 font-bold leading-tight">
                     Welcome to <span className="alegreya text-gray-300">Cryptocurrency</span>
-                    <motion.span 
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
-                        className="alegreya text-green-500"
-                    >
+                    <motion.span initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.8, duration: 0.5 }} className="alegreya text-green-500">
                         NZ
                     </motion.span>
                 </motion.h1>
 
-                <motion.p 
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={slideUp}
-                    className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300"
-                >
+                <motion.p initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={slideUp} className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300">
                     New Zealand Cryptocurrency Community Collective
                 </motion.p>
 
@@ -104,10 +86,10 @@ const Hero = () => {
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.1 }}
                             variants={staggerButtons}
-                            whileHover={{ 
-                                scale: 1.05, 
-                                boxShadow: "0 0 25px rgba(74,222,128,0.3)",
-                                borderColor: "rgba(74,222,128,0.7)" 
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: '0 0 25px rgba(74,222,128,0.3)',
+                                borderColor: 'rgba(74,222,128,0.7)'
                             }}
                             href={getFullUrl(button.href)}
                             className="px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 
@@ -127,16 +109,16 @@ const Hero = () => {
                         viewport={{ once: true, amount: 0.1 }}
                         variants={{
                             hidden: { opacity: 0, y: 20 },
-                            visible: { 
-                                opacity: 1, 
-                                y: 0, 
-                                transition: { delay: 0.5, duration: 0.5 } 
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                transition: { delay: 0.5, duration: 0.5 }
                             }
                         }}
-                        whileHover={{ 
-                            scale: 1.05, 
-                            boxShadow: "0 0 35px rgba(74,222,128,0.4)",
-                            backgroundColor: "rgba(74,222,128,0.3)" 
+                        whileHover={{
+                            scale: 1.05,
+                            boxShadow: '0 0 35px rgba(74,222,128,0.4)',
+                            backgroundColor: 'rgba(74,222,128,0.3)'
                         }}
                         href={'https://cryptoconsulting.nz/'}
                         className="px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 
@@ -146,17 +128,17 @@ const Hero = () => {
                              flex items-center gap-2 mt-8"
                     >
                         <span>Get Help</span>
-                        <motion.svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="h-5 w-5" 
-                            viewBox="0 0 20 20" 
+                        <motion.svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            viewBox="0 0 20 20"
                             fill="currentColor"
                             animate={{ x: [0, 5, 0] }}
-                            transition={{ 
-                                duration: 1.5, 
-                                repeat: Infinity, 
-                                repeatType: "loop", 
-                                ease: "easeInOut",
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                repeatType: 'loop',
+                                ease: 'easeInOut',
                                 repeatDelay: 1
                             }}
                         >
@@ -170,10 +152,10 @@ const Hero = () => {
                         viewport={{ once: true, amount: 0.1 }}
                         variants={{
                             hidden: { opacity: 0, y: 20 },
-                            visible: { 
-                                opacity: 1, 
-                                y: 0, 
-                                transition: { delay: 0.7, duration: 0.5 } 
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                transition: { delay: 0.7, duration: 0.5 }
                             }
                         }}
                     >
@@ -186,17 +168,17 @@ const Hero = () => {
                                 flex items-center gap-2 mt-8"
                         >
                             <span>Expo 2025</span>
-                            <motion.svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                className="h-5 w-5" 
-                                viewBox="0 0 20 20" 
+                            <motion.svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
                                 fill="currentColor"
                                 animate={{ x: [0, 5, 0] }}
-                                transition={{ 
-                                    duration: 1.5, 
-                                    repeat: Infinity, 
-                                    repeatType: "loop", 
-                                    ease: "easeInOut",
+                                transition={{
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    repeatType: 'loop',
+                                    ease: 'easeInOut',
                                     repeatDelay: 1
                                 }}
                             >
@@ -207,13 +189,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            <motion.div 
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={scaleIn}
-                className="w-full lg:w-1/2 flex items-center justify-center relative overflow-hidden sm:h-[70vh] w-1200 md:h-[75vh] lg:h-screen -mt-20 w-1200 lg:mt-0"
-            >
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={scaleIn} className="w-full lg:w-1/2 flex items-center justify-center relative overflow-hidden sm:h-[70vh] w-1200 md:h-[75vh] lg:h-screen -mt-20 w-1200 lg:mt-0">
                 <Map />
             </motion.div>
         </div>

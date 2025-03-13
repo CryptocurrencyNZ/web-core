@@ -6,8 +6,8 @@ const Footer: FC = () => {
 
     return (
         <footer className="relative bg-zinc-800 py-12 px-4">
-        {/* Background accent - lighter styling */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent pointer-events-none" />
+            {/* Background accent - lighter styling */}
+            <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent pointer-events-none" />
             <div className="max-w-6xl mx-auto relative z-10">
                 {/* Logo Section */}
                 <div className="flex flex-col md:flex-row items-center gap-8 mb-12">

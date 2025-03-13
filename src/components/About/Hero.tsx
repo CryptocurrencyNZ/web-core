@@ -11,10 +11,7 @@ const AboutHero: FC = () => {
 
                 {/* Background image with lighter overlay - improved mobile handling */}
                 <div className="absolute inset-0">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center opacity-30 md:opacity-40"
-                        style={{ backgroundImage: 'url(./images/nz-skyline.jpg)' }}
-                    />
+                    <div className="absolute inset-0 bg-cover bg-center opacity-30 md:opacity-40" style={{ backgroundImage: 'url(./images/nz-skyline.jpg)' }} />
                     <div className="absolute inset-0 bg-gradient-to-b from-zinc-800/80 via-zinc-700/50 to-zinc-800/80 md:from-zinc-800/70 md:via-zinc-700/40 md:to-zinc-800/70" />
                 </div>
 
@@ -28,21 +25,19 @@ const AboutHero: FC = () => {
                             transform group-hover:scale-105 md:group-hover:scale-110 transition-all duration-700"
                         />
 
-                        <h1 className="relative alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 
+                        <h1
+                            className="relative alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 md:mb-6 
                            bg-gradient-to-r from-white to-green-300 bg-clip-text text-transparent
-                           transform transition-all duration-700 group-hover:scale-105">
+                           transform transition-all duration-700 group-hover:scale-105"
+                        >
                             Cryptocurrency NZ
                         </h1>
                     </div>
 
                     <div className="max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto">
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-2 sm:mb-3 md:mb-4 text-white">
-                            Est. July 2020. Christchurch, New Zealand.
-                        </p>
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-2 sm:mb-3 md:mb-4 text-white">Est. July 2020. Christchurch, New Zealand.</p>
 
-                        <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-zinc-100">
-                            A New Zealand crypto community organization and guide on a mission to advance Bitcoin and crypto adoption, awareness and community across Aotearoa.
-                        </p>
+                        <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-zinc-100">A New Zealand crypto community organization and guide on a mission to advance Bitcoin and crypto adoption, awareness and community across Aotearoa.</p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                             <a
@@ -83,4 +78,4 @@ const AboutHero: FC = () => {
     )
 }
 
-export default AboutHero;
+export default AboutHero

@@ -95,12 +95,12 @@ const SponsorBanner = () => {
         <section className="relative py-10 sm:py-12 md:py-16 px-4 overflow-hidden">
             {/* Enhanced gradient background with multiple layers */}
             <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-green-900/30 to-zinc-900" />
-            
+
             {/* Decorative gradient elements */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl opacity-30" />
             <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-green-400/10 rounded-full blur-3xl opacity-20" />
             <div className="absolute top-1/2 left-0 w-64 h-64 bg-zinc-600/20 rounded-full blur-3xl opacity-20" />
-            
+
             {/* Animated gradient particles */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-10 left-1/3 w-2 h-2 bg-green-400 rounded-full opacity-70 animate-float-slow" />
@@ -113,10 +113,8 @@ const SponsorBanner = () => {
                 <h2 className="alegreya text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2 sm:mb-3 text-white">
                     Our <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Sponsors</span> and Partners
                 </h2>
-                <p className="text-green-100 text-center text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
-                    Proudly supported by New Zealand's leading blockchain, bitcoin, crypto, web3 and blockchain organizations.
-                </p>
-                
+                <p className="text-green-100 text-center text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">Proudly supported by New Zealand's leading blockchain, bitcoin, crypto, web3 and blockchain organizations.</p>
+
                 {/* Improved responsive grid layout */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
                     {sponsors.map((sponsor, index) => (
@@ -132,20 +130,19 @@ const SponsorBanner = () => {
                             ${activeCardIndex === index ? 'shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}`}
                         >
                             {/* Sponsor Logo with better sizing for small screens */}
-                            <div className={`flex items-center justify-center 
+                            <div
+                                className={`flex items-center justify-center 
                                 ${activeCardIndex === index ? 'h-24 sm:h-28 md:h-32 lg:h-36' : 'h-16 sm:h-20 md:h-24'} 
-                                transition-all duration-300`}>
-                                <img 
-                                    src={sponsor.image} 
-                                    alt={sponsor.name} 
-                                    className="max-w-full max-h-full object-contain" 
-                                    loading="lazy"
-                                />
+                                transition-all duration-300`}
+                            >
+                                <img src={sponsor.image} alt={sponsor.name} className="max-w-full max-h-full object-contain" loading="lazy" />
                             </div>
-                            
+
                             {/* Name label (only visible when not active or hovered) */}
-                            <div className={`text-center mt-2 transition-opacity duration-300
-                                ${activeCardIndex === index ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'}`}>
+                            <div
+                                className={`text-center mt-2 transition-opacity duration-300
+                                ${activeCardIndex === index ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'}`}
+                            >
                                 <p className="text-white text-xs sm:text-sm font-medium truncate">{sponsor.name}</p>
                             </div>
 
@@ -161,10 +158,10 @@ const SponsorBanner = () => {
                                 >
                                     {/* Sponsor name in overlay */}
                                     <h3 className="text-green-300 font-semibold text-sm sm:text-base mb-2">{sponsor.name}</h3>
-                                    
+
                                     {/* Description with better font sizing for readability */}
                                     <p className="text-green-100 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-4">{sponsor.description}</p>
-                                    
+
                                     {/* Enhanced CTA button */}
                                     <a
                                         href={sponsor.website}
@@ -187,10 +184,10 @@ const SponsorBanner = () => {
                         </div>
                     ))}
                 </div>
-                
+
                 {/* Sponsor CTA */}
                 <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-                    <a 
+                    <a
                         href="/sponsors"
                         className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 
                         bg-gradient-to-r from-green-500/20 to-green-600/10

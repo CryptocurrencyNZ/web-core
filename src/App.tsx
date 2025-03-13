@@ -1,5 +1,5 @@
 import { Navigate, Route, HashRouter as Router, Routes } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async'
 import CCNZ from './components/CCNZ/CCNZPage'
 import Expo from './components/Expo/Hero'
 import HomePage from './components/HomePage'

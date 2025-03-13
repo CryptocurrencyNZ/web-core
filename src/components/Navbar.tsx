@@ -1,149 +1,133 @@
 // src/components/Navbar.tsx
 import { FC, useState } from 'react'
-import { 
-  Menu, 
-  X, 
-  Home, 
-  Book, 
-  Users, 
-  DollarSign, 
-  Wallet, 
-  Award,
-  Info, 
-  HelpCircle, 
-  MessageSquare, 
-  GanttChart,
-  Newspaper,
-  BadgeDollarSign,
-  Bitcoin
-} from 'lucide-react'
+import { Menu, X, Home, Book, Users, DollarSign, Wallet, Award, Info, HelpCircle, MessageSquare, GanttChart, Newspaper, BadgeDollarSign, Bitcoin } from 'lucide-react'
 import { CNZ_URL } from '../config/config.ts'
 
 // Define the navigation structure with icons
 const navigation = [
-  {
-    text: 'Home',
-    path: '',
-    icon: <Home size={18} />
-  },
-  {
-    text: 'Buy & Sell',
-    icon: <DollarSign size={18} />,
-    isDropdown: true,
-    sections: [
-      {
-        title: 'Getting Started',
-        items: [
-          {
-            title: 'How to Buy Crypto',
-            description: 'Step-by-step guide for beginners',
-            path: 'how-to-buy',
-            icon: <BadgeDollarSign size={20} />
-          },
-          {
-            title: 'How to Sell Crypto',
-            description: 'Convert your crypto to NZD',
-            path: 'how-to-sell',
-            icon: <DollarSign size={20} />
-          },
-          {
-            title: 'Wallets',
-            description: 'Secure your digital assets',
-            path: 'wallets',
-            icon: <Wallet size={20} />
-          }
+    {
+        text: 'Home',
+        path: '',
+        icon: <Home size={18} />
+    },
+    {
+        text: 'Buy & Sell',
+        icon: <DollarSign size={18} />,
+        isDropdown: true,
+        sections: [
+            {
+                title: 'Getting Started',
+                items: [
+                    {
+                        title: 'How to Buy Crypto',
+                        description: 'Step-by-step guide for beginners',
+                        path: 'how-to-buy',
+                        icon: <BadgeDollarSign size={20} />
+                    },
+                    {
+                        title: 'How to Sell Crypto',
+                        description: 'Convert your crypto to NZD',
+                        path: 'how-to-sell',
+                        icon: <DollarSign size={20} />
+                    },
+                    {
+                        title: 'Wallets',
+                        description: 'Secure your digital assets',
+                        path: 'wallets',
+                        icon: <Wallet size={20} />
+                    }
+                ]
+            },
+            {
+                title: 'Trading Options',
+                items: [
+                    {
+                        title: 'NZ Exchanges',
+                        description: 'Trusted platforms for Kiwis',
+                        path: 'nz-exchanges',
+                        icon: <GanttChart size={20} />
+                    },
+                    {
+                        title: 'P2P Marketplace',
+                        description: 'Trade directly with other Kiwis',
+                        path: 'p2p-marketplace',
+                        icon: <Users size={20} />
+                    }
+                ]
+            }
         ]
-      },
-      {
-        title: 'Trading Options',
-        items: [
-          {
-            title: 'NZ Exchanges',
-            description: 'Trusted platforms for Kiwis',
-            path: 'nz-exchanges',
-            icon: <GanttChart size={20} />
-          },
-          {
-            title: 'P2P Marketplace',
-            description: 'Trade directly with other Kiwis',
-            path: 'p2p-marketplace',
-            icon: <Users size={20} />
-          }
+    },
+    {
+        text: 'Learn',
+        icon: <Book size={18} />,
+        isDropdown: true,
+        sections: [
+            {
+                title: 'Crypto Basics',
+                items: [
+                    {
+                        title: 'Bitcoin Explained',
+                        description: 'Understanding Bitcoin fundamentals',
+                        path: 'bitcoin-explained',
+                        icon: <Bitcoin size={20} />
+                    },
+                    {
+                        title: 'Crypto Mining',
+                        description: 'How mining works in New Zealand',
+                        path: 'crypto-mining',
+                        icon: <Award size={20} />
+                    }
+                ]
+            },
+            {
+                title: 'Advanced Topics',
+                items: [
+                    {
+                        title: 'DeFi for Kiwis',
+                        description: 'Decentralized finance explained',
+                        path: 'defi',
+                        icon: <GanttChart size={20} />
+                    },
+                    {
+                        title: 'Web3 & NFTs',
+                        description: 'Explore digital ownership',
+                        path: 'web3-nfts',
+                        icon: <Award size={20} />
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    text: 'Learn',
-    icon: <Book size={18} />,
-    isDropdown: true,
-    sections: [
-      {
-        title: 'Crypto Basics',
-        items: [
-          {
-            title: 'Bitcoin Explained',
-            description: 'Understanding Bitcoin fundamentals',
-            path: 'bitcoin-explained',
-            icon: <Bitcoin size={20} />
-          },
-          {
-            title: 'Crypto Mining',
-            description: 'How mining works in New Zealand',
-            path: 'crypto-mining',
-            icon: <Award size={20} />
-          }
-        ]
-      },
-      {
-        title: 'Advanced Topics',
-        items: [
-          {
-            title: 'DeFi for Kiwis',
-            description: 'Decentralized finance explained',
-            path: 'defi',
-            icon: <GanttChart size={20} />
-          },
-          {
-            title: 'Web3 & NFTs',
-            description: 'Explore digital ownership',
-            path: 'web3-nfts',
-            icon: <Award size={20} />
-          }
-        ]
-      }
-    ]
-  },
-  {
-    text: 'Community',
-    path: 'community',
-    icon: <Users size={18} />
-  },
-  {
-    text: 'News',
-    path: 'news',
-    icon: <Newspaper size={18} />
-  },
-  {
-    text: 'About',
-    path: 'about',
-    icon: <Info size={18} />
-  },
-  {
-    text: 'Help',
-    path: 'get-help',
-    icon: <HelpCircle size={18} />
-  }
-];
+    },
+    {
+        text: 'Community',
+        path: 'community',
+        icon: <Users size={18} />
+    },
+    {
+        text: 'News',
+        path: 'news',
+        icon: <Newspaper size={18} />
+    },
+    {
+        text: 'About',
+        path: 'about',
+        icon: <Info size={18} />
+    },
+    {
+        text: 'Help',
+        path: 'get-help',
+        icon: <HelpCircle size={18} />
+    }
+]
 
 // Helper functions
 const isDropdown = (item: any): item is { isDropdown: true; sections: any[] } => {
-  return item.isDropdown === true;
-};
+    return item.isDropdown === true
+}
 
 const getFullUrl = (path: string): string => {
-  return `${CNZ_URL}${path}`;
-};
+    return `${CNZ_URL}${path}`
+}
 
 interface NavItemProps {
     text: string
@@ -198,20 +182,16 @@ const Navbar: FC = () => {
     const dropdownLinkClasses = `flex items-start gap-3 p-3 rounded-lg hover:bg-green-500/10 transition-all duration-300
         hover:shadow-[0_0_10px_rgba(34,197,94,0.2)] group/item`
 
-        return (
-          <nav
-              className="fixed top-0 left-0 right-0 bg-zinc-800/90 backdrop-blur-md z-50 
+    return (
+        <nav
+            className="fixed top-0 left-0 right-0 bg-zinc-800/90 backdrop-blur-md z-50 
                          border-b border-green-500/20 shadow-lg shadow-zinc-900/50"
-          >
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center h-16 md:h-18 lg:h-20">
                     {/* Logo - Made smaller and with better spacing */}
                     <div className="w-12 md:w-16 lg:w-20 flex items-center justify-center flex-shrink-0">
-                        <img 
-                            src="./images/CNZ logo.png" 
-                            className="w-10 md:w-14 lg:w-16 text-green-500 animate-shake" 
-                            alt="Cryptocurrency NZ Logo"
-                        />
+                        <img src="./images/CNZ logo.png" className="w-10 md:w-14 lg:w-16 text-green-500 animate-shake" alt="Cryptocurrency NZ Logo" />
                     </div>
 
                     {/* Title and Navigation Container */}
@@ -288,7 +268,7 @@ const Navbar: FC = () => {
                         <Home size={18} className="text-green-400" />
                         Home
                     </a>
-                    
+
                     {/* Buy & Sell Section */}
                     <div className="px-4 py-2">
                         <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
@@ -334,7 +314,7 @@ const Navbar: FC = () => {
                             </a>
                         </div>
                     </div>
-                    
+
                     {/* Learn Section */}
                     <div className="px-4 py-2">
                         <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
@@ -362,7 +342,7 @@ const Navbar: FC = () => {
                             </a>
                         </div>
                     </div>
-                    
+
                     {/* Other main sections */}
                     <a
                         href={getFullUrl('community')}
