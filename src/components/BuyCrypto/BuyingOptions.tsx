@@ -1,8 +1,8 @@
-import { FC, useState } from 'react'
 import { motion } from 'framer-motion'
+import { FC } from 'react'
 
-import EasyCryptoOption from './BuyingOptions/EasyCrypto'
 import BinanceOption from './BuyingOptions/Binance'
+import EasyCryptoOption from './BuyingOptions/EasyCrypto'
 import P2POption from './BuyingOptions/P2P'
 import PinOption from './BuyingOptions/PayItNow'
 

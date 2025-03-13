@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
 import { motion } from 'framer-motion'
+import { FC, useState } from 'react'
 
 const WalletSetupSection: FC = () => {
     // State for active step
@@ -56,26 +56,6 @@ const WalletSetupSection: FC = () => {
             content: <p className="text-zinc-100">Once you have backed up your wallet and configured your settings, the final step is to deposit crypto into your new wallet. Simply click on the asset you would like to deposit, from here you can click on the receive button to view your public key for that asset (receiving address).</p>
         }
     ]
-
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15
-            }
-        }
-    }
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.7 }
-        }
-    }
 
     return (
         <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">

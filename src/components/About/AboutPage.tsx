@@ -1,20 +1,19 @@
 // src/components/AboutUs.tsx
-import React, { FC } from 'react'
-import { Users, Building, Map, MessageCircle, Globe, Shield, Award, ChevronDown } from 'lucide-react'
+import { FC } from 'react'
 
 import AnimatedGridPattern from '../AnimatedGridPattern'
-import Navbar from '../Navbar'
 import Footer from '../Footer'
+import Navbar from '../Navbar'
 import SponsorBanner from '../SponsorBanner'
+import ClosingCTA from './ClosingCTA'
+import CommunityImpact from './CommunityImpact'
 import CommunityNumbers from './CommunityNumbers'
 import Hero from './Hero'
 import Mission from './Mission'
-import CommunityImpact from './CommunityImpact'
 import Projects from './Projects'
+import SEO from './SEO'
 import Team from './Team'
 import VisualShowcase from './VisualShowcase'
-import ClosingCTA from './ClosingCTA'
-import SEO from './SEO'
 
 const AboutUs: FC = () => {
     return (

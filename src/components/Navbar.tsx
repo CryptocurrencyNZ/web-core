@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx
+import { Award, BadgeDollarSign, Bitcoin, Book, DollarSign, GanttChart, HelpCircle, Home, Info, Menu, Newspaper, Users, Wallet, X } from 'lucide-react'
 import { FC, useState } from 'react'
-import { Menu, X, Home, Book, Users, DollarSign, Wallet, Award, Info, HelpCircle, MessageSquare, GanttChart, Newspaper, BadgeDollarSign, Bitcoin } from 'lucide-react'
 import { CNZ_URL } from '../config/config.ts'
 
 // Define the navigation structure with icons
@@ -121,8 +121,8 @@ const navigation = [
 ]
 
 // Helper functions
-const isDropdown = (item: any): item is { isDropdown: true; sections: any[] } => {
-    return item.isDropdown === true
+const isDropdown = (item: NavigationItem): item is DropdownNavItem => {
+    return 'isDropdown' in item && item.isDropdown === true
 }
 
 const getFullUrl = (path: string): string => {
@@ -135,6 +135,27 @@ interface NavItemProps {
     icon?: React.ReactNode
     dropdownContent?: React.ReactNode
 }
+
+interface NavItem {
+    text: string
+    path?: string
+    icon: React.ReactNode
+}
+
+interface DropdownNavItem extends NavItem {
+    isDropdown: true
+    sections: {
+        title: string
+        items: {
+            title: string
+            description: string
+            path: string
+            icon: React.ReactNode
+        }[]
+    }[]
+}
+
+type NavigationItem = NavItem | DropdownNavItem
 
 const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
     if (dropdownContent) {
