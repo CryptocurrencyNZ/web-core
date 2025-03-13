@@ -13,7 +13,7 @@ const AnimatedGridPattern = () => {
                         style={{
                             top: `${(i + 1) * 5}%`,
                             animation: `slideLeft ${2 + (i % 2)}s linear infinite`,
-                            opacity: 0.15 - i * 0.004,
+                            opacity: 0.7 - i * 0.004,
                             height: '1px',
                             background: 'linear-gradient(to right, rgba(34,197,94,0.3), rgb(27,97,0))'
                         }}
@@ -28,7 +28,7 @@ const AnimatedGridPattern = () => {
                         style={{
                             left: `${(i + 1) * 5}%`,
                             animation: `slideUp ${2 + (i % 2)}s linear infinite`,
-                            opacity: 0.15 - i * 0.004,
+                            opacity: 0.7 - i * 0.004,
                             width: '1px',
                             background: 'linear-gradient(to bottom, rgba(34,197,94,0.3), rgb(27,97,0))'
                         }}
@@ -45,7 +45,7 @@ const AnimatedGridPattern = () => {
                         style={{
                             top: `${Math.random() * 100}%`,
                             left: `${Math.random() * 100}%`,
-                            opacity: 0.3,
+                            opacity: 1.0,
                             animation: `pulse 3s infinite ${Math.random() * 2}s`,
                             filter: 'blur(1px)',
                             boxShadow: '0 0 8px rgba(34,197,94,0.6)'

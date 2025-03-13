@@ -42,3 +42,74 @@
         0 2px 20px var(--accent-color);
     background-color: transparent;
 }
+
+@keyframes pulse-slow {
+    0%,
+    100% {
+        opacity: 0.75;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Custom Scrollbar for elements with scrolling content */
+.scrollable {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(74, 222, 128, 0.3) rgba(24, 24, 27, 0.6); /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    display: block;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: rgba(24, 24, 27, 0.6);
+    border-radius: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: rgba(74, 222, 128, 0.3);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 222, 128, 0.5);
+}
+
+/* Hide scrollbar but keep functionality - use for horizontal scrolling tabs */
+.hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Smooth scrolling for the entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevent content shift during page load */
+html {
+    overflow-y: scroll;
+}
