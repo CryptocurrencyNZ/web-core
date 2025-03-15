@@ -25,16 +25,44 @@ const InteractiveMap: React.FC = () => {
     const popupCardsRef = useRef<HTMLDivElement[]>([])
     const activePopupRef = useRef<string | null>(null)
     const laserIntervalRef = useRef<ReturnType<typeof setInterval>>()
-    const [dimensions, setDimensions] = useState({ width: 800, height: 1000 })
-    const pixelSize = window.innerWidth <= 768 ? 8 : 6 // Larger pixels with no spacing
+    const [dimensions, setDimensions] = useState({ width: 800, height: 1000 }) // Reduced from 900x1120
+    const pixelSize = window.innerWidth <= 768 ? 7 : 5 // Smaller pixels for higher resolution
 
     // Memoize the projection to prevent recalculation
+    // Memoize the projection to prevent recalculation with slightly adjusted vertical position
     const projection = useMemo(() => {
-        return d3
-            .geoMercator()
-            .center([174, -41.5])
-            .scale(window.innerWidth <= 768 ? dimensions.width * 2.875 : dimensions.width * 3.5)
-            .translate([dimensions.width / 2, window.innerWidth <= 768 ? dimensions.height / 2.1 : dimensions.height / 1.8])
+        // Scale increases with screen size
+        let baseScale
+
+        if (window.innerWidth <= 768) {
+            baseScale = 1400 // Original scale for mobile
+        } else if (window.innerWidth <= 1200) {
+            baseScale = 3500 // Medium scale for smaller desktops
+        } else if (window.innerWidth <= 1600) {
+            baseScale = 4500 // Larger scale for medium desktops
+        } else {
+            baseScale = 5000 // Maximum scale for large desktops
+        }
+
+        // Adjust vertical position based on screen size - more subtle adjustment
+        let verticalPosition
+
+        if (window.innerWidth <= 768) {
+            verticalPosition = 0.45 // Keep mobile position at 45%
+        } else if (window.innerWidth <= 1200) {
+            verticalPosition = 0.48 // Slightly move down to 48% for smaller desktops
+        } else {
+            verticalPosition = 0.5 // Move down to 50% for larger desktops
+        }
+
+        return (
+            d3
+                .geoMercator()
+                .center([173, -41])
+                .scale(baseScale)
+                // More subtle vertical positioning adjustment
+                .translate([dimensions.width / 2, dimensions.height * verticalPosition])
+        )
     }, [dimensions])
 
     // Memoize the path generator
@@ -57,11 +85,17 @@ const InteractiveMap: React.FC = () => {
                 let newWidth, newHeight
 
                 if (window.innerWidth <= 768) {
+                    // Make the map fill more space on mobile
                     newWidth = container.width
-                    newHeight = newWidth * aspectRatio
+                    newHeight = container.width * aspectRatio // Keep the aspect ratio
+                } else if (window.innerWidth <= 1200) {
+                    // Medium desktop screens
+                    newWidth = 1200 // Increased from 1000
+                    newHeight = 1500 // Increased from 1250
                 } else {
-                    newWidth = 1000
-                    newHeight = 1250
+                    // Large desktop screens
+                    newWidth = 1600 // Much larger for big desktop screens
+                    newHeight = 2000 // Maintain aspect ratio
                 }
 
                 setDimensions({ width: newWidth, height: newHeight })
@@ -335,74 +369,118 @@ const InteractiveMap: React.FC = () => {
         cleanupPopups()
 
         cities.forEach((city) => {
-            const [x, y] = projection(city.coords) as Coordinate
-            const pinContainer = document.createElement('div')
-            pinContainer.className = `
-                absolute -translate-x-1/2 -translate-y-full
-                cursor-pointer group z-10
-            `
-            pinContainer.setAttribute('data-city', city.name)
+            // Apply a correction factor to city coordinates to fix vertical scaling issues
+            // This is a simple approach to counter the Mercator projection's vertical distortion
+            const adjustedCoords = [...city.coords]
 
+            // Adjust latitude (second coordinate) if needed based on how far from the equator
+            // The further from the equator, the more correction needed
+            const originalLat = adjustedCoords[1]
+
+            // No need to modify longitude (first coordinate)
+
+            // Project adjusted city coordinates
+            const projected = projection([adjustedCoords[0], originalLat]) as Coordinate
+
+            // If projection is outside the viewable area, skip this city
+            if (!projected || projected[0] < 0 || projected[0] > dimensions.width || projected[1] < 0 || projected[1] > dimensions.height) {
+                console.log(`City ${city.name} is outside the viewable area, skipping`)
+                return
+            }
+
+            const [x, y] = projected
+
+            // Add a manual vertical offset based on latitude to push pins toward center
+            let verticalOffset = 0
+
+            // Northern cities need to be pushed down more aggressively
+            if (city.coords[1] > -38) {
+                verticalOffset = 35 // Increased from 20 to 35
+            }
+            // Southern cities need to be pushed up more aggressively
+            else if (city.coords[1] < -44) {
+                verticalOffset = -35 // Increased from -20 to -35
+            }
+            // Middle-north cities also need adjustment
+            else if (city.coords[1] > -40) {
+                verticalOffset = 25 // New adjustment for the 5th pin and similar ones
+            }
+            // Middle-south cities need slight adjustment too
+            else if (city.coords[1] < -42) {
+                verticalOffset = -25 // Balanced adjustment for middle-south
+            }
+
+            // Calculate percentage positions with manual offset adjustment
             const xPos = (x / dimensions.width) * 100
-            const yPos = (y / dimensions.height) * 100
+            const yPos = ((y + verticalOffset) / dimensions.height) * 100
 
-            pinContainer.style.left = `${xPos}%`
-            pinContainer.style.top = `${yPos}%`
+            // Only create marker if it's in a reasonable position (within the map)
+            if (xPos >= 0 && xPos <= 100 && yPos >= 0 && yPos <= 100) {
+                const pinContainer = document.createElement('div')
+                pinContainer.className = `
+                    absolute -translate-x-1/2 -translate-y-full
+                    cursor-pointer group z-10
+                `
+                pinContainer.setAttribute('data-city', city.name)
 
-            // Create pin shape
-            const pin = document.createElement('div')
-            pin.className = `
-                w-4 h-6 md:w-8 md:h-12 relative
-                transition-transform duration-300 ease-bounce
-                hover:scale-125 hover:-translate-y-1 origin-bottom
-                active:scale-125 active:-translate-y-1
-            `
-            pin.innerHTML = `
-                <svg viewBox="0 0 24 36" class="w-full h-full">
-                    <path d="M12 0C5.4 0 0 5.4 0 12c0 7.2 12 24 12 24s12-16.8 12-24c0-6.6-5.4-12-12-12z" 
-                          fill="#4ade80" class="transition-colors duration-300 group-hover:fill-green-400 group-active:fill-green-400"/>
-                    <circle cx="12" cy="12" r="6" fill="#134e2c" class="group-hover:animate-pulse group-active:animate-pulse"/>
-                </svg>
-                <div class="absolute top-[18%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-3 md:h-3 
-                           bg-green-600 rounded-full opacity-0 group-hover:opacity-100 group-active:opacity-100
-                           transition-opacity duration-300 animate-pulse"></div>
-            `
+                pinContainer.style.left = `${xPos}%`
+                pinContainer.style.top = `${yPos}%`
 
-            // Handle click for mobile (and desktop) - show/hide popup
-            pinContainer.addEventListener('click', (e) => {
-                e.stopPropagation()
+                // Create pin shape with larger size
+                const pin = document.createElement('div')
+                pin.className = `
+                    w-4 h-6 md:w-8 md:h-12 relative
+                    transition-transform duration-300 ease-bounce
+                    hover:scale-125 hover:-translate-y-1 origin-bottom
+                    active:scale-125 active:-translate-y-1
+                `
+                pin.innerHTML = `
+                    <svg viewBox="0 0 24 36" class="w-full h-full">
+                        <path d="M12 0C5.4 0 0 5.4 0 12c0 7.2 12 24 12 24s12-16.8 12-24c0-6.6-5.4-12-12-12z" 
+                              fill="#4ade80" class="transition-colors duration-300 group-hover:fill-green-400 group-active:fill-green-400"/>
+                        <circle cx="12" cy="12" r="6" fill="#134e2c" class="group-hover:animate-pulse group-active:animate-pulse"/>
+                    </svg>
+                    <div class="absolute top-[18%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-3 md:h-3 
+                               bg-green-600 rounded-full opacity-0 group-hover:opacity-100 group-active:opacity-100
+                               transition-opacity duration-300 animate-pulse"></div>
+                `
 
-                const clickedCity = pinContainer.getAttribute('data-city')
+                // Handle click for mobile (and desktop) - show/hide popup
+                pinContainer.addEventListener('click', (e) => {
+                    e.stopPropagation()
 
-                // If this pin's popup is already active, close it
-                if (activePopupRef.current === clickedCity) {
-                    cleanupPopups()
-                } else {
-                    // Otherwise, show this pin's popup
-                    showPopupCard(city.name, pinContainer.getBoundingClientRect())
-                }
-            })
+                    const clickedCity = pinContainer.getAttribute('data-city')
 
-            // For desktop: Mouse hover events
-            if (window.matchMedia('(min-width: 768px)').matches) {
-                pinContainer.addEventListener('mouseenter', () => {
-                    if (!activePopupRef.current) {
+                    // If this pin's popup is already active, close it
+                    if (activePopupRef.current === clickedCity) {
+                        cleanupPopups()
+                    } else {
+                        // Otherwise, show this pin's popup
                         showPopupCard(city.name, pinContainer.getBoundingClientRect())
                     }
                 })
 
-                pinContainer.addEventListener('mouseleave', () => {
-                    // Only close on mouseleave if we're not in "clicked" mode
-                    const clicked = activePopupRef.current === city.name
-                    if (!clicked) {
-                        cleanupPopups()
-                    }
-                })
-            }
+                // For desktop: Mouse hover events
+                if (window.matchMedia('(min-width: 768px)').matches) {
+                    pinContainer.addEventListener('mouseenter', () => {
+                        if (!activePopupRef.current) {
+                            showPopupCard(city.name, pinContainer.getBoundingClientRect())
+                        }
+                    })
 
-            pinContainer.appendChild(pin)
-            mapRef.current?.appendChild(pinContainer)
-            markersRef.current.push(pinContainer)
+                    pinContainer.addEventListener('mouseleave', () => {
+                        // Only close on mouseleave if we're not in "clicked" mode
+                        const clicked = activePopupRef.current === city.name
+                        if (!clicked) {
+                            cleanupPopups()
+                        }
+                    })
+                }
+
+                pinContainer.appendChild(pin)
+                mapRef.current?.appendChild(pinContainer)
+                markersRef.current.push(pinContainer)
+            }
         })
     }, [projection, dimensions, cleanupPopups, showPopupCard])
 
@@ -544,7 +622,12 @@ const InteractiveMap: React.FC = () => {
         }
     }, [dimensions, renderMap, cleanupPopups])
 
-    return <div ref={mapRef} className="w-full h-[60vh] md:h-[80vh] lg:h-screen m-0 p-0 bg-transparent relative overflow-hidden" />
+    // Adjusted container with balanced padding and more modest height
+    return (
+        <div className="w-full pl-2 pr-2 md:pl-4 md:pr-4 lg:pl-0 lg:pr-0">
+            <div ref={mapRef} className="w-full h-[85vh] md:h-[90vh] lg:h-[95vh] xl:h-screen m-0 p-0 bg-transparent relative overflow-hidden" />
+        </div>
+    )
 }
 
 export default InteractiveMap

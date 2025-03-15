@@ -1,132 +1,41 @@
 // src/components/Navbar.tsx
-import { Award, BadgeDollarSign, Bitcoin, Book, DollarSign, GanttChart, HelpCircle, Home, Info, Menu, Newspaper, Users, Wallet, X } from 'lucide-react'
-import { FC, useState } from 'react'
-import { CNZ_URL } from '../config/config.ts'
+import React, { FC, useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { navigation, NavItem as NavigationItem } from '../config/navigation'
 
-// Define the navigation structure with icons
-const navigation = [
-    {
-        text: 'Home',
-        path: '',
-        icon: <Home size={18} />
-    },
-    {
-        text: 'Buy & Sell',
-        icon: <DollarSign size={18} />,
-        isDropdown: true,
-        sections: [
-            {
-                title: 'Getting Started',
-                items: [
-                    {
-                        title: 'How to Buy Crypto',
-                        description: 'Step-by-step guide for beginners',
-                        path: 'how-to-buy',
-                        icon: <BadgeDollarSign size={20} />
-                    },
-                    {
-                        title: 'How to Sell Crypto',
-                        description: 'Convert your crypto to NZD',
-                        path: 'how-to-sell',
-                        icon: <DollarSign size={20} />
-                    },
-                    {
-                        title: 'Wallets',
-                        description: 'Secure your digital assets',
-                        path: 'wallets',
-                        icon: <Wallet size={20} />
-                    }
-                ]
-            },
-            {
-                title: 'Trading Options',
-                items: [
-                    {
-                        title: 'NZ Exchanges',
-                        description: 'Trusted platforms for Kiwis',
-                        path: 'nz-exchanges',
-                        icon: <GanttChart size={20} />
-                    },
-                    {
-                        title: 'P2P Marketplace',
-                        description: 'Trade directly with other Kiwis',
-                        path: 'p2p-marketplace',
-                        icon: <Users size={20} />
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        text: 'Learn',
-        icon: <Book size={18} />,
-        isDropdown: true,
-        sections: [
-            {
-                title: 'Crypto Basics',
-                items: [
-                    {
-                        title: 'Bitcoin Explained',
-                        description: 'Understanding Bitcoin fundamentals',
-                        path: 'bitcoin-explained',
-                        icon: <Bitcoin size={20} />
-                    },
-                    {
-                        title: 'Crypto Mining',
-                        description: 'How mining works in New Zealand',
-                        path: 'crypto-mining',
-                        icon: <Award size={20} />
-                    }
-                ]
-            },
-            {
-                title: 'Advanced Topics',
-                items: [
-                    {
-                        title: 'DeFi for Kiwis',
-                        description: 'Decentralized finance explained',
-                        path: 'defi',
-                        icon: <GanttChart size={20} />
-                    },
-                    {
-                        title: 'Web3 & NFTs',
-                        description: 'Explore digital ownership',
-                        path: 'web3-nfts',
-                        icon: <Award size={20} />
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        text: 'Community',
-        path: 'community',
-        icon: <Users size={18} />
-    },
-    {
-        text: 'News',
-        path: 'news',
-        icon: <Newspaper size={18} />
-    },
-    {
-        text: 'About',
-        path: 'about',
-        icon: <Info size={18} />
-    },
-    {
-        text: 'Help',
-        path: 'get-help',
-        icon: <HelpCircle size={18} />
-    }
-]
-
-// Helper functions
-const isDropdown = (item: NavigationItem): item is DropdownNavItem => {
-    return 'isDropdown' in item && item.isDropdown === true
+// Helper function to determine if an item is a dropdown
+const isDropdown = (item: NavigationItem): boolean => {
+    return item.isDropdown === true
 }
 
-const getFullUrl = (path: string): string => {
-    return `${CNZ_URL}${path}`
+// Get all menu items in a flat array for mobile menu
+const getAllMenuItems = () => {
+    const items: { title: string; path: string; icon: React.ReactNode; section?: string }[] = []
+
+    // Add main navigation items
+    navigation.forEach((item) => {
+        if (!isDropdown(item)) {
+            items.push({
+                title: item.text,
+                path: item.path || '#',
+                icon: item.icon
+            })
+        } else {
+            // Add dropdown items
+            item.sections?.forEach((section) => {
+                section.items.forEach((subItem) => {
+                    items.push({
+                        title: subItem.title,
+                        path: subItem.path,
+                        icon: subItem.icon,
+                        section: section.title
+                    })
+                })
+            })
+        }
+    })
+
+    return items
 }
 
 interface NavItemProps {
@@ -136,36 +45,15 @@ interface NavItemProps {
     dropdownContent?: React.ReactNode
 }
 
-interface NavItem {
-    text: string
-    path?: string
-    icon: React.ReactNode
-}
-
-interface DropdownNavItem extends NavItem {
-    isDropdown: true
-    sections: {
-        title: string
-        items: {
-            title: string
-            description: string
-            path: string
-            icon: React.ReactNode
-        }[]
-    }[]
-}
-
-type NavigationItem = NavItem | DropdownNavItem
-
 const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
     if (dropdownContent) {
         return (
             <div className="relative group">
                 <button
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-300 
-                                 hover:text-white hover:bg-green-500/10 transition-all duration-300
-                                 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] font-medium
-                                 text-base"
+                       hover:text-white hover:bg-green-500/10 transition-all duration-300
+                       hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] font-medium
+                       text-base"
                 >
                     {icon && <span className="text-green-400">{icon}</span>}
                     {text}
@@ -173,10 +61,10 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
                 </button>
                 <div
                     className="absolute right-0 top-full w-[600px] bg-black/95 backdrop-blur-md 
-                              border border-green-500/30 rounded-xl p-4 opacity-0 invisible 
-                              group-hover:opacity-100 group-hover:visible transform 
-                              translate-y-2 group-hover:translate-y-0 transition-all duration-300
-                              shadow-xl shadow-green-900/30 z-50"
+                    border border-green-500/30 rounded-xl p-4 opacity-0 invisible 
+                    group-hover:opacity-100 group-hover:visible transform 
+                    translate-y-2 group-hover:translate-y-0 transition-all duration-300
+                    shadow-xl shadow-green-900/30 z-50"
                 >
                     {dropdownContent}
                 </div>
@@ -186,10 +74,10 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
 
     return (
         <a
-            href={link || CNZ_URL}
+            href={link || '#'}
             className="px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-green-500/10 
-                      transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] 
-                      font-medium flex items-center gap-2 text-base whitespace-nowrap"
+                transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] 
+                font-medium flex items-center gap-2 text-base whitespace-nowrap"
         >
             {icon && <span className="text-green-400">{icon}</span>}
             {text}
@@ -200,13 +88,25 @@ const NavItem: FC<NavItemProps> = ({ text, link, icon, dropdownContent }) => {
 const Navbar: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+    // Get all menu items for mobile menu
+    const allMenuItems = getAllMenuItems()
+
+    // Get buy & sell items
+    const buySellItems = allMenuItems.filter((item) => item.section && ['Getting Started', 'Trading Options'].includes(item.section))
+
+    // Get learn items
+    const learnItems = allMenuItems.filter((item) => item.section && ['Crypto Basics', 'Advanced Topics'].includes(item.section))
+
+    // Get main navigation items (not in dropdowns)
+    const mainNavItems = allMenuItems.filter((item) => !item.section)
+
     const dropdownLinkClasses = `flex items-start gap-3 p-3 rounded-lg hover:bg-green-500/10 transition-all duration-300
-        hover:shadow-[0_0_10px_rgba(34,197,94,0.2)] group/item`
+      hover:shadow-[0_0_10px_rgba(34,197,94,0.2)] group/item`
 
     return (
         <nav
             className="fixed top-0 left-0 right-0 bg-zinc-800/90 backdrop-blur-md z-50 
-                         border-b border-green-500/20 shadow-lg shadow-zinc-900/50"
+                   border-b border-green-500/20 shadow-lg shadow-zinc-900/50"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center h-16 md:h-18 lg:h-20">
@@ -231,21 +131,21 @@ const Navbar: FC = () => {
                                     key={index}
                                     text={item.text}
                                     icon={item.icon}
-                                    link={isDropdown(item) ? undefined : getFullUrl(item.path || '')}
+                                    link={isDropdown(item) ? undefined : item.path}
                                     dropdownContent={
-                                        isDropdown(item) ? (
+                                        isDropdown(item) && item.sections ? (
                                             <div className="grid grid-cols-2 gap-6">
                                                 {item.sections.map((section, sectionIndex) => (
                                                     <div key={sectionIndex}>
                                                         <h3 className="text-green-400 font-semibold mb-3 pl-2 text-base">{section.title}</h3>
                                                         <div className="space-y-1">
                                                             {section.items.map((dropdownItem, itemIndex) => (
-                                                                <a key={itemIndex} href={getFullUrl(dropdownItem.path)} className={dropdownLinkClasses}>
+                                                                <a key={itemIndex} href={dropdownItem.path} className={dropdownLinkClasses}>
                                                                     <span className="text-green-400 mt-1 flex-shrink-0">{dropdownItem.icon}</span>
                                                                     <div className="flex-1">
                                                                         <span
                                                                             className="text-white block group-hover/item:text-green-400 
-                                                                            transition-colors text-base"
+                                      transition-colors text-base"
                                                                         >
                                                                             {dropdownItem.title}
                                                                         </span>
@@ -269,7 +169,7 @@ const Navbar: FC = () => {
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="p-2 rounded-lg text-gray-300 hover:text-white 
-                                     hover:bg-green-500/10 transition-colors"
+                       hover:bg-green-500/10 transition-colors"
                         >
                             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -280,140 +180,110 @@ const Navbar: FC = () => {
             {/* Improved Mobile menu with icons and better organization */}
             <div className={`${isMenuOpen ? 'block' : 'hidden'} min-[1200px]:hidden bg-black/95 backdrop-blur-md`}>
                 <div className="px-4 pt-2 pb-4 space-y-1">
-                    <a
-                        href={CNZ_URL}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                               hover:bg-green-500/10 transition-colors text-sm sm:text-base
-                               flex items-center gap-3"
-                    >
-                        <Home size={18} className="text-green-400" />
-                        Home
-                    </a>
+                    {/* Find Home item */}
+                    {mainNavItems.find((item) => item.title === 'Home') && (
+                        <a
+                            href={mainNavItems.find((item) => item.title === 'Home')?.path}
+                            className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                     hover:bg-green-500/10 transition-colors text-sm sm:text-base
+                     flex items-center gap-3"
+                        >
+                            {React.cloneElement(mainNavItems.find((item) => item.title === 'Home')?.icon as React.ReactElement, {
+                                className: 'text-green-400'
+                            })}
+                            Home
+                        </a>
+                    )}
 
                     {/* Buy & Sell Section */}
-                    <div className="px-4 py-2">
-                        <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
-                            <DollarSign size={18} />
-                            Buy & Sell
+                    {buySellItems.length > 0 && (
+                        <div className="px-4 py-2">
+                            <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
+                                {React.cloneElement(navigation.find((item) => item.text === 'Buy & Sell')?.icon as React.ReactElement, {
+                                    className: 'text-green-400'
+                                })}
+                                Buy & Sell
+                            </div>
+                            <div className="pl-4 space-y-2">
+                                {buySellItems.map((item, index) => (
+                                    <a
+                                        key={index}
+                                        href={item.path}
+                                        className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                             hover:bg-green-500/10 transition-colors text-xs sm:text-sm
+                             flex items-center gap-2"
+                                    >
+                                        {React.cloneElement(item.icon as React.ReactElement, {
+                                            size: 16,
+                                            className: 'text-green-400'
+                                        })}
+                                        {item.title}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                        <div className="pl-4 space-y-2">
-                            <a
-                                href={getFullUrl('how-to-buy')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <BadgeDollarSign size={16} className="text-green-400" />
-                                How to Buy
-                            </a>
-                            <a
-                                href={getFullUrl('how-to-sell')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <DollarSign size={16} className="text-green-400" />
-                                How to Sell
-                            </a>
-                            <a
-                                href={getFullUrl('wallets')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <Wallet size={16} className="text-green-400" />
-                                Wallets
-                            </a>
-                            <a
-                                href={getFullUrl('p2p-marketplace')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <Users size={16} className="text-green-400" />
-                                P2P Marketplace
-                            </a>
-                        </div>
-                    </div>
+                    )}
 
                     {/* Learn Section */}
-                    <div className="px-4 py-2">
-                        <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
-                            <Book size={18} />
-                            Learn
+                    {learnItems.length > 0 && (
+                        <div className="px-4 py-2">
+                            <div className="font-medium text-green-400 mb-2 text-sm sm:text-base flex items-center gap-2">
+                                {React.cloneElement(navigation.find((item) => item.text === 'Learn')?.icon as React.ReactElement, {
+                                    className: 'text-green-400'
+                                })}
+                                Learn
+                            </div>
+                            <div className="pl-4 space-y-2">
+                                {learnItems.map((item, index) => (
+                                    <a
+                                        key={index}
+                                        href={item.path}
+                                        className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
+                             hover:bg-green-500/10 transition-colors text-xs sm:text-sm
+                             flex items-center gap-2"
+                                    >
+                                        {React.cloneElement(item.icon as React.ReactElement, {
+                                            size: 16,
+                                            className: 'text-green-400'
+                                        })}
+                                        {item.title}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                        <div className="pl-4 space-y-2">
-                            <a
-                                href={getFullUrl('bitcoin-explained')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <Bitcoin size={16} className="text-green-400" />
-                                Bitcoin Explained
-                            </a>
-                            <a
-                                href={getFullUrl('crypto-mining')}
-                                className="block px-4 py-2 rounded-lg text-gray-400 hover:text-white 
-                                       hover:bg-green-500/10 transition-colors text-xs sm:text-sm
-                                       flex items-center gap-2"
-                            >
-                                <Award size={16} className="text-green-400" />
-                                Crypto Mining
-                            </a>
-                        </div>
-                    </div>
+                    )}
 
                     {/* Other main sections */}
-                    <a
-                        href={getFullUrl('community')}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                               hover:bg-green-500/10 transition-colors text-sm sm:text-base
-                               flex items-center gap-3"
-                    >
-                        <Users size={18} className="text-green-400" />
-                        Community
-                    </a>
-                    <a
-                        href={getFullUrl('news')}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                               hover:bg-green-500/10 transition-colors text-sm sm:text-base
-                               flex items-center gap-3"
-                    >
-                        <Newspaper size={18} className="text-green-400" />
-                        News
-                    </a>
-                    <a
-                        href={getFullUrl('about')}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                               hover:bg-green-500/10 transition-colors text-sm sm:text-base
-                               flex items-center gap-3"
-                    >
-                        <Info size={18} className="text-green-400" />
-                        About Us
-                    </a>
-                    <a
-                        href={getFullUrl('get-help')}
-                        className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
-                               hover:bg-green-500/10 transition-colors text-sm sm:text-base
-                               flex items-center gap-3"
-                    >
-                        <HelpCircle size={18} className="text-green-400" />
-                        Get Help
-                    </a>
+                    {mainNavItems
+                        .filter((item) => item.title !== 'Home')
+                        .map((item, index) => (
+                            <a
+                                key={index}
+                                href={item.path}
+                                className="block px-4 py-2 rounded-lg text-gray-300 hover:text-white 
+                         hover:bg-green-500/10 transition-colors text-sm sm:text-base
+                         flex items-center gap-3"
+                            >
+                                {React.cloneElement(item.icon as React.ReactElement, {
+                                    size: 18,
+                                    className: 'text-green-400'
+                                })}
+                                {item.title}
+                            </a>
+                        ))}
                 </div>
             </div>
             <style>{`
-             @keyframes shake {
-                    0%, 50%, 100% { transform: rotate(0deg); }
-                    5%, 15% { transform: rotate(-5deg); }
-                    10%, 20% { transform: rotate(5deg); }
-                }
-                
-                .animate-shake {
-                    animation: shake 5s ease-in-out infinite;
-                }
-            `}</style>
+       @keyframes shake {
+              0%, 50%, 100% { transform: rotate(0deg); }
+              5%, 15% { transform: rotate(-5deg); }
+              10%, 20% { transform: rotate(5deg); }
+          }
+          
+          .animate-shake {
+              animation: shake 5s ease-in-out infinite;
+          }
+      `}</style>
         </nav>
     )
 }

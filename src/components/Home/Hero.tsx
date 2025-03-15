@@ -97,7 +97,7 @@ const Hero = () => {
                     New Zealand Cryptocurrency Community Collective
                 </motion.p>
 
-                <div className="flex flex-wrap justify-center gap-4 w-full">
+                <div className="flex flex-wrap justify-center gap-x-4 gap-y-10 w-full sm:gap-4">
                     {navigationButtons.map((button, index) =>
                         button.isExternal ? (
                             // External link using <a> tag

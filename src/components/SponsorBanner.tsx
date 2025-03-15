@@ -121,7 +121,7 @@ const SponsorBanner = () => {
                         <div
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`relative ${activeCardIndex === index ? 'scale-105 sm:scale-105 z-10' : 'scale-100'} 
+                            className={`relative ${activeCardIndex === index ? 'scale-105 sm:scale-105 z-10 p-10' : 'scale-100'} 
                             group bg-gradient-to-b from-white/40 to-white/20 rounded-lg backdrop-blur-sm 
                             border border-green-400/30 hover:border-green-400/70 
                             transition-all duration-300 p-3 sm:p-4 
@@ -136,14 +136,6 @@ const SponsorBanner = () => {
                                 transition-all duration-300`}
                             >
                                 <img src={sponsor.image} alt={sponsor.name} className="max-w-full max-h-full object-contain" loading="lazy" />
-                            </div>
-
-                            {/* Name label (only visible when not active or hovered) */}
-                            <div
-                                className={`text-center mt-2 transition-opacity duration-300
-                                ${activeCardIndex === index ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'}`}
-                            >
-                                <p className="text-white text-xs sm:text-sm font-medium truncate">{sponsor.name}</p>
                             </div>
 
                             {/* Enhanced overlay with better mobile experience */}
