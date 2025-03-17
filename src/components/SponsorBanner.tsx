@@ -121,13 +121,14 @@ const SponsorBanner = () => {
                         <div
                             key={index}
                             onClick={() => handleCardClick(index)}
-                            className={`relative ${activeCardIndex === index ? 'scale-105 sm:scale-105 z-10 p-10' : 'scale-100'} 
+                            className={`relative ${activeCardIndex === index ? 'scale-105 z-10 h-[180px] sm:h-[190px] md:h-[200px] lg:h-[220px]' : 'h-[90px] sm:h-[100px] md:h-[110px] lg:h-[120px]'} 
                             group bg-gradient-to-b from-white/40 to-white/20 rounded-lg backdrop-blur-sm 
                             border border-green-400/30 hover:border-green-400/70 
                             transition-all duration-300 p-3 sm:p-4 
                             hover:shadow-[0_0_15px_rgba(74,222,128,0.3)] md:hover:shadow-[0_0_25px_rgba(74,222,128,0.4)]
-                            overflow-hidden hover:scale-105 hover:z-10 cursor-pointer
-                            ${activeCardIndex === index ? 'shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}`}
+                            overflow-hidden sm:hover:scale-105 hover:z-10 cursor-pointer
+                            ${activeCardIndex === index ? 'shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}
+                            sm:hover:h-[190px] md:hover:h-[200px] lg:hover:h-[220px]`}
                         >
                             {/* Sponsor Logo with better sizing for small screens */}
                             <div
@@ -141,18 +142,18 @@ const SponsorBanner = () => {
                             {/* Enhanced overlay with better mobile experience */}
                             <div
                                 className={`absolute inset-0 bg-gradient-to-b from-zinc-900/95 to-black/95
-                                ${activeCardIndex === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} 
-                                transition-all duration-300 flex flex-col items-center justify-center p-3 sm:p-4 md:p-6`}
+                                ${activeCardIndex === index ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'} 
+                                transition-all duration-300 flex flex-col items-center justify-center p-4 sm:p-5`}
                             >
                                 <div
                                     className={`transform ${activeCardIndex === index ? 'translate-y-0' : 'translate-y-4 group-hover:translate-y-0'} 
-                                    transition-all duration-300 text-center flex flex-col items-center w-full`}
+                                    transition-all duration-300 text-center flex flex-col items-center w-full h-full`}
                                 >
                                     {/* Sponsor name in overlay */}
                                     <h3 className="text-green-300 font-semibold text-sm sm:text-base mb-2">{sponsor.name}</h3>
 
                                     {/* Description with better font sizing for readability */}
-                                    <p className="text-green-100 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-4">{sponsor.description}</p>
+                                    <p className="text-green-100 text-xs sm:text-sm mb-3 sm:mb-4">{sponsor.description}</p>
 
                                     {/* Enhanced CTA button */}
                                     <a
@@ -163,7 +164,7 @@ const SponsorBanner = () => {
                                         bg-gradient-to-r from-green-500 to-green-600 text-white text-xs sm:text-sm rounded-lg 
                                         hover:from-green-600 hover:to-green-700 transition-all duration-300
                                         hover:shadow-[0_0_10px_rgba(74,222,128,0.4)]
-                                        w-full sm:w-3/4 justify-center"
+                                        w-full sm:w-3/4 justify-center mt-auto"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         Visit Website
@@ -180,7 +181,7 @@ const SponsorBanner = () => {
                 {/* Sponsor CTA */}
                 <div className="mt-8 sm:mt-10 md:mt-12 text-center">
                     <a
-                        href="/sponsors"
+                        href="/web-core/#/web-core"
                         className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 
                         bg-gradient-to-r from-green-500/20 to-green-600/10
                         hover:from-green-500/30 hover:to-green-600/20

@@ -144,7 +144,7 @@ const TeamSection: FC = () => {
                             hover:shadow-[0_0_20px_rgba(74,222,128,0.2)]
                             transition-all duration-300 transform hover:-translate-y-1"
                         >
-                            <a href="/join" className="text-green-400 hover:text-green-300 transition-colors duration-300">
+                            <a href="/web-core/#/web-core" className="text-green-400 hover:text-green-300 transition-colors duration-300">
                                 <span className="text-sm sm:text-base">Interested in joining our team?</span>
                             </a>
                         </div>
