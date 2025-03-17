@@ -13,28 +13,28 @@ const cnzProjects: Project[] = [
     {
         title: 'Cryptocurrency NZ Discord',
         description: "New Zealand's largest cryptocurrency Discord server where Kiwis can freely talk Bitcoin, crypto, NFTs, DeFi, Mining, Day Trading and beyond in NZ.",
-        link: '/discord',
+        link: '/web-core/#/web-core',
         linkText: 'Join the CNZ Discord',
         icon: MessageCircle
     },
     {
         title: 'Cryptocurrency.org.NZ',
         description: 'Our New Zealand focused, no bullshit crypto guide built to help Kiwis learn, set up their first wallet and buy crypto safely and easily in NZ.',
-        link: '/guides',
+        link: '/web-core/#/web-core',
         linkText: 'Explore our Guides',
         icon: Globe
     },
     {
         title: 'NZ Crypto Meetups',
         description: 'On the last Wednesday of each month, we run 14 monthly Bitcoin & crypto meetups across New Zealand.',
-        link: '/meetups',
+        link: '/web-core/#/web-core',
         linkText: 'Find your CNZ Meetup',
         icon: Users
     },
     {
         title: 'NZ P2P Crypto Marketplace',
         description: "New Zealand's largest peer-to-peer trading group for buying or selling crypto directly between individuals without middlemen.",
-        link: '/p2p-marketplace',
+        link: '/web-core/#/web-core',
         linkText: 'Go to NZ P2P Marketplace',
         icon: Map
     }
@@ -104,7 +104,7 @@ const Projects: FC = () => {
                     {/* Additional bottom CTA */}
                     <div className="mt-10 sm:mt-12 text-center">
                         <a
-                            href="/all-projects"
+                            href="/web-core/#/web-core"
                             className="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 
                             bg-gradient-to-r from-green-500/20 to-green-600/10
                             hover:from-green-500/30 hover:to-green-600/20

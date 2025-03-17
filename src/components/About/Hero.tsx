@@ -41,7 +41,7 @@ const AboutHero: FC = () => {
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                             <a
-                                href="#mission"
+                                href="/web-core/#/web-core"
                                 className="group px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-green-500 text-zinc-900 font-semibold
                                 rounded-lg transition-all duration-300 
                                 hover:bg-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.4)] md:hover:shadow-[0_0_35px_rgba(74,222,128,0.5)]
@@ -56,7 +56,7 @@ const AboutHero: FC = () => {
                             </a>
 
                             <a
-                                href="#team"
+                                href="/web-core/#/web-core/about"
                                 className="text-green-400 hover:text-green-300 transition-all duration-300
                                 border-b border-green-500/30 hover:border-green-400/70 
                                 px-3 sm:px-4 py-2 hover:px-5 sm:hover:px-6 mt-2 sm:mt-0 text-sm md:text-base"
@@ -69,7 +69,7 @@ const AboutHero: FC = () => {
 
                 {/* Scroll down indicator - improved positioning */}
                 <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-0 right-0 flex justify-center animate-bounce">
-                    <a href="#numbers" className="text-green-400 hover:text-green-300 transition-colors duration-300 p-2" aria-label="Scroll to statistics">
+                    <a href="/web-core/#/web-core" className="text-green-400 hover:text-green-300 transition-colors duration-300 p-2" aria-label="Scroll to statistics">
                         <ChevronDown size={20} className="md:w-6 md:h-6" />
                     </a>
                 </div>

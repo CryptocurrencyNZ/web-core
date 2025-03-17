@@ -29,7 +29,7 @@ const Mission: FC = () => {
 
                             <div className="hidden lg:block">
                                 <a
-                                    href="#projects"
+                                    href="/web-core/#/web-core"
                                     className="inline-block text-green-400 hover:text-green-300 transition-all duration-300
                                     border-b border-green-500/30 hover:border-green-400/70 
                                     px-2 py-1 hover:px-3"
@@ -124,7 +124,7 @@ const Mission: FC = () => {
                             {/* Mobile CTA - better centered and styled */}
                             <div className="block lg:hidden mt-4 sm:mt-6 text-center">
                                 <a
-                                    href="#projects"
+                                    href="/web-core/#/web-core"
                                     className="inline-block text-green-400 hover:text-green-300 transition-all duration-300
                                     border-b border-green-500/30 hover:border-green-400/70 
                                     px-2 py-1 text-sm sm:text-base"

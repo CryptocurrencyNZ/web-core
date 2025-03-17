@@ -88,7 +88,7 @@ const CommunityImpact: FC = () => {
                             {/* Additional CTA button for desktop only */}
                             <div className="hidden lg:block mt-6">
                                 <a
-                                    href="/impact"
+                                    href="/web-core/#/web-core"
                                     className="inline-flex items-center px-4 py-2 bg-green-500/20 hover:bg-green-500/30
                                     border border-green-500/40 hover:border-green-400/70
                                     rounded-lg text-green-400 transition-all duration-300
@@ -106,7 +106,7 @@ const CommunityImpact: FC = () => {
                     {/* Mobile-only CTA - centered at bottom */}
                     <div className="lg:hidden flex justify-center mt-6 sm:mt-8">
                         <a
-                            href="/impact"
+                            href="/web-core/#/web-core"
                             className="inline-flex items-center px-3 py-2 bg-green-500/20 hover:bg-green-500/30
                             border border-green-500/40 hover:border-green-400/70
                             rounded-lg text-green-400 text-sm transition-all duration-300"
