@@ -111,7 +111,7 @@ const SponsorBanner = () => {
             {/* Content with improved container constraints */}
             <div className="relative max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto z-10">
                 <h2 className="alegreya text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2 sm:mb-3 text-white">
-                    Our <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Sponsors</span> and Partners
+                    Our <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text alegreya text-transparent">Sponsors</span> and Partners
                 </h2>
                 <p className="text-green-100 text-center text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">Proudly supported by New Zealand's leading blockchain, bitcoin, crypto, web3 and blockchain organizations.</p>
 

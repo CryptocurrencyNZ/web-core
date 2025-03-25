@@ -57,7 +57,7 @@ const CryptoIntro = () => {
             {/* Content container with better responsive padding */}
             <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="alegreya text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center text-white">
-                    What is <span className="text-green-400">Crypto?</span>
+                    What is <span className="text-green-400 alegreya">Crypto?</span>
                 </h2>
                 <p className="text-green-100 text-center text-base md:text-lg mb-8 max-w-3xl mx-auto">Understanding cryptocurrency doesn't have to be complicated. Let's break it down into simple concepts.</p>
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as d3 from 'd3'
-import '../../css/map.css'
+import '../../../css/map.css'
 
 // Import from local config file instead of fetching
-import { cities } from '../../config/cityMapData'
-import { newZealandGeoJson } from '../../config/nzGeoData'
+import { cities } from '../../../config/cityMapData'
+import { newZealandGeoJson } from '../../../config/nzGeoData'
 
 type Coordinate = [number, number]
 type MultiPolygon = Coordinate[][][]
@@ -26,7 +26,19 @@ const InteractiveMap: React.FC = () => {
     const activePopupRef = useRef<string | null>(null)
     const laserIntervalRef = useRef<ReturnType<typeof setInterval>>()
     const [dimensions, setDimensions] = useState({ width: 800, height: 1000 }) // Reduced from 900x1120
-    const pixelSize = window.innerWidth <= 768 ? 7 : 5 // Smaller pixels for higher resolution
+    // Update the pixelSize calculation to use larger pixel values
+    const pixelSize = useMemo(() => {
+        // Make pixels significantly larger on all screen sizes
+        if (window.innerWidth <= 768) {
+            return 10 // Mobile (was 7)
+        } else if (window.innerWidth <= 1200) {
+            return 22 // Small desktop (was 5)
+        } else if (window.innerWidth <= 1600) {
+            return 28 // Medium desktop
+        } else {
+            return 22 // Large desktop
+        }
+    }, [])
 
     // Memoize the projection to prevent recalculation
     // Memoize the projection to prevent recalculation with slightly adjusted vertical position
@@ -524,7 +536,7 @@ const InteractiveMap: React.FC = () => {
             // Render pixels in chunks for better performance
             const cols = Math.ceil(dimensions.width / pixelSize)
             const rows = Math.ceil(dimensions.height / pixelSize)
-            const chunkSize = 500 // Process this many pixels at once
+            const chunkSize = 1000 // Process this many pixels at once
 
             const isInside = (point: Coordinate) => {
                 return multiPolygon.some((polygonCoords) => {
