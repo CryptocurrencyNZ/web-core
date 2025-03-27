@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { heroUrls } from '../../config/config.ts'
 import AnimatedGridPattern from './HeroGridPattern'
-import Map from './Map'
+import Map from './Map/Map.tsx'
 
 interface NavigationButton {
     path: string
@@ -63,11 +63,18 @@ const Hero = () => {
     }
 
     // Common button styling
-    const buttonClassName =
+    /*const buttonClassName =
         'px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 \
                            rounded-lg text-white font-medium transition-all duration-300 \
                            hover:border-green-400/70 hover:bg-green-500/10 \
-                           hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto'
+                           hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto'*/
+
+    const buttonClassName =
+        'px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 \
+rounded-lg text-white font-medium transition-all duration-300 \
+hover:border-green-400 hover:bg-green-500/30 \
+hover:shadow-[0_0_35px_rgba(74,222,128,0.4)] w-fit md:w-auto\
+flex items-center gap-2 mt-8"  '
 
     // Animation props common to both button types
     const buttonAnimationProps = {

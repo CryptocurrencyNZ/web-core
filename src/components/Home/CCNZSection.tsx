@@ -46,8 +46,7 @@ const ConsultingSection: FC = () => {
                     <div className="mb-12">
                         <div className="flex items-center gap-8">
                             <h2 className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold">
-                                Need Professional
-                                <span className="alegreya text-green-500 block mt-2">Crypto Guidance?</span>
+                                <span className="alegreya text-green-500 block mt-2">Crypto Consulting</span> NZ
                             </h2>
                             {/* Logo next to title */}
                             <div

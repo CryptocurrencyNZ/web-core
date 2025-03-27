@@ -62,7 +62,7 @@ interface City {
 export const cities: City[] = [
     {
         name: 'Auckland',
-        coords: [174.7633, -37.1485],
+        coords: [174.7633, -36.7485],
         importance: 1,
         description: '',
         host: 'Dev K',
@@ -98,7 +98,7 @@ export const cities: City[] = [
     },
     {
         name: 'Tauranga',
-        coords: [175.8793, -37.787],
+        coords: [175.5793, -37.387],
         importance: 1,
         description: '',
         host: 'Daniel',
