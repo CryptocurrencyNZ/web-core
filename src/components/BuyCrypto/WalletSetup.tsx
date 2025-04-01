@@ -71,7 +71,7 @@ const WalletSetupSection: FC = () => {
                     {/* Left Column - Introduction */}
                     <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="w-full lg:w-5/12">
                         <h2 className="alegreya text-3xl sm:text-4xl font-bold mb-6">
-                            Setting up a <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Cryptocurrency Wallet</span> in NZ
+                            Setting up a <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Cryptocurrency Wallet</span> in NZ
                         </h2>
 
                         <div className="space-y-4">
@@ -134,16 +134,31 @@ const WalletSetupSection: FC = () => {
                                 <p className="text-zinc-300 mt-2">Follow these simple steps to get started with your own wallet</p>
                             </div>
 
-                            {/* Steps navigation */}
-                            <div className="border-b border-zinc-700/40 px-4 sm:px-6">
-                                <div className="flex overflow-x-auto hide-scrollbar py-4">
+                            {/* Steps navigation - FIXED VERSION */}
+                            <div className="border-b border-zinc-700/40 px-4 sm:px-6 relative">
+                                {/* Arrow indicators to show there's more content */}
+                                <div className="absolute left-0 top-0 bottom-0 z-10 flex items-center pointer-events-none">
+                                    <div className="w-12 h-full bg-gradient-to-r from-zinc-800/90 to-transparent"></div>
+                                </div>
+                                <div className="absolute right-0 top-0 bottom-0 z-10 flex items-center pointer-events-none">
+                                    <div className="w-12 h-full bg-gradient-to-l from-zinc-800/90 to-transparent"></div>
+                                </div>
+
+                                <div className="flex overflow-x-auto py-4 scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-green-500/30 pb-2">
                                     {setupSteps.map((step) => (
-                                        <button key={step.number} onClick={() => setActiveStep(step.number)} className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors duration-200 mr-2 ${activeStep === step.number ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'text-zinc-400 hover:text-zinc-200'}`}>
+                                        <button key={step.number} onClick={() => setActiveStep(step.number)} className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors duration-200 mr-4 flex-shrink-0 ${activeStep === step.number ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'text-zinc-400 hover:text-zinc-200 border border-zinc-700/20 hover:border-zinc-600'}`}>
                                             <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 ${activeStep === step.number ? 'bg-green-500/20 border border-green-500/30' : 'border border-zinc-700/60'}`}>
                                                 <span className={activeStep === step.number ? 'text-green-400' : 'text-zinc-400'}>{step.number}</span>
                                             </div>
                                             <span>{step.title}</span>
                                         </button>
+                                    ))}
+                                </div>
+
+                                {/* Optional: Step indicator dots for mobile */}
+                                <div className="flex justify-center space-x-1.5 mt-2 md:hidden pb-2">
+                                    {setupSteps.map((step) => (
+                                        <button key={step.number} onClick={() => setActiveStep(step.number)} className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${activeStep === step.number ? 'bg-green-500' : 'bg-zinc-600 hover:bg-zinc-500'}`} aria-label={`Go to step ${step.number}: ${step.title}`} />
                                     ))}
                                 </div>
                             </div>

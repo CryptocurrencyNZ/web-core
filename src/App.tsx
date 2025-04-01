@@ -58,7 +58,7 @@ const App = () => {
                         }
                     />
                     <Route
-                        path="/buycrypto"
+                        path="/buy-cryptocurrency-nz"
                         element={
                             <Suspense fallback={<div />}>
                                 <BuyCryptoPage />

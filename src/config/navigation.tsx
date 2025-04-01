@@ -27,7 +27,7 @@ export interface NavSectionItem {
 export const navigation: NavItem[] = [
     {
         text: 'Home',
-        path: 'https://cryptocurrency.org.nz/',
+        path: '/',
         icon: <Home size={18} />,
         isDropdown: false
     },
@@ -42,7 +42,7 @@ export const navigation: NavItem[] = [
                     {
                         title: 'How to Buy Crypto',
                         description: 'Step-by-step guide for beginners',
-                        path: '/web-core/#/web-core/buycrypto',
+                        path: '/buy-cryptocurrency-nz',
                         icon: <BadgeDollarSign size={20} />
                     },
                     {
@@ -89,7 +89,7 @@ export const navigation: NavItem[] = [
                     {
                         title: 'Get Started',
                         description: 'Looking for a place to start?',
-                        path: '/web-core/#/web-core/getstarted',
+                        path: '/getstarted',
                         icon: <Bitcoin size={20} />
                     }
                 ]
@@ -121,7 +121,7 @@ export const navigation: NavItem[] = [
     },
     {
         text: 'About',
-        path: '/web-core/#/web-core/about',
+        path: '/about',
         icon: <Info size={18} />,
         isDropdown: false
     },

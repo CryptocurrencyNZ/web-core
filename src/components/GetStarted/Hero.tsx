@@ -21,7 +21,7 @@ const GetStartedHero: FC = () => {
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start px-8 md:px-[10%] py-16 lg:py-0 relative z-10">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-xl">
                     <h1 className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                        How to <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Get Started</span> with Cryptocurrency in NZ
+                        How to <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Get Started</span> with Cryptocurrency in NZ
                     </h1>
 
                     <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.7 }} className="text-base sm:text-lg md:text-xl text-zinc-100 mb-8">

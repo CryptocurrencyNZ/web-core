@@ -20,7 +20,7 @@ const CryptoBuyingOptions: FC = () => {
                 {/* Section header */}
                 <div className="text-center mb-12 md:mb-16">
                     <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="alegreya text-3xl sm:text-4xl font-bold mb-4">
-                        Where to <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Bitcoin & Cryptocurrency</span> in NZ
+                        Where to <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Bitcoin & Cryptocurrency</span> in NZ
                     </motion.h2>
 
                     <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.7 }} className="w-24 h-1 bg-gradient-to-r from-green-500/50 to-green-300/50 mx-auto rounded-full mb-6" />

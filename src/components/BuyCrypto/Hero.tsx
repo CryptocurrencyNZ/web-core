@@ -22,7 +22,7 @@ const BuyCryptoHero: FC = () => {
                     {/* Header Section */}
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
                         <h1 className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                            How to <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Cryptocurrency</span> in NZ - 2025 Guide
+                            How to <span className=" alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Cryptocurrency</span> in NZ - 2025 Guide
                         </h1>
 
                         <p className="text-base sm:text-lg md:text-xl text-zinc-100 mb-8 max-w-3xl mx-auto">
