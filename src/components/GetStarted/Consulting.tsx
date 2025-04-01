@@ -60,7 +60,7 @@ const ConsultingSection: FC = () => {
                         <div className="relative">
                             {/* Title with gradient */}
                             <h2 className="alegreya text-3xl sm:text-4xl font-bold mb-6">
-                                <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Crypto Consulting NZ</span>
+                                <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Crypto Consulting NZ</span>
                             </h2>
 
                             {/* Description with styled paragraphs */}

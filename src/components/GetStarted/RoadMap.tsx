@@ -73,7 +73,7 @@ const VerticalRoadmap: FC = () => {
             <div className="container mx-auto max-w-6xl relative z-10">
                 <div className="text-center mb-16">
                     <h2 className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-                        Your <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Crypto Journey</span> Path
+                        Your <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Crypto Journey</span> Path
                     </h2>
                     <p className="text-zinc-100 max-w-2xl mx-auto text-base sm:text-lg">Follow these four simple steps to start your cryptocurrency journey in New Zealand</p>
                 </div>

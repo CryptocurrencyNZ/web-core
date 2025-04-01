@@ -255,7 +255,7 @@ const Gallery: FC = () => {
                     <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-2 text-white">
                         Cryptocurrency NZ <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text alegreya text-transparent">Monthly Meetups</span>
                     </h2>
-                    <p className="text-green-100 text-center text-sm md:text-base">Discover the dynamic evolution of Aotearoa's cryptocurrency, blockchain, and Web3 ecosystem, blending social impact, industry growth, investment opportunities, and futuristic innovation.</p>
+                    <p className="text-green-100 text-center text-sm md:text-base">Discover Aotearoa's cryptocurrency, bitcoin, blockchain, and Web3 ecosystem. Connect. Learn. Collaborate</p>
                 </div>
 
                 <VideoSection />

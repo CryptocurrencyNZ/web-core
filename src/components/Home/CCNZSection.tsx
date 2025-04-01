@@ -48,14 +48,6 @@ const ConsultingSection: FC = () => {
                             <h2 className="alegreya text-3xl sm:text-4xl md:text-5xl font-bold">
                                 <span className="alegreya text-green-500 block mt-2">Crypto Consulting</span> NZ
                             </h2>
-                            {/* Logo next to title */}
-                            <div
-                                className="w-32 h-32 bg-black/80 rounded-3xl p-6 backdrop-blur-xl
-                                          border border-green-500/30 shadow-[0_0_50px_rgba(74,222,128,0.3)]
-                                          transform hover:scale-105 transition-transform duration-500"
-                            >
-                                <img src="./images/Crypto-Consulting-NZ.png" alt="Crypto Consulting NZ Logo" className="w-full h-full text-green-500" />
-                            </div>
                         </div>
                         <p className="text-gray-300 text-lg mt-6">Expert cryptocurrency consulting services designed specifically for New Zealand investors</p>
                     </div>

@@ -50,7 +50,7 @@ const SocialConnect = () => {
                         <div className="flex flex-col items-center space-y-6">
                             <h3 className="alegreya text-3xl font-bold text-white">Join Our Mission</h3>
 
-                            <p className="text-gray-300 text-center max-w-md">Stay up to date with the latest crypto news, events and developments in the New Zealand cryptocurrency arena.</p>
+                            <p className="text-gray-300 text-center max-w-md">Stay up to date with the latest crypto news, events and developments in the New Zealand cryptocurrency space.</p>
 
                             {/* Social Icons */}
                             <div className="grid grid-cols-2 gap-4 w-full max-w-sm">

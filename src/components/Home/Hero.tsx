@@ -7,13 +7,13 @@ import Map from './Map/Map.tsx'
 interface NavigationButton {
     path: string
     label: string
-    isExternal: boolean // Add this property to determine if we should use <a> or <Link>
+    isExternal: boolean
 }
 
 const navigationButtons: NavigationButton[] = [
-    { path: '/web-core/getstarted', label: 'Get Started', isExternal: false },
+    { path: '/getstarted', label: 'Get Started', isExternal: false },
     { path: heroUrls.routes.wallet, label: 'Get a Wallet', isExternal: false },
-    { path: '/web-core/buycrypto', label: 'Buy Crypto', isExternal: false }
+    { path: '/buy-cryptocurrency-nz', label: 'Buy Crypto', isExternal: false }
 ]
 
 const Hero = () => {
@@ -54,67 +54,54 @@ const Hero = () => {
     }
 
     const getFullUrl = (path: string) => {
-        // If it's an email link or absolute URL, return as is
         if (path.startsWith('mailto:') || path.startsWith('http')) {
             return path
         }
-        // Otherwise, combine base URL with path
         return `${heroUrls.base}${path}`
     }
 
-    // Common button styling
-    /*const buttonClassName =
-        'px-8 py-3 bg-black/80 backdrop-blur-sm border border-green-500/30 \
-                           rounded-lg text-white font-medium transition-all duration-300 \
-                           hover:border-green-400/70 hover:bg-green-500/10 \
-                           hover:shadow-[0_0_25px_rgba(74,222,128,0.3)] w-fit md:w-auto'*/
+    // Button style with responsive adjustments
+    const buttonClassName = 'px-4 sm:px-6 py-2.5 bg-green-500/20 backdrop-blur-sm border border-green-500/50 ' + 'rounded-lg text-white font-medium text-sm sm:text-base transition-all duration-300 ' + 'hover:border-green-400 hover:bg-green-500/30 hover:shadow-[0_0_25px_rgba(74,222,128,0.4)] ' + 'flex items-center justify-center gap-1 sm:gap-2'
 
-    const buttonClassName =
-        'px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 \
-rounded-lg text-white font-medium transition-all duration-300 \
-hover:border-green-400 hover:bg-green-500/30 \
-hover:shadow-[0_0_35px_rgba(74,222,128,0.4)] w-fit md:w-auto\
-flex items-center gap-2 mt-8"  '
-
-    // Animation props common to both button types
+    // Animation props common to all buttons
     const buttonAnimationProps = {
         initial: 'hidden',
         whileInView: 'visible',
         viewport: { once: true, amount: 0.1 },
         whileHover: {
-            scale: 1.05,
-            boxShadow: '0 0 25px rgba(74,222,128,0.3)',
+            scale: 1.03,
+            boxShadow: '0 0 20px rgba(74,222,128,0.3)',
             borderColor: 'rgba(74,222,128,0.7)'
         }
     }
 
     return (
-        <div className="relative w-full flex flex-col lg:flex-row justify-between m-0 p-0">
+        <div className="relative w-full flex flex-col lg:flex-row justify-between m-0 p-0 overflow-hidden">
             <AnimatedGridPattern />
 
-            <div className="w-full lg:w-1/2 min-h-screen flex flex-col justify-center items-center text-center px-8 md:px-[5%] pt-8 lg:pt-[60px] relative z-10 bg-transparent">
-                <motion.h1 initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={fadeIn} className="alegreya text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 font-bold leading-tight">
+            {/* Content Section */}
+            <div className="w-full lg:w-1/2 min-h-[60vh] lg:min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 pt-16 lg:pt-0 relative z-10 bg-transparent">
+                <motion.h1 initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={fadeIn} className="alegreya text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-3 sm:mb-4 font-bold leading-tight text-center">
                     Welcome to <span className="alegreya text-gray-300">Cryptocurrency</span>
                     <motion.span initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.8, duration: 0.5 }} className="alegreya text-green-500">
                         NZ
                     </motion.span>
                 </motion.h1>
 
-                <motion.p initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={slideUp} className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-gray-300">
-                    New Zealand Cryptocurrency Community Collective
+                <motion.p initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={slideUp} className="text-sm sm:text-base md:text-lg mb-6 text-gray-300 text-center">
+                    Catalyzing New Zealand's Crypto revolution
                 </motion.p>
 
-                <div className="flex flex-wrap justify-center gap-x-4 gap-y-10 w-full sm:gap-4">
+                {/* Primary Navigation Buttons - Responsive layout */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 w-full max-w-sm md:max-w-xl mb-4">
                     {navigationButtons.map((button, index) =>
                         button.isExternal ? (
-                            // External link using <a> tag
                             <motion.a key={index} custom={index} variants={staggerButtons} {...buttonAnimationProps} href={getFullUrl(button.path)} className={buttonClassName}>
                                 {button.label}
                             </motion.a>
                         ) : (
-                            // Internal link using react-router's <Link>
                             <motion.div key={index} custom={index} variants={staggerButtons} {...buttonAnimationProps}>
-                                <Link to={button.path} className={buttonClassName}>
+                                <Link to={button.path} className={`${buttonClassName} w-full`}>
                                     {button.label}
                                 </Link>
                             </motion.div>
@@ -122,7 +109,8 @@ flex items-center gap-2 mt-8"  '
                     )}
                 </div>
 
-                <div className="flex justify-center w-full gap-3">
+                {/* Secondary Action Buttons - Side by side */}
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full max-w-sm md:max-w-md mt-2">
                     <motion.a
                         initial="hidden"
                         whileInView="visible"
@@ -136,24 +124,20 @@ flex items-center gap-2 mt-8"  '
                             }
                         }}
                         whileHover={{
-                            scale: 1.05,
-                            boxShadow: '0 0 35px rgba(74,222,128,0.4)',
+                            scale: 1.03,
+                            boxShadow: '0 0 20px rgba(74,222,128,0.4)',
                             backgroundColor: 'rgba(74,222,128,0.3)'
                         }}
                         href={'https://cryptoconsulting.nz/'}
-                        className="px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 
-                             rounded-lg text-white font-medium transition-all duration-300 
-                             hover:border-green-400 hover:bg-green-500/30 
-                             hover:shadow-[0_0_35px_rgba(74,222,128,0.4)] w-fit md:w-auto
-                             flex items-center gap-2 mt-8"
+                        className={buttonClassName}
                     >
                         <span>Get Help</span>
                         <motion.svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
+                            className="h-4 w-4 sm:h-5 sm:w-5"
                             viewBox="0 0 20 20"
                             fill="currentColor"
-                            animate={{ x: [0, 5, 0] }}
+                            animate={{ x: [0, 4, 0] }}
                             transition={{
                                 duration: 1.5,
                                 repeat: Infinity,
@@ -179,21 +163,14 @@ flex items-center gap-2 mt-8"  '
                             }
                         }}
                     >
-                        <Link
-                            to="/web-core/expo"
-                            className="px-8 py-3 bg-green-500/20 backdrop-blur-sm border border-green-500/50 
-                                rounded-lg text-white font-medium transition-all duration-300 
-                                hover:border-green-400 hover:bg-green-500/30 
-                                hover:shadow-[0_0_35px_rgba(74,222,128,0.4)] w-fit md:w-auto
-                                flex items-center gap-2 mt-8"
-                        >
+                        <Link to="/web-core/expo" className={`${buttonClassName} w-full`}>
                             <span>Expo 2025</span>
                             <motion.svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
+                                className="h-4 w-4 sm:h-5 sm:w-5"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                animate={{ x: [0, 5, 0] }}
+                                animate={{ x: [0, 4, 0] }}
                                 transition={{
                                     duration: 1.5,
                                     repeat: Infinity,
@@ -209,7 +186,8 @@ flex items-center gap-2 mt-8"  '
                 </div>
             </div>
 
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={scaleIn} className="w-full lg:w-1/2 flex items-center justify-center relative overflow-hidden sm:h-[70vh] w-1200 md:h-[75vh] lg:h-screen -mt-20 w-1200 lg:mt-0">
+            {/* Map Section */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={scaleIn} className="w-full lg:w-1/2 flex items-center justify-center relative h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-screen mt-0">
                 <Map />
             </motion.div>
         </div>

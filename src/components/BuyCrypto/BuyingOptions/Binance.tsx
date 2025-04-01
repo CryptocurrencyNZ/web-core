@@ -39,7 +39,7 @@ const BinanceOption: React.FC = () => {
 
     return (
         <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} className="w-full">
-            <motion.div variants={itemVariants} className="w-full max-w-4xl mx-auto">
+            <motion.div variants={itemVariants} className="w-full max-w-5xl mx-auto">
                 <div className="bg-zinc-800/30 border border-zinc-700/40 rounded-xl overflow-hidden backdrop-blur-sm">
                     {/* Option header */}
                     <div className="bg-zinc-800/70 border-b border-zinc-700/40 p-4 sm:p-5 md:p-6">

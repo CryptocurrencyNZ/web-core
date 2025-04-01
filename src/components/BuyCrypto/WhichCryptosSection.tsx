@@ -61,7 +61,7 @@ const WhichCryptosSection: FC = () => {
                     {/* Left column - What Cryptos to Buy */}
                     <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="w-full md:w-1/2">
                         <h2 className="alegreya text-3xl sm:text-4xl font-bold mb-6">
-                            What <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Cryptocurrencies</span> Should You Buy?
+                            What <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Cryptocurrencies</span> Should You Buy?
                         </h2>
 
                         <div className="space-y-4">
@@ -86,7 +86,7 @@ const WhichCryptosSection: FC = () => {
                     {/* Right column - Why Buy Crypto */}
                     <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="w-full md:w-1/2">
                         <h2 className="alegreya text-3xl sm:text-4xl font-bold mb-6">
-                            Why <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Bitcoin / Cryptocurrency</span> in NZ?
+                            Why <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Buy Bitcoin / Cryptocurrency</span> in NZ?
                         </h2>
 
                         <div className="space-y-4">

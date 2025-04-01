@@ -15,6 +15,8 @@ import WhichCryptosSection from './WhichCryptosSection'
 import WalletSetupSection from './WalletSetup'
 import CryptoSafetyTips from './CryptoSafetyTips'
 
+import '../../css/global.css'
+
 const BuyCryptoPage: FC = () => {
     return (
         <>

@@ -51,7 +51,7 @@ const CryptoWaysSection: React.FC = () => {
                                 <p>NZ based crypto retailers like Easy Crypto NZ are the most popular way for kiwis to get their hands on Bitcoin, Ethereum, and 110+ other coins in NZ.</p>
                                 <p>Cryptocurrency retailers are non-custodial brokerage services that source cryptocurrencies from various exchanges and sell them directly to the customer at a small fee. (Standard retailer fee is between 0.5% – 2.5%). They essentially act as middlemen, sourcing coins from many different exchanges at the lowest rates possible to stay competitive. The key benefits of buying crypto in NZ through a local retailer include having access to local customer support and reputation.</p>
                                 <div className="mt-4 text-center sm:text-left">
-                                    <span className="text-green-400 font-medium">Cryptocurrency NZ recommendation:</span> <span className="text-white font-semibold">Easy Crypto NZ</span>
+                                    <span className="alegreya alegreya text-green-400 font-medium">Cryptocurrency NZ recommendation:</span> <span className="text-white font-semibold">Easy Crypto NZ</span>
                                 </div>
                             </div>
                         </div>

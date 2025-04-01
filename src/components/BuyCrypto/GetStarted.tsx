@@ -52,7 +52,7 @@ const GetStartedSection: FC = () => {
                 {/* Section header */}
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-center mb-12 md:mb-16">
                     <h2 className="alegreya text-3xl sm:text-4xl font-bold mb-4">
-                        How to <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Get Started</span> With Crypto in NZ
+                        How to <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Get Started</span> With Crypto in NZ
                     </h2>
 
                     <div className="w-24 h-1 mx-auto bg-gradient-to-r from-transparent via-green-500/30 to-transparent rounded-full"></div>

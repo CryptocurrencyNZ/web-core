@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Twitter, Facebook, Instagram, Linkedin, Mail, MapPin } from 'lucide-react'
+import { Twitter, Facebook, Instagram, Linkedin, Mail } from 'lucide-react'
 
 const Footer: FC = () => {
     const currentYear = new Date().getFullYear()
@@ -102,10 +102,6 @@ const Footer: FC = () => {
                             <h3 className="text-white font-bold text-lg mb-4">Contact Us</h3>
                             <ul className="space-y-3">
                                 <li className="flex items-center gap-2 text-gray-400 text-sm">
-                                    <MapPin size={16} className="text-green-400" />
-                                    Christchurch, New Zealand + 10 locations
-                                </li>
-                                <li className="flex items-center gap-2 text-gray-400 text-sm">
                                     <Mail size={16} className="text-green-400" />
                                     contact@cryptocurrency.org.nz
                                 </li>
@@ -117,8 +113,8 @@ const Footer: FC = () => {
 
                         {/* Newsletter */}
                         <div>
-                            <h3 className="text-white font-bold text-lg mb-4">Newsletter</h3>
-                            <p className="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest updates.</p>
+                            <h3 className="text-white font-bold text-lg mb-4">Mailing list</h3>
+                            <p className="text-gray-400 text-sm mb-4">Join our mailing list to stay connected.</p>
                             <form className="space-y-2">
                                 <input
                                     type="email"
