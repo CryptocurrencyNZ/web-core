@@ -1,6 +1,6 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 
 // Use lazy loading for route components to improve performance
 const CCNZ = lazy(() => import('./components/CCNZ/CCNZPage'))
@@ -13,6 +13,17 @@ const BuyCryptoPage = lazy(() => import('./components/BuyCrypto/BuyCryptoPage'))
 import './css/style.css'
 
 const App = () => {
+    // This ensures the app renders only after it's fully loaded client-side
+    const [isClient, setIsClient] = useState(false)
+    
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    if (!isClient) {
+        return <div />  // Empty div until client-side hydration completes
+    }
+
     return (
         <HelmetProvider>
             <Router>
