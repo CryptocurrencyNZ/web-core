@@ -1,13 +1,14 @@
+import React from 'react'
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
-// Direct imports for all components
-import CCNZPage from './components/CCNZ/CCNZPage'
-import Expo from './components/Expo/Hero'
-import HomePage from './components/Home/HomePage'
-import AboutPage from './components/About/AboutPage'
-import GetStartedPage from './components/GetStarted/GetStartedPage'
-import BuyCryptoPage from './components/BuyCrypto/BuyCryptoPage'
+// Lazy imports without Suspense
+const CCNZPage = React.lazy(() => import('./components/CCNZ/CCNZPage'))
+const Expo = React.lazy(() => import('./components/Expo/Hero'))
+const HomePage = React.lazy(() => import('./components/Home/HomePage'))
+const AboutPage = React.lazy(() => import('./components/About/AboutPage'))
+const GetStartedPage = React.lazy(() => import('./components/GetStarted/GetStartedPage'))
+const BuyCryptoPage = React.lazy(() => import('./components/BuyCrypto/BuyCryptoPage'))
 
 import './css/style.css'
 
