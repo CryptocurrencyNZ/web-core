@@ -7,5 +7,16 @@ export default defineConfig({
     base: '/',
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx']
-    }
+    },
+    build: {
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              if (id.includes('node_modules')) {
+                return 'vendor';
+              }
+            }
+          }
+        }
+      },
 })

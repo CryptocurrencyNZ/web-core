@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
 // Lazy imports without Suspense
@@ -23,7 +23,7 @@ const App = () => {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/getstarted" element={<GetStartedPage />} />
                     <Route path="/buy-cryptocurrency-nz" element={<BuyCryptoPage />} />
-           
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>
         </HelmetProvider>
