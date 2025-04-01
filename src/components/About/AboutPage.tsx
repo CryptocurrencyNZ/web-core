@@ -11,7 +11,7 @@ import CommunityNumbers from './CommunityNumbers'
 import Hero from './Hero'
 import Mission from './Mission'
 import Projects from './Projects'
-import SEO from './SEO'
+//import SEO from './SEO'
 import Team from './Team'
 import VisualShowcase from './VisualShowcase'
 
