@@ -174,9 +174,18 @@ const ImageCarousel: FC<{ items: GalleryItem[] }> = ({ items }) => {
     }
 
     useEffect(() => {
-        const interval = setInterval(nextSlide, 4000)
+        // Define autoSlide inside useEffect to avoid dependency issues
+        const autoSlide = () => {
+            if (!isTransitioning) {
+                setIsTransitioning(true)
+                setCurrentIndex((prev) => (prev + 1) % items.length)
+                setTimeout(() => setIsTransitioning(false), 500)
+            }
+        }
+
+        const interval = setInterval(autoSlide, 4000)
         return () => clearInterval(interval)
-    }, [currentIndex])
+    }, [isTransitioning, items.length])
 
     return (
         <div className="relative h-96 w-full overflow-hidden rounded-lg" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} style={{ touchAction: 'manipulation' }}>
@@ -253,7 +262,7 @@ const Gallery: FC = () => {
             <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto mb-12">
                     <h2 className="alegreya text-3xl md:text-4xl font-bold text-center mb-2 text-white">
-                        Cryptocurrency NZ <span className="bg-gradient-to-r from-green-400 to-green-300 bg-clip-text alegreya text-transparent">Monthly Meetups</span>
+                        Cryptocurrency NZ <span className="alegreya bg-gradient-to-r from-green-400 to-green-300 bg-clip-text alegreya text-transparent">Monthly Meetups</span>
                     </h2>
                     <p className="text-green-100 text-center text-sm md:text-base">Discover Aotearoa's cryptocurrency, bitcoin, blockchain, and Web3 ecosystem. Connect. Learn. Collaborate</p>
                 </div>
