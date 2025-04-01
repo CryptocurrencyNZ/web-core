@@ -15,10 +15,12 @@ import SEO from './SEO'
 import Team from './Team'
 import VisualShowcase from './VisualShowcase'
 
+import '../../css/global.css'
+
 const AboutUs: FC = () => {
     return (
         <>
-            <SEO />
+           
             <div className="relative w-full min-h-screen bg-zinc-800 text-white">
                 <Navbar />
                 <AnimatedGridPattern />
