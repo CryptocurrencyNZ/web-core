@@ -23,7 +23,7 @@ const App = () => {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/getstarted" element={<GetStartedPage />} />
                     <Route path="/buy-cryptocurrency-nz" element={<BuyCryptoPage />} />
-                    <Route path="*" element={<Navigate to="/" />} />
+           
                 </Routes>
             </Router>
         </HelmetProvider>
